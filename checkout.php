@@ -1994,20 +1994,47 @@
                             margin-bottom: 0px !important;
                             max-width: 100% !important;
                         }
+                        .apply_coupon {
+                            margin-bottom: 1rem !important;
+                        }
                         .payment-methods {
-                            padding: 1rem 0em !important;
-                            border-bottom: 0px solid #e7e7e7 !important;
+                            padding: 0 !important;
+                            border-bottom: 0 !important;
                             margin-bottom: 2.6rem !important;
+                        }
+                        .checkout-card {
+                            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+                            background: #fff;
+                            border: 1px solid #e8e8e8;
+                            border-radius: 10px;
+                            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+                            padding: 1rem 1.25rem;
+                        }
+                        .checkout-card:hover {
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+                            border-color: #ddd;
+                        }
+                        .checkout-card .card-title {
+                            font-size: 1rem;
+                            font-weight: 600;
+                            color: #1e293b;
+                            margin-bottom: 0.75rem;
+                        }
+                        .checkout-card .card-tagline {
+                            font-size: 0.8rem;
+                            font-weight: 400;
+                            color: #64748b;
+                            margin-top: 2px;
                         }
                         .payment-option {
                             transition: box-shadow 0.2s ease, border-color 0.2s ease;
                             background: #fff;
-                            border: 1px solid #e8e8e8 !important;
+                            border: 1px solid #e8e8e8;
                             box-shadow: 0 1px 3px rgba(0,0,0,0.04);
                         }
                         .payment-option:hover {
                             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-                            border-color: #ddd !important;
+                            border-color: #ddd;
                         }
                         .razorpay-logo-wrap {
                             display: inline-flex;
@@ -2037,44 +2064,72 @@
                             font-weight: 400;
                             color: #64748b;
                         }
+                        .checkout-card .form-control {
+                            border-radius: 8px;
+                            border-color: #e2e8f0;
+                        }
+                        .checkout-card .form-control:focus {
+                            border-color: #94a3b8;
+                            box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.15);
+                        }
+                        .checkout-card .btn {
+                            border-radius: 8px;
+                        }
+                        #couponAppliedBox {
+                            margin-top: 0.75rem;
+                            font-size: 0.875rem;
+                            padding-top: 0.5rem;
+                            border-top: 1px solid #f1f5f9;
+                        }
+                        #removeCouponLink {
+                            color: #64748b;
+                            text-decoration: none !important;
+                        }
+                        #removeCouponLink:hover {
+                            color: #334155;
+                            text-decoration: underline !important;
+                        }
                     </style>
                     <div class="apply_coupon">
-                        <div class="float-rights">
+                        <div class="checkout-card">
+                            <h4 class="card-title">Coupon Code</h4>
+                            <p class="card-tagline mb-2">Have a discount code? Enter it below.</p>
                             <div class="cart-discount">
-                            <form id="couponForm" action="#">
-                                <div class="input-group">
-                                <input
-                                    id="couponCodeInput"
-                                    type="text"
-                                    class="form-control form-control-sm"
-                                    placeholder="Coupon Code"
-                                    autocomplete="off"
-                                    style="text-transform:uppercase;"
-                                    required
-                                >
-                                <div class="input-group-append">
-                                    <button id="applyCouponBtn" class="btn btn-sm" type="submit">Apply Coupon</button>
-                                </div>
-                                </div>
-
-                                <!-- Applied coupon info -->
-                                <div id="couponAppliedBox" style="display:none; margin-top:8px; font-size:13px;">
-                                <span id="couponAppliedText" style="font-weight:600;"></span>
-                                <a href="javascript:void(0)" id="removeCouponLink" style="margin-left:10px; text-decoration:underline;">Remove</a>
-                                </div>
-                            </form>
+                                <form id="couponForm" action="#">
+                                    <div class="input-group">
+                                        <input
+                                            id="couponCodeInput"
+                                            type="text"
+                                            class="form-control form-control-sm"
+                                            placeholder="Enter coupon code"
+                                            autocomplete="off"
+                                            style="text-transform:uppercase;"
+                                            required
+                                        >
+                                        <div class="input-group-append">
+                                            <button id="applyCouponBtn" class="btn btn-sm btn-dark" type="submit">Apply</button>
+                                        </div>
+                                    </div>
+                                    <div id="couponAppliedBox" style="display:none;">
+                                        <span id="couponAppliedText" style="font-weight:600;"></span>
+                                        <a href="javascript:void(0)" id="removeCouponLink">Remove</a>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                     <div class="payment-methods">
-                        <h4 class="mb-1">Payment Methods</h4>
-                        <div class="payment-option rounded p-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
-                            <div class="razorpay-label">
-                                <span class="fw-bold fs-6 text-dark">Razorpay</span>
-                                <span class="razorpay-tagline">UPI, Cards, Netbanking & more</span>
-                            </div>
-                            <div class="razorpay-logo-wrap">
-                                <img src="assets/images/payments/razorpay.png" alt="Razorpay" />
+                        <div class="checkout-card">
+                            <h4 class="card-title">Payment Methods</h4>
+                            <p class="card-tagline mb-3">Pay securely with UPI, Cards, Netbanking & more.</p>
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                <div class="razorpay-label">
+                                    <span class="fw-bold fs-6 text-dark">Razorpay</span>
+                                    <span class="razorpay-tagline">UPI, Cards, Netbanking & more</span>
+                                </div>
+                                <div class="razorpay-logo-wrap">
+                                    <img src="assets/images/payments/razorpay.png" alt="Razorpay" />
+                                </div>
                             </div>
                         </div>
                     </div>
