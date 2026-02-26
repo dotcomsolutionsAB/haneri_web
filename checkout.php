@@ -1999,6 +1999,44 @@
                             border-bottom: 0px solid #e7e7e7 !important;
                             margin-bottom: 2.6rem !important;
                         }
+                        .payment-option {
+                            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+                            background: #fff;
+                            border: 1px solid #e8e8e8 !important;
+                            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+                        }
+                        .payment-option:hover {
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+                            border-color: #ddd !important;
+                        }
+                        .razorpay-logo-wrap {
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 120px;
+                            height: 44px;
+                            padding: 8px 12px;
+                            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+                            border-radius: 10px;
+                            border: 1px solid #e2e8f0;
+                            overflow: hidden;
+                        }
+                        .razorpay-logo-wrap img {
+                            width: auto;
+                            height: 100%;
+                            max-width: 100%;
+                            object-fit: contain;
+                        }
+                        .razorpay-label {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 2px;
+                        }
+                        .razorpay-tagline {
+                            font-size: 0.8rem;
+                            font-weight: 400;
+                            color: #64748b;
+                        }
                     </style>
                     <div class="apply_coupon">
                         <div class="float-rights">
@@ -2030,11 +2068,14 @@
                     </div>
                     <div class="payment-methods">
                         <h4 class="mb-1">Payment Methods</h4>
-                        <div class="payment-option border rounded p-3 d-flex align-items-center justify-content-between">
-                            <span class="fw-bold fs-6">Razorpay</span>
-                            <span class="rounded-circle d-inline-block ms-3 overflow-hidden" style="width: 80px; height: 40px;">
-                                <img src="assets/images/payments/razorpay.png" class="w-100 h-100 object-fit-cover" alt="Razorpay" />
-                            </span>
+                        <div class="payment-option rounded p-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                            <div class="razorpay-label">
+                                <span class="fw-bold fs-6 text-dark">Razorpay</span>
+                                <span class="razorpay-tagline">UPI, Cards, Netbanking & more</span>
+                            </div>
+                            <div class="razorpay-logo-wrap">
+                                <img src="assets/images/payments/razorpay.png" alt="Razorpay" />
+                            </div>
                         </div>
                     </div>
 
