@@ -1,0 +1,27 @@
+{
+    "products": [
+      {
+        "id": 1,
+        "name": "Fengshui",
+        "sku": "HAN-AR-11",
+        "hsn_code": "8467",
+        "delivery_type": "Home Delivery",
+        "qty": 2,
+        "price": "1049.00",
+        "total": "2098.00",
+        "photo": "../images/Velvet_Black.png"
+      },
+      {
+        "id": 2,
+        "name": "Fengshui Air",
+        "sku": "HAN-AR-13",
+        "hsn_code": "8472",
+        "delivery_type": "Home Delivery",
+        "qty": 2,
+        "price": "1049.00",
+        "total": "1049.00",
+        "photo": "../images/Natural_Pine.png"
+      }
+    ]
+}
+  

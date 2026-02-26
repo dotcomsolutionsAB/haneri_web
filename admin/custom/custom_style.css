@@ -1,0 +1,49 @@
+.default-logo {
+    height: 40px;
+}
+.small-logo {
+    height: 35px;
+    border-radius: 10px;
+}
+
+.menu-item.active>.menu-link.menu-item-active\:bg-secondary-active {
+    background-color: var(--tw-secondary-active);
+}
+
+@media (max-width: 480px) {
+    .breadcrumb {
+        margin:0px;
+    }
+}
+
+/* Custom style for popup */
+    .swal2-popup-custom {
+        width: 350px;  /* Reduce the width of the popup */
+        font-size: 16px;  /* Set font size */
+    }
+
+    /* Custom style for title */
+    .swal2-title-custom {
+        font-size: 18px;  /* Set the title font size */
+        text-align: center;
+    }
+
+    /* Custom style for content (text inside the popup) */
+    .swal2-content-custom {
+        font-size: 14px;  /* Set font size */
+        text-align: center;
+    }
+
+    /* Custom style for confirm button (Switch Role) */
+    .swal2-confirm-custom {
+        background-color: #28a745;  /* Green color for the confirm button */
+        border-color: #28a745;  /* Green border */
+        color: white;  /* Text color */
+    }
+
+    /* Custom style for cancel button (Cancel) */
+    .swal2-cancel-custom {
+        background-color: #dc3545;  /* Red color for the cancel button */
+        border-color: #dc3545;  /* Red border */
+        color: white;  /* Text color */
+    }

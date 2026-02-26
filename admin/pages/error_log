@@ -1,0 +1,12 @@
+[06-Aug-2025 05:49:51 America/Chicago] PHP Fatal error:  Uncaught Error: Undefined constant "BASE_URL" in /home4/lptlxfte/public_html/admin/pages/edit_product.php:183
+Stack trace:
+#0 {main}
+  thrown in /home4/lptlxfte/public_html/admin/pages/edit_product.php on line 183
+[06-Aug-2025 05:50:08 America/Chicago] PHP Fatal error:  Uncaught Error: Undefined constant "BASE_URL" in /home4/lptlxfte/public_html/admin/pages/edit_product.php:183
+Stack trace:
+#0 {main}
+  thrown in /home4/lptlxfte/public_html/admin/pages/edit_product.php on line 183
+[06-Aug-2025 05:53:08 America/Chicago] PHP Fatal error:  Uncaught Error: Undefined constant "BASE_URL" in /home4/lptlxfte/public_html/admin/pages/edit_product.php:145
+Stack trace:
+#0 {main}
+  thrown in /home4/lptlxfte/public_html/admin/pages/edit_product.php on line 145

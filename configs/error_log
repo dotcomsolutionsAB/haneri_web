@@ -1,0 +1,34 @@
+[18-Dec-2025 04:50:17 America/Chicago] PHP Warning:  file_put_contents(json/blog_content.json): Failed to open stream: No such file or directory in /home2/lptlxfte/public_html/configs/blog_content_api.php on line 16
+[18-Dec-2025 04:55:47 America/Chicago] PHP Warning:  Undefined array key "name" in /home2/lptlxfte/public_html/configs/blog_content_api.php on line 5
+[18-Dec-2025 04:55:47 America/Chicago] PHP Warning:  Undefined array key "category" in /home2/lptlxfte/public_html/configs/blog_content_api.php on line 6
+[18-Dec-2025 04:55:47 America/Chicago] PHP Fatal error:  Uncaught ValueError: max(): Argument #1 ($value) must contain at least one element in /home2/lptlxfte/public_html/configs/blog_content_api.php:19
+Stack trace:
+#0 /home2/lptlxfte/public_html/configs/blog_content_api.php(19): max(Array)
+#1 {main}
+  thrown in /home2/lptlxfte/public_html/configs/blog_content_api.php on line 19
+[18-Dec-2025 04:56:34 America/Chicago] PHP Fatal error:  Uncaught ValueError: max(): Argument #1 ($value) must contain at least one element in /home2/lptlxfte/public_html/configs/blog_content_api.php:19
+Stack trace:
+#0 /home2/lptlxfte/public_html/configs/blog_content_api.php(19): max(Array)
+#1 {main}
+  thrown in /home2/lptlxfte/public_html/configs/blog_content_api.php on line 19
+[18-Dec-2025 04:58:17 America/Chicago] PHP Fatal error:  Uncaught ValueError: max(): Argument #1 ($value) must contain at least one element in /home2/lptlxfte/public_html/configs/blog_content_api.php:19
+Stack trace:
+#0 /home2/lptlxfte/public_html/configs/blog_content_api.php(19): max(Array)
+#1 {main}
+  thrown in /home2/lptlxfte/public_html/configs/blog_content_api.php on line 19
+[18-Dec-2025 04:59:22 America/Chicago] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home2/lptlxfte/public_html/configs/blog_content_api.php:19
+Stack trace:
+#0 {main}
+  thrown in /home2/lptlxfte/public_html/configs/blog_content_api.php on line 19
+[18-Dec-2025 04:59:33 America/Chicago] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home2/lptlxfte/public_html/configs/blog_content_api.php:19
+Stack trace:
+#0 {main}
+  thrown in /home2/lptlxfte/public_html/configs/blog_content_api.php on line 19
+[18-Dec-2025 05:05:21 America/Chicago] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home2/lptlxfte/public_html/configs/blog_content_api.php:19
+Stack trace:
+#0 {main}
+  thrown in /home2/lptlxfte/public_html/configs/blog_content_api.php on line 19
+[18-Dec-2025 05:07:47 America/Chicago] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home2/lptlxfte/public_html/configs/blog_content_api.php:22
+Stack trace:
+#0 {main}
+  thrown in /home2/lptlxfte/public_html/configs/blog_content_api.php on line 22

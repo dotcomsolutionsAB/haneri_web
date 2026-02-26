@@ -1,0 +1,24 @@
+2025-10-22 06:12:59
+{"cash_pickups_count": 0, "package_count": 0, "upload_wbn": null, "replacement_count": 0, "rmk": "Package creation API error.Package might be saved.Please contact tech.admin@delhivery.com. Error message is 'NoneType' object has no attribute 'end_date' . Quote this error message while reporting.", "pickups_count": 0, "packages": [], "cash_pickups": 0, "cod_count": 0, "success": false, "prepaid_count": 0, "error": true, "cod_amount": 0}
+
+2025-10-22 06:18:11
+{"cash_pickups_count": 0, "package_count": 0, "upload_wbn": null, "replacement_count": 0, "rmk": "Package creation API error.Package might be saved.Please contact tech.admin@delhivery.com. Error message is 'NoneType' object has no attribute 'end_date' . Quote this error message while reporting.", "pickups_count": 0, "packages": [], "cash_pickups": 0, "cod_count": 0, "success": false, "prepaid_count": 0, "error": true, "cod_amount": 0}
+
+2025-11-01 05:45:17
+{"cash_pickups_count": 0, "package_count": 0, "upload_wbn": null, "replacement_count": 0, "rmk": "Package creation API error.Package might be saved.Please contact tech.admin@delhivery.com. Error message is 'NoneType' object has no attribute 'end_date' . Quote this error message while reporting.", "pickups_count": 0, "packages": [], "cash_pickups": 0, "cod_count": 0, "success": false, "prepaid_count": 0, "error": true, "cod_amount": 0}
+
+2025-11-03 08:37:21
+{"cash_pickups_count": 0, "package_count": 0, "upload_wbn": null, "replacement_count": 0, "rmk": "Package creation API error.Package might be saved.Please contact tech.admin@delhivery.com. Error message is 'NoneType' object has no attribute 'end_date' . Quote this error message while reporting.", "pickups_count": 0, "packages": [], "cash_pickups": 0, "cod_count": 0, "success": false, "prepaid_count": 0, "error": true, "cod_amount": 0}
+
+2025-11-14 07:44:44
+{"cash_pickups_count": 0, "package_count": 0, "upload_wbn": null, "replacement_count": 0, "rmk": "Package creation API error.Package might be saved.Please contact tech.admin@delhivery.com. Error message is 'NoneType' object has no attribute 'end_date' . Quote this error message while reporting.", "pickups_count": 0, "packages": [], "cash_pickups": 0, "cod_count": 0, "success": false, "prepaid_count": 0, "error": true, "cod_amount": 0}
+
+2025-12-10 09:05:22
+{"cash_pickups_count": 0, "package_count": 0, "upload_wbn": null, "replacement_count": 0, "rmk": "Package creation API error.Package might be saved.Please contact tech.admin@delhivery.com. Error message is 'NoneType' object has no attribute 'end_date' . Quote this error message while reporting.", "pickups_count": 0, "packages": [], "cash_pickups": 0, "cod_count": 0, "success": false, "prepaid_count": 0, "error": true, "cod_amount": 0}
+
+2025-12-10 09:57:10
+{"cash_pickups_count": 0, "package_count": 0, "upload_wbn": null, "replacement_count": 0, "rmk": "Package creation API error.Package might be saved.Please contact tech.admin@delhivery.com. Error message is 'NoneType' object has no attribute 'end_date' . Quote this error message while reporting.", "pickups_count": 0, "packages": [], "cash_pickups": 0, "cod_count": 0, "success": false, "prepaid_count": 0, "error": true, "cod_amount": 0}
+
+2025-12-10 10:08:10
+{"cash_pickups_count": 0, "package_count": 0, "upload_wbn": null, "replacement_count": 0, "rmk": "Package creation API error.Package might be saved.Please contact tech.admin@delhivery.com. Error message is 'NoneType' object has no attribute 'end_date' . Quote this error message while reporting.", "pickups_count": 0, "packages": [], "cash_pickups": 0, "cod_count": 0, "success": false, "prepaid_count": 0, "error": true, "cod_amount": 0}
+

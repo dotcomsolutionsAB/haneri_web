@@ -1,0 +1,186 @@
+<div class="sidebar dark:bg-coal-600 bg-light border-e border-e-gray-200 dark:border-e-coal-100 fixed top-0 bottom-0 z-20 hidden lg:flex flex-col items-stretch shrink-0"
+    data-drawer="true" data-drawer-class="drawer drawer-start top-0 bottom-0" data-drawer-enable="true|lg:false"
+    id="sidebar">
+    <div class="sidebar-header hidden lg:flex items-center relative justify-between px-3 lg:px-6 shrink-0"
+        id="sidebar_header">
+        <a class="dark:hidden" href="index.php">
+            <img class="default-logo min-h-[22px] max-w-none" src="uploads/Haneri_Logo.png" />
+            <img class="small-logo min-h-[10px] max-w-none" src="uploads/H.jpg" />
+        </a>
+        <!-- <a class="hidden dark:block" href="index.php">
+            <img class="default-logo min-h-[22px] max-w-none" src="assets/media/app/default-logo-dark.svg" />
+            <img class="small-logo min-h-[22px] max-w-none" src="assets/media/app/mini-logo.svg" />
+        </a> -->
+        <button
+            class="btn btn-icon btn-icon-md size-[30px] rounded-lg border border-gray-200 dark:border-gray-300 bg-light text-gray-500 hover:text-gray-700 toggle absolute start-full top-2/4 -translate-x-2/4 -translate-y-2/4 rtl:translate-x-2/4"
+            data-toggle="body" data-toggle-class="sidebar-collapse" id="sidebar_toggle">
+            <i
+                class="ki-filled ki-black-left-line toggle-active:rotate-180 transition-all duration-300 rtl:translate rtl:rotate-180 rtl:toggle-active:rotate-0">
+            </i>
+        </button>
+    </div>
+    <div class="sidebar-content flex grow shrink-0 py-5 pe-2" id="sidebar_content">
+        <div class="scrollable-y-hover grow shrink-0 flex ps-2 lg:ps-5 pe-1 lg:pe-3" data-scrollable="true"
+            data-scrollable-dependencies="#sidebar_header" data-scrollable-height="auto"
+            data-scrollable-offset="0px" data-scrollable-wrappers="#sidebar_content" id="sidebar_scrollable">
+            <!-- Sidebar Menu -->
+            <div class="menu flex flex-col grow gap-0.5" data-menu="true" data-menu-accordion-expand-all="false"
+                id="sidebar_menu">
+                <div class="menu-item">
+                    <a class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]"
+                        href="index.php">
+                        <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                            <i class="ki-filled ki-element-11 text-lg"></i>
+                        </span>
+                        <span class="menu-title text-sm font-medium text-gray-800 menu-link-hover:!text-primary">
+                            Dashboards
+                        </span>
+                    </a>
+                </div>
+
+                <div class="menu-item pt-2.25 pb-px">
+                    <span class="menu-heading uppercase text-2sm font-medium text-gray-500 ps-[10px] pe-[10px]">
+                        DETAILS
+                    </span>
+                </div>
+
+                <!-- Products Section -->
+                <div class="menu-item">
+                    <a class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px] hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg"
+                        href="pages/show_products.php" tabindex="0">
+                        <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                            <i class="ki-filled ki-handcart text-lg"></i>
+                        </span>
+                        <span class="menu-title text-sm font-medium text-gray-800 menu-link-hover:!text-primary">
+                            Products
+                        </span>
+                    </a>
+                </div>
+
+
+                <!-- Brands Section -->
+                <div class="menu-item">
+                    <a class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px] hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg"
+                        href="pages/show_brands.php" tabindex="0">
+                        <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                            <i class="ki-filled ki-handcart text-lg"></i>
+                        </span>
+                        <span class="menu-title text-sm font-medium text-gray-800 menu-link-hover:!text-primary">
+                            Brands
+                        </span>
+                    </a>
+                </div>
+
+
+                <!-- Categories Section -->
+                <div class="menu-item">
+                    <a class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px] hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg"
+                        href="pages/show_categories.php" tabindex="0">
+                        <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                            <i class="ki-filled ki-handcart text-lg"></i>
+                        </span>
+                        <span class="menu-title text-sm font-medium text-gray-800 menu-link-hover:!text-primary">
+                            Categories
+                        </span>
+                    </a>
+                </div>
+
+
+                <!-- Orders Section -->
+                <div class="menu-item">
+                    <a class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px] hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg"
+                        href="pages/show_orders.php" tabindex="0">
+                        <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                            <i class="ki-filled ki-note-2 text-lg"></i>
+                        </span>
+                        <span class="menu-title text-sm font-medium text-gray-800 menu-link-hover:!text-primary">
+                            Orders
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Users Section -->
+                <div class="menu-item">
+                    <a class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px] hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg"
+                        href="pages/show_users.php" tabindex="0">
+                        <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                            <i class="ki-filled ki-users text-lg"></i>
+                        </span>
+                        <span class="menu-title text-sm font-medium text-gray-800 menu-link-hover:!text-primary">
+                            Users
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Discount Section -->
+                <div class="menu-item">
+                    <a class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px] hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg"
+                        href="pages/show_discounts.php" tabindex="0">
+                        <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                            <i class="ki-filled ki-discount text-lg"></i>
+                        </span>
+                        <span class="menu-title text-sm font-medium text-gray-800 menu-link-hover:!text-primary">
+                            Discounts
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Coupons Section -->
+                <div class="menu-item">
+                    <a class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px] hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg"
+                        href="pages/show_coupons.php" tabindex="0">
+                        <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                            <i class="ki-filled ki-tag text-lg"></i>
+                        </span>
+                        <span class="menu-title text-sm font-medium text-gray-800 menu-link-hover:!text-primary">
+                            Coupons
+                        </span>
+                    </a>
+                </div>
+
+                <div class="menu-item pt-2.25 pb-px">
+                    <span class="menu-heading uppercase text-2sm font-medium text-gray-500 ps-[10px] pe-[10px]">
+                        SHIPPING SETUP
+                    </span>
+                </div>
+                <!-- Shipping Details Section -->
+                <div class="menu-item">
+                    <a class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px] hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg"
+                        href="pages/shipping_details.php" tabindex="0">
+                        <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                            <i class="ki-filled ki-delivery text-lg"></i>
+                        </span>
+                        <span class="menu-title text-sm font-medium text-gray-800 menu-link-hover:!text-primary">
+                            Shipping Details
+                        </span>
+                    </a>
+                </div>
+
+                <div class="menu-item">
+                    <a class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px] hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg"
+                        href="pages/pickup_details.php" tabindex="0">
+                        <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                            <i class="ki-filled ki-delivery text-lg"></i>
+                        </span>
+                        <span class="menu-title text-sm font-medium text-gray-800 menu-link-hover:!text-primary">
+                            Pickup Details
+                        </span>
+                    </a>
+                </div>
+
+                <div class="menu-item">
+                    <a class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px] hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg"
+                        href="pages/shipment_setting.php" tabindex="0">
+                        <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                            <i class="ki-filled ki-delivery text-lg"></i>
+                        </span>
+                        <span class="menu-title text-sm font-medium text-gray-800 menu-link-hover:!text-primary">
+                            Shipment Setting
+                        </span>
+                    </a>
+                </div>
+              </div>
+            <!-- End of Sidebar Menu -->
+        </div>
+    </div>
+</div>
