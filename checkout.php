@@ -519,16 +519,21 @@
                             <form id="swal-address-form">
                                 <input type="text" id="swal_name" placeholder="Name*" required>
 
-                                <input
-                                    type="text"
-                                    id="swal_contact_no"
-                                    placeholder="Contact No*"
-                                    required
-                                    inputmode="numeric"
-                                    pattern="\\d{10}"
-                                    maxlength="10"
-                                    title="Please enter a valid 10-digit mobile number"
-                                >
+                                <div class="swal-mobile-wrap" style="display:flex;align-items:center;border:1px solid #d9d9d9;border-radius:8px;overflow:hidden;">
+                                    <span class="swal-mobile-prefix" style="padding:10px 12px;background:#f5f5f5;color:#333;font-weight:600;">+91</span>
+                                    <input
+                                        type="text"
+                                        id="swal_contact_no"
+                                        placeholder="10-digit mobile number"
+                                        required
+                                        inputmode="numeric"
+                                        pattern="\\d{10}"
+                                        maxlength="10"
+                                        title="Please enter a valid 10-digit mobile number"
+                                        style="flex:1;border:none;padding:10px 12px;font-size:1em;"
+                                    >
+                                </div>
+                                <button type="button" id="swal_send_otp_btn" class="btn btn-sm btn-outline-secondary mt-2" disabled style="min-width:140px;">Send OTP</button>
 
                                 <input type="email" id="swal_email" placeholder="Email*" required>
 
@@ -627,6 +632,37 @@
 
                             const warningEl = document.getElementById('swal_live_warning');
                             const confirmBtn = Swal.getConfirmButton();
+                            const sendOtpBtn = document.getElementById('swal_send_otp_btn');
+
+                            // +91 prefix: only 10 digits in mobile input; enable "Send OTP" when exactly 10 digits
+                            const contactEl = document.getElementById('swal_contact_no');
+                            if (contactEl) {
+                                contactEl.addEventListener('input', function () {
+                                    this.value = (this.value || '').replace(/\D/g, '').slice(0, 10);
+                                    if (sendOtpBtn) sendOtpBtn.disabled = (this.value || '').length !== 10;
+                                });
+                                contactEl.addEventListener('paste', function (e) {
+                                    const pasted = (e.clipboardData || window.clipboardData).getData('text');
+                                    const digits = (pasted || '').replace(/\D/g, '').slice(0, 10);
+                                    e.preventDefault();
+                                    this.value = digits;
+                                    if (sendOtpBtn) sendOtpBtn.disabled = digits.length !== 10;
+                                });
+                                if (sendOtpBtn) sendOtpBtn.disabled = (contactEl.value || '').length !== 10;
+                            }
+
+                            // Send OTP: request OTP with 91 + 10 digits, then show OTP overlay
+                            if (sendOtpBtn) {
+                                sendOtpBtn.addEventListener('click', function () {
+                                    const raw = (document.getElementById('swal_contact_no').value || '').replace(/\D/g, '').slice(0, 10);
+                                    if (raw.length !== 10) return;
+                                    const mobileWithPrefix = '91' + raw;
+                                    startOtpFlow(mobileWithPrefix, function () {
+                                        window._addressFormMobileVerified = mobileWithPrefix;
+                                        hideOtpOverlay();
+                                    });
+                                });
+                            }
 
                             const showWarning = (msg) => {
                                 if (!warningEl) return;
@@ -754,6 +790,9 @@
                                 postal_code,
                                 create_user
                             };
+                        },
+                        didClose: () => {
+                            window._addressFormMobileVerified = null;
                         }
                     }).then((result) => {
                         if (result.isConfirmed && result.value) {
@@ -764,16 +803,18 @@
 
                 // verify Otp for mobile helpers
                 // ✅ OTP endpoints
-                const OTP_REQUEST_URL = "<?php echo BASE_URL; ?>/request-otp";
-                const OTP_VERIFY_URL  = "<?php echo BASE_URL; ?>/verify-otp";
+                const OTP_REQUEST_URL = "<?php echo BASE_URL; ?>/api/request-otp";
+                const OTP_VERIFY_URL  = "<?php echo BASE_URL; ?>/api/verify-otp";
 
                 function showOtpOverlay(mobile) {
-                  $("#otp-mobile-display").text(mobile);
+                  var display = (mobile || "").toString().replace(/^91/, "+91 ");
+                  $("#otp-mobile-display").text(display);
                   $("#otp-code-error").hide().text("").css("color", "red");
 
                   // clear boxes
                   $("#otp-code-overlay .otp-input").val("");
                   $("#otp-code-overlay").css("display", "flex");
+                  $("#otp-code-submit").prop("disabled", true);
 
                   // focus first input
                   setTimeout(() => {
@@ -803,7 +844,11 @@
 
                   const $inputs = $("#otp-code-overlay .otp-input");
 
-                  // numeric only + auto move next
+                  // numeric only + auto move next; enable Verify when 6 digits
+                  function updateVerifyButton() {
+                    var otp = getOtpValue();
+                    $("#otp-code-submit").prop("disabled", otp.length !== 6);
+                  }
                   $inputs.on("input", function () {
                     let v = ($(this).val() || "").replace(/\D/g, "").slice(0, 1);
                     $(this).val(v);
@@ -811,6 +856,7 @@
                     if (v && $(this).next(".otp-input").length) {
                       $(this).next(".otp-input").focus();
                     }
+                    updateVerifyButton();
                   });
 
                   // backspace focus prev
@@ -831,6 +877,7 @@
                         $(this).val(digits[i] || "");
                       });
                       $inputs.last().focus();
+                      updateVerifyButton();
                     }
                   });
 
@@ -983,11 +1030,12 @@
                   const tempId = localStorage.getItem("temp_id");
 
                   // ✅ mobile already client-validated in preConfirm, but double-safe:
-                  const mobileToVerify = (data.contact_no || "").trim();
-                  if (!/^\d{10}$/.test(mobileToVerify)) {
+                  const mobile10 = (data.contact_no || "").trim().replace(/\D/g, "").slice(0, 10);
+                  if (!/^\d{10}$/.test(mobile10)) {
                     Swal.fire("Error", "Mobile number must be exactly 10 digits.", "error");
                     return;
                   }
+                  const mobileWithPrefix = "91" + mobile10;
 
                   const addressData = {
                     name: data.name,
@@ -1044,8 +1092,12 @@
                     }
                   };
 
-                  // ✅ Start OTP flow FIRST
-                  startOtpFlow(mobileToVerify, proceedAfterOtpVerified);
+                  // ✅ Start OTP flow FIRST (skip if already verified in this session for this mobile)
+                  if (window._addressFormMobileVerified === mobileWithPrefix) {
+                    proceedAfterOtpVerified();
+                  } else {
+                    startOtpFlow(mobileWithPrefix, proceedAfterOtpVerified);
+                  }
                 }
 
                 function sendAddress(addressData, token) {
