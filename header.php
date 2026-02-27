@@ -57,7 +57,7 @@ $data = loadData('configs/haneri.json');
 
 <body class="full-screen-slider">
 <!-- Loader HTML -->
-<!-- <script>console.log("🔄 DC Loader is showing...");</script>
+<!-- <script>console.log("ðŸ”„ DC Loader is showing...");</script>
 <div id="dc-loader-wrapper">
   <div class="dc-haneri-container" id="dc-haneri">
     <div class="dc-letter">H</div>
@@ -79,11 +79,13 @@ $data = loadData('configs/haneri.json');
                         <button class="mobile-menu-toggler" type="button">
                             <i class="fas fa-bars"></i>
                         </button>
-                        <a href="index.php" class="logo">
+                        <!-- <a href="https://haneri.com" class="logo"> -->
+                        <a href="https://haneri.com/" class="logo">
                             <img src="images/Haneri Logo.png" alt="Haneri">
                         </a>
                         <div class="logo_div">
-                            <a href="index.php" class="logos">
+                         <!--   <a href="https://haneri.com" class="logos"> -->
+                            <a href="https://haneri.com" class="logos">
                                 <img src="images/Haneri Logo.png" alt="Haneri">
                             </a>
                         </div>
@@ -91,11 +93,11 @@ $data = loadData('configs/haneri.json');
                         <nav class="main-nav font2">
                             <ul class="menu">
                                 <li class="active">
-                                    <a href="shop.php">Categories</a>
+                                    <a href="https://haneri.com/shop">Categories</a>
                                     <div class="megamenu megamenu-fixed-width megamenu-3cols categoryy">
                                         <div class="row">
                                             <section class="categories hover">
-                                                <a href="shop.php?category=Ceiling Fan">
+                                                <a href="https://haneri.com/shop?category=Ceiling Fan">
                                                     <div class="category hov">
                                                         <div class="img">
                                                             <img src="images/Ceilimg Fan.png" alt="Ceiling Fan">
@@ -105,7 +107,7 @@ $data = loadData('configs/haneri.json');
                                                         </div>
                                                     </div>
                                                 </a>
-                                                <a href="shop.php?category=Table Wall Pedestals">
+                                                <a href="https://haneri.com/shop?category=Table Wall Pedestals">
                                                     <div class="category hov">
                                                         <div class="img">
                                                             <img src="images/Table Wall Pedestals.png" alt="Table Wall Pedestals">
@@ -115,7 +117,7 @@ $data = loadData('configs/haneri.json');
                                                         </div>
                                                     </div>
                                                 </a>
-                                                <a href="shop.php?category=Domestic Exhaust">
+                                                <a href="https://haneri.com/shop?category=Domestic Exhaust">
                                                     <div class="category hov">
                                                         <div class="img">
                                                             <img src="images/Domestic Exhaust.png" alt="Domestic Exhaust">
@@ -125,7 +127,7 @@ $data = loadData('configs/haneri.json');
                                                         </div>
                                                     </div>
                                                 </a>
-                                                <a href="shop.php?category=Personal">
+                                                <a href="https://haneri.com/shop?category=Personal">
                                                     <div class="category hov">
                                                         <div class="img">
                                                             <img src="images/Personal.png" alt="Personal">
@@ -140,16 +142,16 @@ $data = loadData('configs/haneri.json');
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="air_curve_design">Pillar Technology</a>
+                                    <a href="https://haneri.com/air-curve-design">Pillar Technology</a>
                                     <div class="megamenu megamenu-fixed-width megamenu-3cols">
                                         <div class="row">
                                             <div class="col-lg-10">
                                                 <ul class="submenu">
-                                                    <li><a href="air_curve_design">Air Curve Design</a></li>
-                                                    <li><a href="turbosilent_bldc">TurboSilent BLDC</a></li>
-                                                    <li><a href="hass">H.A.S.S®</a></li>
-                                                    <li><a href="lumiambience">LumiAmbience</a></li>
-                                                    <li><a href="scan">S.C.A.N</a></li>
+                                                    <li><a href="https://haneri.com/air-curve-design">Air Curve Design</a></li>
+                                                    <li><a href="https://haneri.com/turbosilent-bldc">TurboSilent BLDC</a></li>
+                                                    <li><a href="https://haneri.com/hass">H.A.S.SÂ®</a></li>
+                                                    <li><a href="https://haneri.com/lumiambience">LumiAmbience</a></li>
+                                                    <li><a href="https://haneri.com/scan">S.C.A.N</a></li>
                                                 </ul>
                                             </div><!-- End .col-lg-4 -->
                                         </div>
@@ -170,29 +172,29 @@ $data = loadData('configs/haneri.json');
                                     }
                                 </style>
                                 <li class="active">
-                                    <a href="our_story.php">About Us</a>
+                                    <a href="https://haneri.com/our-story">About Us</a>
                                     <div class="megamenu megamenu-fixed-width megamenu-3cols">
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <ul class="submenu">
                                                     <li class="submenu-item">
-                                                        <a href="our_story.php">Our Story</a>
+                                                        <a href="https://haneri.com/our-story">Our Story</a>
                                                         <div class="submenu-description">
-                                                            <a href="our_story.php#vision" class="description-link">VISION</a> |
-                                                            <a href="our_story.php#mission" class="description-link"> MISSION</a> |
-                                                            <a href="our_story.php#values" class="description-link"> VALUES</a>
+                                                            <a href="https://haneri.com/our-story#vision" class="description-link">VISION</a> |
+                                                            <a href="https://haneri.com/our-story#mission" class="description-link"> MISSION</a> |
+                                                            <a href="https://haneri.com/our-story#values" class="description-link"> VALUES</a>
                                                         </div>
                                                     </li>
                                                     <li class="submenu-item">
-                                                        <a href="our_brands.php">Our Brands</a>
+                                                        <a href="https://haneri.com/our-brands">Our Brands</a>
                                                         <div class="submenu-description">
-                                                            <a href="our_brands.php#haneri" class="description-link">Haneri</a> |
-                                                            <a href="our_brands.php#bespoke" class="description-link"> Bespoke</a> |
-                                                            <a href="our_brands.php#professional" class="description-link"> Professional</a>
+                                                            <a href="https://haneri.com/our-brands#haneri" class="description-link">Haneri</a> |
+                                                            <a href="https://haneri.com/our-brands#bespoke" class="description-link"> Bespoke</a> |
+                                                            <a href="https://haneri.com/our-brands#professional" class="description-link"> Professional</a>
                                                         </div>
                                                     </li>
                                                     <li class="submenu-item">
-                                                        <a href="capabilities.php">Capabilities</a>
+                                                        <a href="https://haneri.com/capabilities">Capabilities</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -201,7 +203,7 @@ $data = loadData('configs/haneri.json');
                                 </li>
 
                                 <li class="active">
-                                    <a href="contact.php">Support</a>
+                                    <a href="https://haneri.com/contact">Support</a>
                                     <div class="megamenu megamenu-fixed-width megamenu-3cols">
                                         <div class="row">
                                             <div class="col-lg-10">
@@ -209,7 +211,7 @@ $data = loadData('configs/haneri.json');
                                                     <li>
                                                         <a href="#">Product Help</a>
                                                         <div class="submenu-description">
-                                                            <a href="faqs" class="description-link">FAQs</a> |
+                                                            <a href="https://haneri.com/faqs" class="description-link">FAQs</a> |
                                                             <a href="#" class="description-link">Videos</a> |
                                                             <a href="#" class="description-link">Catalogues</a> |
                                                             <a href="#" class="description-link">Manuals</a>
@@ -218,10 +220,10 @@ $data = loadData('configs/haneri.json');
                                                     <li>
                                                         <a href="#">Corporate Enquiry</a>
                                                         <div class="submenu-description">
-                                                            <a href="contact" class="description-link">FORM</a> 
+                                                            <a href="https://haneri.com/contact" class="description-link">FORM</a> 
                                                         </div>
                                                     </li>
-                                                    <li><a href="contact">Contact Us</a></li>
+                                                    <li><a href="https://haneri.com/contact">Contact Us</a></li>
                                                 </ul>
                                             </div>
                                             
@@ -239,13 +241,13 @@ $data = loadData('configs/haneri.json');
 
                         <?php if ($isLoggedIn === "true") : ?>
                             <!-- Show when user is logged in -->
-                            <a href="profile.php" class="header-icon header-icon-user" title="Profile">
+                            <a href="https://haneri.com/account/profile" class="header-icon header-icon-user" title="Profile">
                                 <i class="icon-user-2"></i>
                             </a> |  
                             <a href="#" class="header-icon">
                                 <i class="fab fa-whatsapp"></i>
                             </a> | 
-                            <a href="cart.php" class="header-icon header-icon-wishlist" title="Wishlist">
+                            <a href="https://haneri.com/account/cart" class="header-icon header-icon-wishlist" title="Wishlist">
                                 <!-- <i class="icon-wishlist-2"></i> -->
                                 <i class="fas fa-shopping-cart"></i>
                             </a> |
@@ -254,7 +256,7 @@ $data = loadData('configs/haneri.json');
                             </a>
                         <?php else : ?>
                             <!-- Show when user is NOT logged in -->
-                            <a href="login.php" class="header-icon header-icon-user" title="Login">
+                            <a href="https://haneri.com/account/login" class="header-icon header-icon-user" title="Login">
                                 <i class="icon-user-2"></i>
                             </a> |  
                             <a href="#" class="header-icon"><i class="fab fa-whatsapp"></i></a> 
@@ -275,11 +277,11 @@ $data = loadData('configs/haneri.json');
 
             if (authToken) {
                 document.querySelector(".header-right").innerHTML = `
-                    <a href="profile.php" class="header-icon header-icon-user" title="Profile">
+                    <a href="https://haneri.com/account/profile" class="header-icon header-icon-user" title="Profile">
                         <i class="icon-user-2"></i>
                     </a> |  
                     <a href="#" class="header-icon"><i class="fab fa-whatsapp"></i></a> | 
-                    <a href="cart.php" class="header-icon cart" title="cart">
+                    <a href="https://haneri.com/account/cart" class="header-icon cart" title="cart">
                         <i class="fas fa-shopping-cart"></i>
                     </a> |                
                     <a href="#" class="header-icon" id="logout-btn" title="Logout">
@@ -292,11 +294,11 @@ $data = loadData('configs/haneri.json');
                     localStorage.removeItem("user_name");
                     localStorage.removeItem("user_role");
                     localStorage.removeItem("user_id");
-                    window.location.href = "login.php"; // Redirect to login page after logout
+                    window.location.href = "https://haneri.com"; // Redirect to login page after logout
                 });
             } else {
                 document.querySelector(".header-right").innerHTML = `
-                    <a href="login.php" class="header-icon header-icon-user" title="Login">
+                    <a href="https://haneri.com/account/login" class="header-icon header-icon-user" title="Login">
                         <i class="icon-user-2"></i>
                     </a> |  
                     <a href="#" class="header-icon"><i class="fab fa-whatsapp"></i></a>

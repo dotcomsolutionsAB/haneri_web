@@ -2,7 +2,7 @@
 
 
 
-    <footer class="footer">
+<footer class="footer">
         <div class="container">
             <div class="footer-top top-border d-flex align-items-center justify-content-between flex-wrap">
                 <div class="footer-left widget-newsletter d-md-flex align-items-center">
@@ -28,11 +28,11 @@
                             <h4 class="widget-title">Pillar Technology</h4>
                             <div class="links link-parts row">
                                 <ul class="link-part col-xl-12 mb-0">
-                                    <li><a href="air_curve_design.php">Air Curve Design</a></li>
-                                    <li><a href="turbosilent_bldc.php">Turbosilent BLDC</a></li>
-                                    <li><a href="hass">H.A.S.S</a></li>
-                                    <li><a href="lumiambience.php">Lumiambience</a></li>
-                                    <li><a href="scan.php">S.C.A.N</a></li>
+                                    <li><a href="https://haneri.com/air-curve-design">Air Curve Design</a></li>
+                                    <li><a href="https://haneri.com/turbosilent-bldc">Turbosilent BLDC</a></li>
+                                    <li><a href="https://haneri.com/hass">H.A.S.S</a></li>
+                                    <li><a href="https://haneri.com/lumiambience">Lumiambience</a></li>
+                                    <li><a href="https://haneri.com/scan">S.C.A.N</a></li>
                                 </ul>
                             </div>
                         </div><!-- End .widget -->
@@ -42,10 +42,10 @@
                             <h4 class="widget-title">Our Policy</h4>
                             <div class="links link-parts row">
                                 <ul class="link-part col-xl-12 mb-0">
-                                    <li><a href="faqs.php">FAQs</a></li>
-                                    <li><a href="privacy_policy.php">Privacy Policy</a></li>
-                                    <li><a href="shipping_policy.php">Shipping Policy</a></li>
-                                    <li><a href="wir_policy.php">WIR Policy</a></li>
+                                    <li><a href="https://haneri.com/faqs">FAQs</a></li>
+                                    <li><a href="https://haneri.com/privacy-policy">Privacy Policy</a></li>
+                                    <li><a href="https://haneri.com/shipping-policy">Shipping Policy</a></li>
+                                    <li><a href="https://haneri.com/wir-policy">WIR Policy</a></li>
                                 </ul>
                             </div>
                         </div><!-- End .widget -->
