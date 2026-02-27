@@ -519,21 +519,23 @@
                             <form id="swal-address-form">
                                 <input type="text" id="swal_name" placeholder="Name*" required>
 
-                                <div class="swal-mobile-wrap" style="display:flex;align-items:center;border:1px solid #d9d9d9;border-radius:8px;overflow:hidden;">
-                                    <span class="swal-mobile-prefix" style="padding:10px 12px;background:#f5f5f5;color:#333;font-weight:600;">+91</span>
-                                    <input
-                                        type="text"
-                                        id="swal_contact_no"
-                                        placeholder="10-digit mobile number"
-                                        required
-                                        inputmode="numeric"
-                                        pattern="\\d{10}"
-                                        maxlength="10"
-                                        title="Please enter a valid 10-digit mobile number"
-                                        style="flex:1;border:none;padding:10px 12px;font-size:1em;"
-                                    >
+                                <div class="swal-mobile-row" style="display:flex;align-items:stretch;gap:8px;">
+                                    <div class="swal-mobile-wrap" style="display:flex;align-items:center;flex:1;border:1px solid #d9d9d9;border-radius:8px;overflow:hidden;">
+                                        <span class="swal-mobile-prefix" style="padding:10px 12px;background:#f5f5f5;color:#333;font-weight:600;font-size:0.95em;">+91</span>
+                                        <input
+                                            type="text"
+                                            id="swal_contact_no"
+                                            placeholder="Mobile number"
+                                            required
+                                            inputmode="numeric"
+                                            pattern="\\d{10}"
+                                            maxlength="10"
+                                            title="Please enter a valid 10-digit mobile number"
+                                            style="flex:1;border:none;padding:10px 12px;font-size:1em;min-width:0;"
+                                        >
+                                    </div>
+                                    <button type="button" id="swal_send_otp_btn" class="swal-send-otp-btn" disabled>Send OTP</button>
                                 </div>
-                                <button type="button" id="swal_send_otp_btn" class="btn btn-sm btn-outline-secondary mt-2" disabled style="min-width:140px;">Send OTP</button>
 
                                 <input type="email" id="swal_email" placeholder="Email*" required>
 
@@ -803,8 +805,8 @@
 
                 // verify Otp for mobile helpers
                 // ✅ OTP endpoints
-                const OTP_REQUEST_URL = "<?php echo BASE_URL; ?>/api/request-otp";
-                const OTP_VERIFY_URL  = "<?php echo BASE_URL; ?>/api/verify-otp";
+                const OTP_REQUEST_URL = "<?php echo BASE_URL; ?>/request-otp";
+                const OTP_VERIFY_URL  = "<?php echo BASE_URL; ?>/verify-otp";
 
                 function showOtpOverlay(mobile) {
                   var display = (mobile || "").toString().replace(/^91/, "+91 ");
@@ -2202,11 +2204,39 @@
 </main>
 <!-- End .main -->
 <style>
+    .swal-send-otp-btn {
+        flex-shrink: 0;
+        padding: 0 16px;
+        height: 42px;
+        border: 1px solid #d9d9d9;
+        border-radius: 8px;
+        background: #fff;
+        color: #555;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .swal-send-otp-btn:hover:not(:disabled) {
+        border-color: #00473e;
+        color: #00473e;
+        background: #f8faf9;
+    }
+    .swal-send-otp-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
     @media (max-width: 520px) {
         #swal-address-form {
             display: grid;
             grid-template-columns: repeat(1, 1fr) !important;
             gap: 5px !important;
+        }
+        .swal-mobile-row {
+            flex-direction: column !important;
+        }
+        .swal-send-otp-btn {
+            width: 100%;
         }
         .swal2-container .swal2-popup {
             padding: 10px;
