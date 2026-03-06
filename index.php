@@ -1,3 +1,7 @@
+<?php
+header("Location: https://www.haneri.com", true, 302);
+exit;
+?>
 <?php include("header.php"); ?>
 
 <!-- Category section  -->

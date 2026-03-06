@@ -322,20 +322,27 @@
                 let productName = item.product_name;
                 let variantName = item.variant_value ? `(${item.variant_value})` : "";
                 let sellingPrice = parseFloat((item.selling_price || "0").replace(/,/g, ""));
-                let productImage = item.file_urls[0];
+                let discount = typeof item.discount === "number" ? item.discount : parseFloat(item.discount) || 0;
+                let productImage = item.file_urls && item.file_urls[0] ? item.file_urls[0] : "";
                 let quantity = item.quantity || 1;
                 let subtotal = sellingPrice * quantity;
 
                 if (isNaN(subtotal)) subtotal = 0;
                 cartSubtotal += subtotal;
 
-                console.log(`Adding item: ${productName}, Price: ${sellingPrice}, Quantity: ${quantity}`);
+                let priceHtml = `&#8377;${sellingPrice.toFixed(2)}`;
+                if (discount > 0) {
+                    let originalPrice = sellingPrice / (1 - discount / 100);
+                    priceHtml = `<span class="cart-original-price" style="text-decoration:line-through;color:#888;font-size:0.9em;">&#8377;${originalPrice.toFixed(2)}</span> ${priceHtml} <span class="cart-discount-badge" style="display:inline-block;margin-left:4px;padding:2px 6px;background:#e8f5e9;color:#2e7d32;border-radius:4px;font-size:12px;font-weight:600;">${discount}% off</span>`;
+                }
+
+                console.log(`Adding item: ${productName}, Price: ${sellingPrice}, Quantity: ${quantity}, Discount: ${discount}%`);
 
                 cartTableBody.innerHTML += `
                     <tr data-cart-id="${item.id}">
                         <td data-label="Image"><img src="${productImage}" alt="${productName}" width="50"></td>
                         <td data-label="Product" class="f14">${productName} ${variantName}</td>
-                        <td data-label="Price" class="f14">&#8377;${sellingPrice.toFixed(2)}</td>
+                        <td data-label="Price" class="f14">${priceHtml}</td>
                         <td data-label="Quantity">
                             <div class="quantity-container">
                                 <button class="btn-quantity" onclick="updateCartQuantity('${item.id}', 'decrease')">-</button>
