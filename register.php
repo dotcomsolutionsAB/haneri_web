@@ -291,7 +291,10 @@
 
         fetch(apiUrl, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
             body: JSON.stringify(requestData)
         })
         .then(function(res) {
@@ -575,7 +578,10 @@
 
       fetch(apiUrl, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
         body: JSON.stringify(body)
       })
       .then(function(res) {
