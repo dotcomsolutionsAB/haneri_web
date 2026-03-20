@@ -232,6 +232,30 @@
 
 <!-- Register User -->
 <script>
+    function getRegisterErrorMessage(status, data, fallbackMessage) {
+        const errors = (data && data.errors) ? data.errors : {};
+        const emailMsg = Array.isArray(errors.email) && errors.email.length ? errors.email[0] : "";
+        const mobileMsg = Array.isArray(errors.mobile) && errors.mobile.length ? errors.mobile[0] : "";
+
+        if (status === 422) {
+            if (emailMsg) return "Email already registered. Please login or use another email.";
+            if (mobileMsg) return "Mobile already registered. Please login or use another mobile.";
+            return data?.message || fallbackMessage;
+        }
+
+        return data?.message || fallbackMessage;
+    }
+
+    function parseApiJsonSafe(res) {
+        return res.text().then(function(text) {
+            try {
+                return text ? JSON.parse(text) : {};
+            } catch (e) {
+                return {};
+            }
+        });
+    }
+
     document.getElementById("registerForm").addEventListener("submit", function(event) {
         event.preventDefault();
 
@@ -270,15 +294,19 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(requestData)
         })
-        .then(res => res.json())
-        .then(data => {
+        .then(function(res) {
+            return parseApiJsonSafe(res).then(function(data) {
+                return { status: res.status, ok: res.ok, data: data };
+            });
+        })
+        .then(({ status, ok, data }) => {
             console.log(data);
           // ✅ allow both: {data: {token, user:{...}}} OR {data: {token, name, email, ...}}
-          const ok    = (data.code === 200 || data.code === 201 || data.success);
+          const apiOk = ok || (data.code === 200 || data.code === 201 || data.success);
           const token = data?.data?.token;
           const user  = data?.data?.user || data?.data; 
 
-          if (ok && token && user) {
+          if (apiOk && token && user) {
               localStorage.setItem("auth_token", token);
               localStorage.setItem("user_name",  user.name  || "");
               localStorage.setItem("user_email", user.email || "");
@@ -290,7 +318,7 @@
 
               window.location.href = "index.php";
           } else {
-              errorEl.innerText = data.message || "Registration failed.";
+              errorEl.innerText = getRegisterErrorMessage(status, data, "Registration failed.");
               errorEl.style.display = "block";
           }
         })
@@ -550,16 +578,20 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
       })
-      .then(r => r.json())
-      .then(data => {
+      .then(function(res) {
+        return parseApiJsonSafe(res).then(function(data) {
+          return { status: res.status, ok: res.ok, data: data };
+        });
+      })
+      .then(({ status, ok, data }) => {
         console.log("Google register API Response:", data);
         btnSubmit.disabled = false;
 
-        const ok    = (data.code === 200 || data.code === 201 || data.success);
+        const apiOk = ok || (data.code === 200 || data.code === 201 || data.success);
         const token = data?.data?.token;
         const user  = data?.data?.user || data?.data;
 
-        if (ok && token && user) {
+        if (apiOk && token && user) {
             localStorage.setItem("auth_token", token);
             localStorage.setItem("user_name",  user.name  || "");
             localStorage.setItem("user_email", user.email || "");
@@ -571,7 +603,7 @@
 
             window.location.href = "index.php";
         } else {
-            errorEl.textContent = data.message || "Google registration failed.";
+            errorEl.textContent = getRegisterErrorMessage(status, data, "Google registration failed.");
             errorEl.style.display = "block";
         }
       })
