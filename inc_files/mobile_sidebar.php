@@ -6,12 +6,12 @@
                 <a href="index.php">Home</a>
             </li>
             <li>
-                <a href="shop.php">Categories</a>
+                <a href="https://haneri.com/shop">Categories</a>
                 <ul>
-                    <li><a href="shop.php">Ceiling Fan</a></li>
-                    <li><a href="shop.php">Table Wall Pedestals</a></li>
-                    <li><a href="shop.php">Domestic Exhaust</a></li>
-                    <li><a href="shop.php">Personal</a></li>
+                    <li><a href="https://haneri.com/shop">Ceiling Fan</a></li>
+                    <li><a href="https://haneri.com/shop">Table Wall Pedestals</a></li>
+                    <li><a href="https://haneri.com/shop">Domestic Exhaust</a></li>
+                    <li><a href="https://haneri.com/shop">Personal</a></li>
                 </ul>
             </li>
             <li>
@@ -19,7 +19,7 @@
                 <ul>
                     <li><a href="air_curve_design.php">Air Curve Design</a></li>
                     <li><a href="turbosilent_bldc.php">TurboSilent BLDC</a></li>
-                    <li><a href="hass">M.A.S.Sè¢Ó</a></li>
+                    <li><a href="hass">M.A.S.SÔøΩÔøΩÔøΩ</a></li>
                     <li><a href="lumiambience.php">LumiAmbience</a></li>
                     <li><a href="scan.php">S.C.A.N</a></li>
                 </ul>

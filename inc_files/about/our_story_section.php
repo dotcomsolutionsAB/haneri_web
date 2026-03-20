@@ -238,7 +238,7 @@
               We promise innovation that lasts, experiences that inspire, and quality that defines every
               space you live in.
             </p>
-            <a href="shop.php" class="hero-btn">Explore Products</a>
+            <a href="https://haneri.com/shop" class="hero-btn">Explore Products</a>
           </div>
         </div>
 
@@ -252,7 +252,7 @@
             We promise innovation that lasts, experiences that inspire, and quality that defines every
             space you live in.
           </p>
-          <a href="shop.php" class="hero-btn">Explore Products</a>
+          <a href="https://haneri.com/shop" class="hero-btn">Explore Products</a>
         </div>
       </section>
 </div>

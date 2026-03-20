@@ -284,7 +284,7 @@
                         <div class="empty-cart-box">
                             <div class="empty-cart-icon">&#128722;</div>
                             <h3>Your cart is empty</h3>
-                            <a href="shop.php" class="empty-cart-btn">Go to Shop</a>
+                            <a href="https://haneri.com/shop" class="empty-cart-btn">Go to Shop</a>
                         </div>
                         `
                     );
