@@ -30,9 +30,9 @@
                                 <ul class="link-part col-xl-12 mb-0">
                                     <li><a href="https://haneri.com/air-curve-design">Air Curve Design</a></li>
                                     <li><a href="https://haneri.com/turbosilent-bldc">Turbosilent BLDC</a></li>
-                                    <li><a href="https://haneri.com/hass">H.A.S.S</a></li>
+                                    <li><a href="https://haneri.com/hass">HASS</a></li>
                                     <li><a href="https://haneri.com/lumiambience">Lumiambience</a></li>
-                                    <li><a href="https://haneri.com/scan">S.C.A.N</a></li>
+                                    <li><a href="https://haneri.com/scan">SCAN</a></li>
                                 </ul>
                             </div>
                         </div><!-- End .widget -->
