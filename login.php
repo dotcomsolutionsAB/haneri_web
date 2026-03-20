@@ -205,20 +205,29 @@
   .otp-overlay {
     display: none;
     position: fixed;
-    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background: rgba(0,0,0,0.4);
     z-index: 9999;
     justify-content: center;
     align-items: center;
+    padding: 16px;
+    box-sizing: border-box;
   }
   .otp-modal {
     background: #fff;
     padding: 22px 24px;
     border-radius: 14px;
-    max-width: 450px;
-    width: 90%;
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
     box-shadow: 0 18px 40px rgba(0,0,0,0.25);
     border-top: 4px solid var(--primary-green);
+    box-sizing: border-box;
   }
   .otp-modal h4 {
     margin-top: 0;
@@ -248,27 +257,35 @@
   .otp-prefix {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 0;
     width: 100%;
     margin-top: 4px;
+    border: 1px solid #dde2e4;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
   }
   .otp-prefix span {
-    padding: 6px 10px;
-    border-radius: 5px;
-    background: #f2f4f5;
-    border: 1px solid #dde2e4;
-    font-size: 16px;
+    padding: 0 12px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    background: #f7f7f7;
+    border-right: 1px solid #dde2e4;
+    font-size: 14px;
+    font-weight: 600;
     color: #333;
-    letter-spacing: 0.12em;   /* 🔹 letter spacing between digits */
+    letter-spacing: normal;
   }
   .otp-prefix input {
     flex: 1;
     height: 40px;
-    border-radius: 5px;
-    border: 1px solid #dde2e4;
+    border: none;
     padding: 0 10px;
-    font-size: 16px;
-    letter-spacing: 0.12em;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    outline: none;
+    margin-bottom: 0 !important;
   }
   #otp-mobile-cancel{
     border-radius: 10px;
@@ -348,6 +365,15 @@
     font-size: 16px;
     letter-spacing: 0.12em;
     margin-bottom: 10px !important;
+  }
+  @media (max-width: 520px) {
+    .otp-modal {
+      max-width: 100%;
+      padding: 18px 16px;
+    }
+    .otp-actions {
+      gap: 8px;
+    }
   }
 </style>
 
