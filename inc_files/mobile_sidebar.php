@@ -3,7 +3,7 @@
     <nav class="mobile-nav">
         <ul class="mobile-menu">
             <li>
-                <a href="index.php">Home</a>
+                <a href="https://haneri.com">Home</a>
             </li>
             <li>
                 <a href="https://haneri.com/shop">Categories</a>
@@ -15,28 +15,28 @@
                 </ul>
             </li>
             <li>
-                <a href="air_curve_design.php">Pillar Technology</a>
+                <a href="https://haneri.com/air-curve-design">Pillar Technology</a>
                 <ul>
-                    <li><a href="air_curve_design.php">Air Curve Design</a></li>
-                    <li><a href="turbosilent_bldc.php">TurboSilent BLDC</a></li>
-                    <li><a href="hass">M.A.S.S���</a></li>
-                    <li><a href="lumiambience.php">LumiAmbience</a></li>
-                    <li><a href="scan.php">S.C.A.N</a></li>
+                    <li><a href="https://haneri.com/air-curve-design">Air Curve Design</a></li>
+                    <li><a href="https://haneri.com/turbosilent-bldc">TurboSilent BLDC</a></li>
+                    <li><a href="hhttps://haneri.com/hass">HASS</a></li>
+                    <li><a href="https://haneri.com/lumiambience">LumiAmbience</a></li>
+                    <li><a href="https://haneri.com/scan">SCAN</a></li>
                 </ul>
             </li>
             <li>
-                <a href="our_story.php">About Us</a>
+                <a href="https://haneri.com/our-story">About Us</a>
                 <ul>
-                    <li><a href="our_story.php#vision">VISION</a></li>
-                    <li><a href="our_story.php#mission">MISSION</a></li>
-                    <li><a href="our_story.php#values">VALUES</a></li>
-                    <li><a href="our_brands.php">Our Brands</a></li>
-                    <li><a href="capabilities.php">Capabilities</a></li>
+                    <li><a href="https://haneri.com/our-story#vision">VISION</a></li>
+                    <li><a href="https://haneri.com/our-story#mission">MISSION</a></li>
+                    <li><a href="https://haneri.com/our-story#values">VALUES</a></li>
+                    <li><a href="https://haneri.com/our-brands#haneri">Our Brands</a></li>
+                    <!-- <li><a href="capabilities.php">Capabilities</a></li> -->
                 </ul>
             </li>
 
             <li>
-                <a href="contact.php">Contact Us</a>
+                <a href="https://haneri.com/contact">Contact Us</a>
                 <!-- <ul>
                     <li><a href="#">FAQs</a></li>
                     <li><a href="#">Videos</a></li>
