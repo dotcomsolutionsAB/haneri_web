@@ -53,10 +53,66 @@
         letter-spacing: 0.02em;
     }
     .table-mini-cart td, .table-mini-cart th, .table-mini-cart thead th, .table-mini-cart tr {
-        padding:0px !important;
         font-family: 'Barlow Condensed' !important;
         letter-spacing: normal;
         font-size: 18px !important;
+    }
+    .checkout-container .table-mini-cart thead th,
+    .checkout-container .table-mini-cart tbody td,
+    .checkout-container .table-mini-cart tfoot td {
+        padding: 0.65rem 0 !important;
+        vertical-align: top !important;
+    }
+    .checkout-container .table-mini-cart .product-title {
+        display: block;
+        line-height: 1.4;
+        white-space: normal;
+    }
+    /* Keep two columns from overlapping: flex row + cards fit column */
+    .checkout-container > .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+    .checkout-container > .row > .col-lg-8 {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+    @media (min-width: 992px) {
+        .checkout-container > .row > .col-lg-8 {
+            flex: 0 0 66.666667%;
+            max-width: 66.666667%;
+        }
+        .checkout-container > .row > .col-lg-4 {
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
+        }
+    }
+    .checkout_page .order-summary {
+        position: relative;
+        z-index: 2;
+        background: #fff;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .checkout_page #collapseNew.show {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .checkout_page .address-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        box-sizing: border-box;
+    }
+    @media (max-width: 991px) {
+        .checkout_page #collapseNew.show {
+            grid-template-columns: 1fr;
+        }
     }
     .order-summary h4 {
         padding:0px !important;
@@ -1191,785 +1247,6 @@
                 </ul>
             </div>
             <!-- End .col-lg-8 -->
-            <script>
-                $(document).ready(function () {
-                    const authToken = localStorage.getItem('auth_token'); // Replace with actual token
-                    const authTemp = localStorage.getItem('temp_id');
-                    const cartUrl = "<?php echo BASE_URL; ?>/cart/fetch";
-                    const orderUrl = "<?php echo BASE_URL; ?>/orders";
-                    const shippingUrl = "<?php echo BASE_URL; ?>/delivery/shipping-cost";
-                    const COUPON_CHECK_URL = "<?php echo BASE_URL; ?>/coupons/check";
-                    const couponUse = true; // ✅ true = coupon enabled, false = coupon disabled
-                    // Coupon setup
-                    let appliedCoupon = null;     // stores API coupon data
-                    let discountAmount = 0;       // numeric
-                    let payableTotal = 0;         // numeric
-
-                    function money(n) {
-                        const x = Number(n || 0);
-                        return `₹ ${x.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-                    }
-                    // grand total BEFORE coupon
-                    function getGrandTotalBeforeCoupon() {
-                        const items = Number(cartItemsTotal || 0);
-                        const ship  = Number(currentShippingCharge || 0);
-                        return Number((items + ship).toFixed(2));
-                    }
-                    function computeDiscount(grandTotal, coupon) {
-                        if (!coupon) return 0;
-
-                        const type = String(coupon.discount_type || "").toLowerCase();
-                        const val  = Number(coupon.discount_value || 0);
-
-                        let disc = 0;
-
-                        if (type === "percentage") {
-                            disc = (grandTotal * val) / 100;
-                        } else if (type === "price") {
-                            disc = val;
-                        }
-
-                        disc = Number(disc.toFixed(2));
-
-                        // never allow discount > grand total
-                        if (disc > grandTotal) disc = grandTotal;
-
-                        // never negative
-                        if (disc < 0) disc = 0;
-
-                        return disc;
-                    }
-                    function renderTotalsWithCoupon() {
-                        if (!couponUse) appliedCoupon = null;
-
-                        const grand = getGrandTotalBeforeCoupon();
-                        discountAmount = computeDiscount(grand, appliedCoupon);
-                        payableTotal = Number((grand - discountAmount).toFixed(2));
-
-                        // UI: discount row
-                        if (discountAmount > 0) {
-                            $("#discountRow").show();
-                            $("#discountAmount").text(`- ${money(discountAmount)}`);
-                        } else {
-                            $("#discountRow").hide();
-                            $("#discountAmount").text(money(0));
-                        }
-
-                        // UI: old total strike + new total
-                        if (appliedCoupon && discountAmount > 0) {
-                            $("#total_old").show().text(money(grand));
-                        } else {
-                            $("#total_old").hide().text(money(0));
-                        }
-
-                        $("#total").text(money(payableTotal));
-                    }
-                    function clearCouponUI() {
-                        appliedCoupon = null;
-                        discountAmount = 0;
-
-                        $("#couponAppliedBox").hide();
-                        $("#couponAppliedText").text("");
-                        $("#couponCodeInput").val("");
-
-                        renderTotalsWithCoupon();
-                    }
-                    function showAppliedCouponUI(coupon) {
-                        const type = String(coupon.discount_type || "").toLowerCase();
-                        const val  = Number(coupon.discount_value || 0);
-
-                        const pretty = (type === "percentage") ? `${val}% OFF` : `₹${val} OFF`;
-                        $("#couponAppliedText").text(`Applied: ${coupon.coupon_code} (${pretty})`);
-                        $("#couponAppliedBox").show();
-                    }
-                    function getAppliedCouponCode() {
-                        return appliedCoupon?.coupon_code ? String(appliedCoupon.coupon_code).trim().toUpperCase() : null;
-                    }
-                    $("#couponForm").on("submit", function (e) {
-                        e.preventDefault();
-
-                        if (!couponUse) {
-                            Swal.fire("Coupon is not Available", "Try Without Coupon", "info");
-                            return;
-                        }
-                        const authTokenNow = localStorage.getItem("auth_token");
-                        if (!authTokenNow) {
-                            Swal.fire({
-                            icon: "info",
-                            title: "Login required",
-                            html: `Please login first to apply a coupon.`,
-                            showCancelButton: true,
-                            confirmButtonText: "Login",
-                            cancelButtonText: "Cancel"
-                            }).then((r) => {
-                            if (r.isConfirmed) window.location.href = "login.php?redirect=checkout.php";
-                            });
-                            return;
-                        }
-                        const code = String($("#couponCodeInput").val() || "").trim().toUpperCase();
-                        if (!code) return;
-
-                        $("#applyCouponBtn").prop("disabled", true).text("Applying...");
-
-                            fetch(COUPON_CHECK_URL, {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "Authorization": `Bearer ${authTokenNow}`
-                                },
-                                body: JSON.stringify({ coupon_code: code })
-                            })
-                            .then(r => r.json())
-                            .then(res => {
-                                const msg = String(res?.message || "");
-                                const msgL = msg.toLowerCase();
-
-                                // ✅ VALID
-                                if (res?.success && res?.code === 200 && res?.data) {
-                                appliedCoupon = res.data;
-                                showAppliedCouponUI(appliedCoupon);
-                                renderTotalsWithCoupon();
-                                return;
-                                }
-
-                                // ❌ INVALID flows
-                                if (msgL.includes("inactive") || msgL.includes("not found")) {
-                                Swal.fire("Invalid coupon", "Coupon is invalid or inactive.", "error");
-                                clearCouponUI();
-                                return;
-                                }
-
-                                if (msgL.includes("expired")) {
-                                Swal.fire("Coupon expired", msg || "Coupon expired.", "warning");
-                                clearCouponUI();
-                                return;
-                                }
-
-                                if (msgL.includes("usage limit reached")) {
-                                Swal.fire("Limit reached", msg || "Coupon usage limit reached.", "warning");
-                                clearCouponUI();
-                                return;
-                                }
-
-                                Swal.fire("Invalid coupon", msg || "Unable to apply coupon.", "error");
-                                clearCouponUI();
-                            })
-                            .catch(err => {
-                                console.error(err);
-                                Swal.fire("Error", "Coupon check failed. Please try again.", "error");
-                                clearCouponUI();
-                            })
-                            .finally(() => {
-                                $("#applyCouponBtn").prop("disabled", false).text("Apply Coupon");
-                            });
-                        });
-
-                        $("#removeCouponLink").on("click", function () {
-                            if (!couponUse) return;
-                            clearCouponUI();
-                        });
-
-
-                    let cartTotalWeight = 0;
-                    let cartItemsTotal = 0;
-                    let currentShippingCharge = 0;
-
-                    // ✅ TEMP: disable shipping calculation (keep code, just bypass)
-                    const SHIPPING_API_ENABLED = false;
-                    
-                    function getSelectedPinCode() {
-                        let selectedRadio = $("input[name='address_select']:checked").closest(".address-card");
-                        if (selectedRadio.length === 0) return "";
-
-                        let postalCode = selectedRadio.find(".card-body p:contains('Postal Code')").text()
-                            .replace("Postal Code:", "")
-                            .trim();
-
-                        return postalCode || "";
-                    }
-
-                    function updateShippingCostFromApi() {
-
-                        // ✅ TEMP: force free shipping (0) and skip API call
-                        if (!SHIPPING_API_ENABLED) {
-                            currentShippingCharge = 0;
-
-                            $(".order-shipping td .form-group-custom-control").html(`
-                                <div class="custom-control custom-radio d-flex">
-                                    <input type="radio" class="custom-control-input" name="radio" checked />
-                                    <label class="custom-control-label">Free Shipping</label>
-                                </div>
-                            `);
-
-                            // Total = items total only
-                            // $("#total").text(`₹ ${Number(cartItemsTotal || 0).toLocaleString(undefined, {
-                            //     minimumFractionDigits: 2,
-                            //     maximumFractionDigits: 2
-                            // })}`);
-                            renderTotalsWithCoupon(); // ✅ keeps shipping=0, applies coupon if any
-
-                            return; // ✅ stop here, don’t hit shipping API
-                        }
-
-                        const originPin = getSelectedPinCode();
-
-                        // If no address selected yet
-                        if (!originPin) {
-                            $(".order-shipping td .form-group-custom-control").html(`
-                                <div class="custom-control custom-radio d-flex">
-                                    <input type="radio" class="custom-control-input" name="radio" checked />
-                                    <label class="custom-control-label">Select address to calculate shipping</label>
-                                </div>
-                            `);
-
-                            // Total = items total only (until shipping comes)
-                            // $("#total").text(`₹ ${cartItemsTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
-                            renderTotalsWithCoupon();
-                            return;
-                        }
-
-                        // weight from cart fetch response (2 decimals)
-                        const weight2 = Number(cartTotalWeight || 0).toFixed(2);
-
-                        const payload = {
-                            through: "simple",
-                            origin_pin: originPin,
-                            destination_pin: "700001",
-                            weight: parseFloat(weight2),    // keep numeric, 2-dec
-                            cod_amount: 0,
-                            payment_type: "Pre-paid"         // as you said: prepaid
-                        };
-
-                        $.ajax({
-                            url: shippingUrl,
-                            type: "POST",
-                            headers: authToken ? { "Authorization": `Bearer ${authToken}` } : {}, 
-                            contentType: "application/json",
-                            data: JSON.stringify(payload),
-                            success: function (res) {
-
-                                // ✅ Extract cost from your response shape
-                                let cost = 0;
-
-                                if (res && Array.isArray(res.data) && res.data.length > 0) {
-                                    cost = res.data[0].total_amount;     // ✅ this is the correct field
-                                } else if (res?.data?.total_amount) {
-                                    cost = res.data.total_amount;        // fallback if backend changes to object
-                                }
-
-                                cost = Number(cost) || 0;
-                                currentShippingCharge = cost;
-
-                                // ✅ always show 2 decimals
-                                const costDisplay = cost.toFixed(2);
-
-                                // Update Shipping UI
-                                if (cost <= 0) {
-                                    $(".order-shipping td .form-group-custom-control").html(`
-                                        <div class="custom-control custom-radio d-flex">
-                                            <input type="radio" class="custom-control-input" name="radio" checked />
-                                            <label class="custom-control-label">Free Shipping</label>
-                                        </div>
-                                    `);
-                                } else {
-                                    $(".order-shipping td .form-group-custom-control").html(`
-                                        <div class="custom-control custom-radio d-flex">
-                                            <input type="radio" class="custom-control-input" name="radio" checked />
-                                            <label class="custom-control-label">Shipping Charges ₹${costDisplay}</label>
-                                        </div>
-                                    `);
-                                }
-
-                                // ✅ Total = items total + shipping
-                                // const grandTotal = Number(cartItemsTotal) + Number(cost);
-                                // $("#total").text(`₹ ${grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
-                                renderTotalsWithCoupon();
-                            },
-                            error: function () {
-                                console.error("Error fetching shipping cost.");
-
-                                // fallback UI
-                                $(".order-shipping td .form-group-custom-control").html(`
-                                    <div class="custom-control custom-radio d-flex">
-                                        <input type="radio" class="custom-control-input" name="radio" checked />
-                                        <label class="custom-control-label">Unable to calculate shipping</label>
-                                    </div>
-                                `);
-
-                                // keep total as items total only
-                                // $("#total").text(`₹ ${cartItemsTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
-                                renderTotalsWithCoupon();
-                            }
-                        });
-                    }
-                    // ✅ when user selects an address => recalc shipping
-                    $(document).on("change", "input[name='address_select']", function () {
-                        updateShippingCostFromApi();
-                    });
-
-                    function fetchCartItems() {
-                        const authToken = localStorage.getItem('auth_token');
-                        const authTemp = localStorage.getItem('temp_id');
-                        const cartUrl = "<?php echo BASE_URL; ?>/cart/fetch";
-
-                        const ajaxOptions = {
-                            url: cartUrl,
-                            type: "POST",
-                            contentType: "application/json",
-                            success: function (response) {
-                                if (response.data.length > 0) {
-                                    let cartHTML = "";
-                                    let subtotal = 0;
-                                    let totalTax = 0;
-                                    let total = 0;
-                                    const GST_RATE = 0.18; // 18% GST
-
-                                    response.data.forEach(item => {                                        
-                                        const quantity = item.quantity;
-
-                                        // Remove commas from price string before parsing
-                                        const fullPrice = parseFloat(item.selling_price.replace(/,/g, '')); // inclusive of tax
-
-                                        // Calculate base price and tax per unit
-                                        const basePrice = fullPrice / (1 + GST_RATE);
-                                        const tax = fullPrice - basePrice;
-
-                                        // Totals for this line item
-                                        const itemBaseTotal = basePrice * quantity;
-                                        const itemTaxTotal = tax * quantity;
-                                        const itemTotal = fullPrice * quantity;
-
-                                        // Add to overall totals
-                                        subtotal += itemBaseTotal;
-                                        totalTax += itemTaxTotal;
-                                        total += itemTotal;
-
-                                        // Build HTML for cart
-                                        cartHTML += `
-                                            <tr>
-                                                <td class="product-col">
-                                                    <h3 class="product-title">
-                                                        ${item.product_name} - ${item.variant_value} × <span class="product-qty">${quantity}</span>
-                                                    </h3>
-                                                </td>
-                                                <td class="price-col">
-                                                    <span>₹ ${itemTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
-                                                </td>
-                                            </tr>
-                                        `;
-                                    });
-                                    // ✅ store cart totals for shipping calculation (after total is calculated)
-                                    cartItemsTotal = Number(total) || 0;
-                                    renderTotalsWithCoupon(); // ✅ total reflects coupon even before shipping update runs
-
-                                    // ✅ total weight from API (best)
-                                    cartTotalWeight = Number(response.total_weight ?? response.totalWeight ?? response.totalWeightKg ?? 0) || 0;
-
-                                    // ✅ fallback: if item has weight fields (only if your API returns it)
-                                    if (!cartTotalWeight && Array.isArray(response.data)) {
-                                        cartTotalWeight = response.data.reduce((sum, it) => {
-                                            const w = Number(it.weight || it.total_weight || it.weight_kg || 0) || 0;
-                                            const q = Number(it.quantity || 1) || 1;
-                                            return sum + (w * q);
-                                        }, 0);
-                                    }
-
-                                    // ✅ keep 2 decimals
-                                    cartTotalWeight = Number(cartTotalWeight.toFixed(2));
-
-                                    // Shipping Logic (must match backend)
-                                    let shippingCharge = 0;
-                                    let shippingHTML = "";
-
-                                    if (total > 5000) {
-                                        shippingCharge = 0;
-                                        shippingHTML = `
-                                            <div class="custom-control custom-radio d-flex">
-                                                <input type="radio" class="custom-control-input" name="radio" checked />
-                                                <label class="custom-control-label">Free Shipping</label>
-                                            </div>
-                                        `;
-                                    } else {
-                                        shippingCharge = 0;
-                                        total += shippingCharge;
-                                        shippingHTML = `
-                                            <div class="custom-control custom-radio d-flex">
-                                                <input type="radio" class="custom-control-input" name="radio" checked />
-                                                <label class="custom-control-label">Shipping Charges ₹${shippingCharge.toFixed(2)}</label>
-                                            </div>
-                                        `;
-                                    }
-
-
-                                    // Render to DOM
-                                    $("#cart-items").html(cartHTML);
-                                    $("#subtotal").text(`₹ ${subtotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
-                                    $("#total-tax").text(`₹ ${totalTax.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
-                                    // $("#total").text(`₹ ${total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
-                                    // ✅ Set base amount (items total) and let renderTotalsWithCoupon() decide final total
-                                    cartItemsTotal = Number(total) || 0;
-                                    renderTotalsWithCoupon();
-                                    $(".order-shipping td .form-group-custom-control").html(shippingHTML);
-                                    // ✅ override the old shipping UI with API shipping
-                                    updateShippingCostFromApi();
-                                } else {
-                                    cartTotalWeight = 0;
-                                    cartItemsTotal = 0;
-                                    currentShippingCharge = 0;
-                                    // Empty cart
-                                    $("#cart-items").html("<tr><td colspan='2'>No items in cart.</td></tr>");
-                                    $("#subtotal").text("₹ 0.00");
-                                    $("#total-tax").text("₹ 0.00");
-                                    $("#total").text("₹ 0.00");
-                                    $(".order-shipping td .form-group-custom-control").html(`
-                                        <div class="custom-control custom-radio d-flex">
-                                            <input type="radio" class="custom-control-input" name="radio" checked />
-                                            <label class="custom-control-label">Free Shipping</label>
-                                        </div>
-                                    `);
-                                }
-                            },
-                            error: function () {
-                                console.error("Error fetching cart items.");
-                            }
-                        };
-
-                        // Determine how to send credentials
-                        if (authToken) {
-                            ajaxOptions.headers = { "Authorization": `Bearer ${authToken}` };
-                            ajaxOptions.data = JSON.stringify({});
-                        } else if (authTemp) {
-                            ajaxOptions.data = JSON.stringify({ cart_id: authTemp });
-                        } else {
-                            $("#cart-items").html("<tr><td colspan='2'>No items in cart.</td></tr>");
-                            $("#subtotal").text("₹ 0.00");
-                            $("#total-tax").text("₹ 0.00");
-                            $("#total").text("₹ 0.00");
-                            $(".order-shipping td .form-group-custom-control").html(`
-                                <div class="custom-control custom-radio d-flex">
-                                    <input type="radio" class="custom-control-input" name="radio" checked />
-                                    <label class="custom-control-label">Free Shipping</label>
-                                </div>
-                            `);
-                            return;
-                        }
-
-                        $.ajax(ajaxOptions);
-                    }
-
-                    function getSelectedAddress() {
-                      let selectedRadio = $("input[name='address_select']:checked").closest(".address-card");
-
-                      if (selectedRadio.length === 0) {
-                        alert("Please select a shipping address.");
-                        return null;
-                      }
-
-                      let name = selectedRadio.find(".card-header h3").text().trim();
-                      let contactNo = selectedRadio.find(".card-header .card-phone").text().trim();
-                      let address1 = selectedRadio.find(".card-body p:contains('Address 1')").text()
-                        .replace("Address 1:", "")
-                        .trim();
-
-                      // Raw add2
-                      let address2Raw = selectedRadio.find(".card-body p:contains('Address 2')").text()
-                        .replace("Address 2:", "")
-                        .trim();
-
-                      // Clean + check add2 ("" / " " / "NA" / "na" etc. → treat as empty)
-                      let address2 = address2Raw;
-                      let address2Upper = address2Raw.toUpperCase();
-                      let hasAddress2 = address2 && address2Upper !== "NA";
-
-                      // Extract Location (Country, State, City)
-                      let locationText = selectedRadio.find(".card-body p:contains('Location')").text()
-                        .replace("Location:", "")
-                        .trim();
-
-                      let locationParts = locationText.split(",").map(item => item.trim());
-
-                      let country = locationParts[0] || "";
-                      let state   = locationParts[1] || "";
-                      let city    = locationParts[2] || "";
-
-                      let postalCode = selectedRadio.find(".card-body p:contains('Postal Code')").text()
-                        .replace("Postal Code:", "")
-                        .trim();
-
-                      // 🔹 New required format:
-                      // name, mobile, city, state, country, pin, add1, add2(if valid)
-                      let shippingAddress = `${name}, ${contactNo}, ${city}, ${state}, ${country}, ${postalCode}, ${address1}`;
-
-                      if (hasAddress2) {
-                        shippingAddress += `, ${address2}`;
-                      }
-
-                      return shippingAddress;
-                    }
-
-                    $("#placeOrderBtn").click(function (event) {
-                        event.preventDefault();
-
-                        let shippingAddress = getSelectedAddress();
-                        if (!shippingAddress) return;
-                        // ✅ Ensure shipping charge is numeric + 2 decimals
-                        const shippingCharge = Number(currentShippingCharge || 0);
-
-                        let orderData = {
-                            status: "pending",
-                            payment_status: "pending",
-                            shipping_address: shippingAddress,
-                            shipping_charge: Number(shippingCharge.toFixed(2)) // ✅ send to API
-                        };
-                        // ✅ send coupon only when coupon feature enabled and coupon applied
-                        if (couponUse) {
-                            const couponCode = getAppliedCouponCode();
-                            if (couponCode) orderData.coupon_code = couponCode;
-                        }
-
-                        $.ajax({
-                            url: orderUrl,
-                            type: "POST",
-                            headers: {
-                                "Authorization": `Bearer ${authToken}`,
-                                "Content-Type": "application/json"
-                            },
-                            data: JSON.stringify(orderData),
-                            success: function (response) {
-                                if (response.message.includes("success")) {
-                                    let orderDetails = response.data.data;
-
-                                    let orderId = orderDetails.order_id;
-                                    let razorpayOrderId = orderDetails.razorpay_order_id;
-                                    let totalAmount = orderDetails.total_amount;
-                                    let userName = orderDetails.name;
-                                    let userEmail = orderDetails.email;
-                                    let userPhone = orderDetails.phone;
-                                    let userId = orderDetails.user_id;
-
-                                    // ✅ Start Razorpay
-                                    openRazorpayPopup(razorpayOrderId, totalAmount, orderId, userId, userName, userEmail, userPhone, shippingAddress);
-                                } else {
-                                    alert("Failed to place order. Please try again.");
-                                }
-                            },
-                            error: function () {
-                                alert("Failed to place order. Please try again.");
-                            }
-                        });
-                    });
-
-                    // Check if user_role in localStorage is 'vendor'
-                    if (localStorage.getItem("user_role") === "vendor") {
-                        $("#get_quotation").show();
-                    } else {
-                        $("#get_quotation").hide();
-                    }
-
-                    // Quotation button click event
-                    $("#get_quotation").click(function(event) {
-                        event.preventDefault();
-
-                        let shippingAddress = getSelectedAddress();
-                        if (!shippingAddress) return;
-
-                        let quoteData = {
-                            status: "pending",
-                            payment_status: "pending",
-                            shipping_address: shippingAddress
-                        };
-
-                        $.ajax({
-                            url: "<?php echo BASE_URL; ?>/quotation",
-                            type: "POST",
-                            headers: {
-                                "Authorization": `Bearer ${authToken}`,
-                                "Content-Type": "application/json"
-                            },
-                            data: JSON.stringify(quoteData),
-                            success: function(response) {
-                                // Check if the message indicates success
-                                if (response.data && response.data.message && response.data.message.includes("Quotation created successfully")) {
-                                    // Access the actual quotation data
-                                    let quotationData = response.data.data;  // Accessing the nested 'data' field
-
-                                    // Build query parameters from the returned data
-                                    let params = new URLSearchParams();
-                                    for (let key in quotationData) {
-                                        if (quotationData.hasOwnProperty(key)) {
-                                            params.append(key, quotationData[key]);
-                                        }
-                                    }
-
-                                    // Redirect to the quotation page with all data passed as query parameters
-                                    window.location.href = "quotation.php?" + params.toString();
-                                } else {
-                                    // If quotation creation fails, show error
-                                    Swal.fire("Error", "Failed to create quotation. Please try again.", "error");
-                                }
-                            },
-                            error: function() {
-                                Swal.fire("Error", "Failed to get quotation. Please try again.", "error");
-                            }
-                        });
-                    });
-
-                    function openRazorpayPopup(order_id, amount, orderId, userId, name, email, phone, shippingAddress) {
-                        const amountNumber = parseFloat(amount);
-                        if (isNaN(amountNumber) || amountNumber <= 0) {
-                            alert("Something went wrong with the order amount. Please try again.");
-                            return;
-                        }
-                        const amountPaise = Math.round(amountNumber * 100);
-
-                        var options = {
-                            key: "rzp_live_OYEz8EFvKlVIEq",
-                            amount: amountPaise,
-                            currency: "INR",
-                            name: "HANERI ELECTRICALS LLP",
-                            description: `Order ID: ${orderId}`,
-                            image: "https://haneri.com/images/Haneri_Favicon.jpg",
-                            order_id: order_id,
-
-                            // 🔴 REMOVE this:
-                            // handler: function (response) { ... },
-
-                            // ✅ ADD this instead:
-                            callback_url: "<?php echo BASE_URL; ?>/razorpay/callback?order_id=" 
-                                        + encodeURIComponent(orderId)
-                                        + "&shipping_address=" 
-                                        + encodeURIComponent(shippingAddress),
-
-                            redirect: true, // important
-                            // ✅ ADD THIS
-                            modal: {
-                                ondismiss: function () {
-                                    window.location.href =
-                                        "order-complete.php"
-                                        + "?status=pending"
-                                        + "&method=Razorpay"
-                                        + "&payment_id=" + encodeURIComponent("N/A")
-                                        + "&amount=" + encodeURIComponent(amountNumber)
-                                        + "&order_id=" + encodeURIComponent(orderId)
-                                        + "&shipping_address=" + encodeURIComponent(shippingAddress);
-                                }
-                            },
-                            prefill: {
-                                name: name,
-                                email: email,
-                                contact: phone
-                            },
-                            theme: {
-                                color: "#f0f8fe"
-                            }
-                        };
-
-                        var rzp = new Razorpay(options);
-
-                        // You can keep payment.failed if you want an immediate redirect on explicit failure:
-                        rzp.on("payment.failed", function (response) {
-                            console.error("Razorpay payment failed:", response);
-
-                            // Show user the real reason (for now, for debugging)
-                            const desc =
-                                response?.error?.description ||
-                                response?.error?.reason ||
-                                response?.error?.code ||
-                                "Unknown error";
-                            alert("Payment failed: " + desc);
-
-                            // Redirect to failed page with real info
-                            window.location.href =
-                                "order-complete.php"
-                                + "?status=failed"
-                                + "&method=Razorpay"
-                                + "&payment_id=" + encodeURIComponent(
-                                    response?.error?.metadata?.payment_id || "N/A"
-                                )
-                                + "&amount=" + encodeURIComponent(amountNumber)
-                                + "&order_id=" + encodeURIComponent(orderId)
-                                + "&error_code=" + encodeURIComponent(response?.error?.code || "")
-                                + "&error_desc=" + encodeURIComponent(desc)
-                                + "&shipping_address=" + encodeURIComponent(shippingAddress);
-                        });
-
-
-                        try {
-                            rzp.open();
-                        } catch (e) {
-                            console.error("Error while opening Razorpay:", e);
-                            alert("Could not open payment window. Please try again.");
-                        }
-                    }
-
-                    function processPayment(paymentId, orderId, razorpayOrderId, amount, userId, shippingAddress) {
-                        // 1) Save payment in your /payments API
-                        let paymentData = {
-                            method: "upi",
-                            razorpay_payment_id: paymentId,
-                            amount: amount,
-                            status: "paid",              // ✅ match your backend: 'pending', 'paid', 'failed', 'refunded'
-                            order_id: orderId,
-                            razorpay_order_id: razorpayOrderId,
-                            user_id: userId
-                        };
-
-                        $.ajax({
-                            url: `<?php echo BASE_URL; ?>/payments`,
-                            type: "POST",
-                            headers: {
-                                "Authorization": `Bearer ${authToken}`,
-                                "Content-Type": "application/json"
-                            },
-                            data: JSON.stringify(paymentData),
-                            success: function (response) {
-                                if (response.message.includes("success")) {
-                                    let paymentDetails = response.data;
-
-                                    // 2) Immediately update order payment_status => 'paid'
-                                    $.ajax({
-                                        url: `<?php echo BASE_URL; ?>/orders/${orderId}/update-status`,
-                                        type: "POST",
-                                        headers: {
-                                            "Authorization": `Bearer ${authToken}`,
-                                            "Content-Type": "application/json"
-                                        },
-                                        data: JSON.stringify({
-                                            payment_status: "paid"      // 👈 as per your API
-                                        }),
-                                        success: function (updateRes) {
-                                            // Optional: you can check updateRes.success here
-                                            // 3) Finally redirect to order-complete page
-                                            window.location.href = `order-complete.php?status=success`
-                                                + `&method=${encodeURIComponent(paymentDetails.method)}`
-                                                + `&payment_id=${encodeURIComponent(paymentDetails.razorpay_payment_id)}`
-                                                + `&amount=${encodeURIComponent(paymentDetails.amount)}`
-                                                + `&order_id=${encodeURIComponent(paymentDetails.order_id)}`;
-                                        },
-                                        error: function () {
-                                            // If update-status fails, still redirect (so user doesn't get stuck)
-                                            console.warn("Failed to update order payment_status, but payment is saved.");
-                                            window.location.href = `order-complete.php?status=success`
-                                                + `&method=${encodeURIComponent(paymentDetails.method)}`
-                                                + `&payment_id=${encodeURIComponent(paymentDetails.razorpay_payment_id)}`
-                                                + `&amount=${encodeURIComponent(paymentDetails.amount)}`
-                                                + `&order_id=${encodeURIComponent(paymentDetails.order_id)}`;
-                                        }
-                                    });
-
-                                } else {
-                                    alert("Payment processing failed. Please contact support.");
-                                }
-                            },
-                            error: function () {
-                                alert("Payment processing failed. Please contact support.");
-                            }
-                        });
-                    }
-
-                    fetchCartItems(); // Load cart items on page load
-                });
-            </script>
             <!-- Order Summary Section -->
             <div class="col-lg-4">
                 <div class="order-summary">
@@ -2199,6 +1476,785 @@
             <!-- End .col-lg-4 -->
         </div>
         <!-- End .row -->
+        <script>
+            $(document).ready(function () {
+                const authToken = localStorage.getItem('auth_token'); // Replace with actual token
+                const authTemp = localStorage.getItem('temp_id');
+                const cartUrl = "<?php echo BASE_URL; ?>/cart/fetch";
+                const orderUrl = "<?php echo BASE_URL; ?>/orders";
+                const shippingUrl = "<?php echo BASE_URL; ?>/delivery/shipping-cost";
+                const COUPON_CHECK_URL = "<?php echo BASE_URL; ?>/coupons/check";
+                const couponUse = true; // ✅ true = coupon enabled, false = coupon disabled
+                // Coupon setup
+                let appliedCoupon = null;     // stores API coupon data
+                let discountAmount = 0;       // numeric
+                let payableTotal = 0;         // numeric
+
+                function money(n) {
+                    const x = Number(n || 0);
+                    return `₹ ${x.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                }
+                // grand total BEFORE coupon
+                function getGrandTotalBeforeCoupon() {
+                    const items = Number(cartItemsTotal || 0);
+                    const ship  = Number(currentShippingCharge || 0);
+                    return Number((items + ship).toFixed(2));
+                }
+                function computeDiscount(grandTotal, coupon) {
+                    if (!coupon) return 0;
+
+                    const type = String(coupon.discount_type || "").toLowerCase();
+                    const val  = Number(coupon.discount_value || 0);
+
+                    let disc = 0;
+
+                    if (type === "percentage") {
+                        disc = (grandTotal * val) / 100;
+                    } else if (type === "price") {
+                        disc = val;
+                    }
+
+                    disc = Number(disc.toFixed(2));
+
+                    // never allow discount > grand total
+                    if (disc > grandTotal) disc = grandTotal;
+
+                    // never negative
+                    if (disc < 0) disc = 0;
+
+                    return disc;
+                }
+                function renderTotalsWithCoupon() {
+                    if (!couponUse) appliedCoupon = null;
+
+                    const grand = getGrandTotalBeforeCoupon();
+                    discountAmount = computeDiscount(grand, appliedCoupon);
+                    payableTotal = Number((grand - discountAmount).toFixed(2));
+
+                    // UI: discount row
+                    if (discountAmount > 0) {
+                        $("#discountRow").show();
+                        $("#discountAmount").text(`- ${money(discountAmount)}`);
+                    } else {
+                        $("#discountRow").hide();
+                        $("#discountAmount").text(money(0));
+                    }
+
+                    // UI: old total strike + new total
+                    if (appliedCoupon && discountAmount > 0) {
+                        $("#total_old").show().text(money(grand));
+                    } else {
+                        $("#total_old").hide().text(money(0));
+                    }
+
+                    $("#total").text(money(payableTotal));
+                }
+                function clearCouponUI() {
+                    appliedCoupon = null;
+                    discountAmount = 0;
+
+                    $("#couponAppliedBox").hide();
+                    $("#couponAppliedText").text("");
+                    $("#couponCodeInput").val("");
+
+                    renderTotalsWithCoupon();
+                }
+                function showAppliedCouponUI(coupon) {
+                    const type = String(coupon.discount_type || "").toLowerCase();
+                    const val  = Number(coupon.discount_value || 0);
+
+                    const pretty = (type === "percentage") ? `${val}% OFF` : `₹${val} OFF`;
+                    $("#couponAppliedText").text(`Applied: ${coupon.coupon_code} (${pretty})`);
+                    $("#couponAppliedBox").show();
+                }
+                function getAppliedCouponCode() {
+                    return appliedCoupon?.coupon_code ? String(appliedCoupon.coupon_code).trim().toUpperCase() : null;
+                }
+                $("#couponForm").on("submit", function (e) {
+                    e.preventDefault();
+
+                    if (!couponUse) {
+                        Swal.fire("Coupon is not Available", "Try Without Coupon", "info");
+                        return;
+                    }
+                    const authTokenNow = localStorage.getItem("auth_token");
+                    if (!authTokenNow) {
+                        Swal.fire({
+                        icon: "info",
+                        title: "Login required",
+                        html: `Please login first to apply a coupon.`,
+                        showCancelButton: true,
+                        confirmButtonText: "Login",
+                        cancelButtonText: "Cancel"
+                        }).then((r) => {
+                        if (r.isConfirmed) window.location.href = "login.php?redirect=checkout.php";
+                        });
+                        return;
+                    }
+                    const code = String($("#couponCodeInput").val() || "").trim().toUpperCase();
+                    if (!code) return;
+
+                    $("#applyCouponBtn").prop("disabled", true).text("Applying...");
+
+                        fetch(COUPON_CHECK_URL, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${authTokenNow}`
+                            },
+                            body: JSON.stringify({ coupon_code: code })
+                        })
+                        .then(r => r.json())
+                        .then(res => {
+                            const msg = String(res?.message || "");
+                            const msgL = msg.toLowerCase();
+
+                            // ✅ VALID
+                            if (res?.success && res?.code === 200 && res?.data) {
+                            appliedCoupon = res.data;
+                            showAppliedCouponUI(appliedCoupon);
+                            renderTotalsWithCoupon();
+                            return;
+                            }
+
+                            // ❌ INVALID flows
+                            if (msgL.includes("inactive") || msgL.includes("not found")) {
+                            Swal.fire("Invalid coupon", "Coupon is invalid or inactive.", "error");
+                            clearCouponUI();
+                            return;
+                            }
+
+                            if (msgL.includes("expired")) {
+                            Swal.fire("Coupon expired", msg || "Coupon expired.", "warning");
+                            clearCouponUI();
+                            return;
+                            }
+
+                            if (msgL.includes("usage limit reached")) {
+                            Swal.fire("Limit reached", msg || "Coupon usage limit reached.", "warning");
+                            clearCouponUI();
+                            return;
+                            }
+
+                            Swal.fire("Invalid coupon", msg || "Unable to apply coupon.", "error");
+                            clearCouponUI();
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            Swal.fire("Error", "Coupon check failed. Please try again.", "error");
+                            clearCouponUI();
+                        })
+                        .finally(() => {
+                            $("#applyCouponBtn").prop("disabled", false).text("Apply Coupon");
+                        });
+                    });
+
+                    $("#removeCouponLink").on("click", function () {
+                        if (!couponUse) return;
+                        clearCouponUI();
+                    });
+
+
+                let cartTotalWeight = 0;
+                let cartItemsTotal = 0;
+                let currentShippingCharge = 0;
+
+                // ✅ TEMP: disable shipping calculation (keep code, just bypass)
+                const SHIPPING_API_ENABLED = false;
+                
+                function getSelectedPinCode() {
+                    let selectedRadio = $("input[name='address_select']:checked").closest(".address-card");
+                    if (selectedRadio.length === 0) return "";
+
+                    let postalCode = selectedRadio.find(".card-body p:contains('Postal Code')").text()
+                        .replace("Postal Code:", "")
+                        .trim();
+
+                    return postalCode || "";
+                }
+
+                function updateShippingCostFromApi() {
+
+                    // ✅ TEMP: force free shipping (0) and skip API call
+                    if (!SHIPPING_API_ENABLED) {
+                        currentShippingCharge = 0;
+
+                        $(".order-shipping td .form-group-custom-control").html(`
+                            <div class="custom-control custom-radio d-flex">
+                                <input type="radio" class="custom-control-input" name="radio" checked />
+                                <label class="custom-control-label">Free Shipping</label>
+                            </div>
+                        `);
+
+                        // Total = items total only
+                        // $("#total").text(`₹ ${Number(cartItemsTotal || 0).toLocaleString(undefined, {
+                        //     minimumFractionDigits: 2,
+                        //     maximumFractionDigits: 2
+                        // })}`);
+                        renderTotalsWithCoupon(); // ✅ keeps shipping=0, applies coupon if any
+
+                        return; // ✅ stop here, don’t hit shipping API
+                    }
+
+                    const originPin = getSelectedPinCode();
+
+                    // If no address selected yet
+                    if (!originPin) {
+                        $(".order-shipping td .form-group-custom-control").html(`
+                            <div class="custom-control custom-radio d-flex">
+                                <input type="radio" class="custom-control-input" name="radio" checked />
+                                <label class="custom-control-label">Select address to calculate shipping</label>
+                            </div>
+                        `);
+
+                        // Total = items total only (until shipping comes)
+                        // $("#total").text(`₹ ${cartItemsTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+                        renderTotalsWithCoupon();
+                        return;
+                    }
+
+                    // weight from cart fetch response (2 decimals)
+                    const weight2 = Number(cartTotalWeight || 0).toFixed(2);
+
+                    const payload = {
+                        through: "simple",
+                        origin_pin: originPin,
+                        destination_pin: "700001",
+                        weight: parseFloat(weight2),    // keep numeric, 2-dec
+                        cod_amount: 0,
+                        payment_type: "Pre-paid"         // as you said: prepaid
+                    };
+
+                    $.ajax({
+                        url: shippingUrl,
+                        type: "POST",
+                        headers: authToken ? { "Authorization": `Bearer ${authToken}` } : {}, 
+                        contentType: "application/json",
+                        data: JSON.stringify(payload),
+                        success: function (res) {
+
+                            // ✅ Extract cost from your response shape
+                            let cost = 0;
+
+                            if (res && Array.isArray(res.data) && res.data.length > 0) {
+                                cost = res.data[0].total_amount;     // ✅ this is the correct field
+                            } else if (res?.data?.total_amount) {
+                                cost = res.data.total_amount;        // fallback if backend changes to object
+                            }
+
+                            cost = Number(cost) || 0;
+                            currentShippingCharge = cost;
+
+                            // ✅ always show 2 decimals
+                            const costDisplay = cost.toFixed(2);
+
+                            // Update Shipping UI
+                            if (cost <= 0) {
+                                $(".order-shipping td .form-group-custom-control").html(`
+                                    <div class="custom-control custom-radio d-flex">
+                                        <input type="radio" class="custom-control-input" name="radio" checked />
+                                        <label class="custom-control-label">Free Shipping</label>
+                                    </div>
+                                `);
+                            } else {
+                                $(".order-shipping td .form-group-custom-control").html(`
+                                    <div class="custom-control custom-radio d-flex">
+                                        <input type="radio" class="custom-control-input" name="radio" checked />
+                                        <label class="custom-control-label">Shipping Charges ₹${costDisplay}</label>
+                                    </div>
+                                `);
+                            }
+
+                            // ✅ Total = items total + shipping
+                            // const grandTotal = Number(cartItemsTotal) + Number(cost);
+                            // $("#total").text(`₹ ${grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
+                            renderTotalsWithCoupon();
+                        },
+                        error: function () {
+                            console.error("Error fetching shipping cost.");
+
+                            // fallback UI
+                            $(".order-shipping td .form-group-custom-control").html(`
+                                <div class="custom-control custom-radio d-flex">
+                                    <input type="radio" class="custom-control-input" name="radio" checked />
+                                    <label class="custom-control-label">Unable to calculate shipping</label>
+                                </div>
+                            `);
+
+                            // keep total as items total only
+                            // $("#total").text(`₹ ${cartItemsTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+                            renderTotalsWithCoupon();
+                        }
+                    });
+                }
+                // ✅ when user selects an address => recalc shipping
+                $(document).on("change", "input[name='address_select']", function () {
+                    updateShippingCostFromApi();
+                });
+
+                function fetchCartItems() {
+                    const authToken = localStorage.getItem('auth_token');
+                    const authTemp = localStorage.getItem('temp_id');
+                    const cartUrl = "<?php echo BASE_URL; ?>/cart/fetch";
+
+                    const ajaxOptions = {
+                        url: cartUrl,
+                        type: "POST",
+                        contentType: "application/json",
+                        success: function (response) {
+                            if (response.data.length > 0) {
+                                let cartHTML = "";
+                                let subtotal = 0;
+                                let totalTax = 0;
+                                let total = 0;
+                                const GST_RATE = 0.18; // 18% GST
+
+                                response.data.forEach(item => {                                        
+                                    const quantity = item.quantity;
+
+                                    // Remove commas from price string before parsing
+                                    const fullPrice = parseFloat(item.selling_price.replace(/,/g, '')); // inclusive of tax
+
+                                    // Calculate base price and tax per unit
+                                    const basePrice = fullPrice / (1 + GST_RATE);
+                                    const tax = fullPrice - basePrice;
+
+                                    // Totals for this line item
+                                    const itemBaseTotal = basePrice * quantity;
+                                    const itemTaxTotal = tax * quantity;
+                                    const itemTotal = fullPrice * quantity;
+
+                                    // Add to overall totals
+                                    subtotal += itemBaseTotal;
+                                    totalTax += itemTaxTotal;
+                                    total += itemTotal;
+
+                                    // Build HTML for cart
+                                    cartHTML += `
+                                        <tr>
+                                            <td class="product-col">
+                                                <h3 class="product-title">
+                                                    ${item.product_name} - ${item.variant_value} × <span class="product-qty">${quantity}</span>
+                                                </h3>
+                                            </td>
+                                            <td class="price-col">
+                                                <span>₹ ${itemTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                                            </td>
+                                        </tr>
+                                    `;
+                                });
+                                // ✅ store cart totals for shipping calculation (after total is calculated)
+                                cartItemsTotal = Number(total) || 0;
+                                renderTotalsWithCoupon(); // ✅ total reflects coupon even before shipping update runs
+
+                                // ✅ total weight from API (best)
+                                cartTotalWeight = Number(response.total_weight ?? response.totalWeight ?? response.totalWeightKg ?? 0) || 0;
+
+                                // ✅ fallback: if item has weight fields (only if your API returns it)
+                                if (!cartTotalWeight && Array.isArray(response.data)) {
+                                    cartTotalWeight = response.data.reduce((sum, it) => {
+                                        const w = Number(it.weight || it.total_weight || it.weight_kg || 0) || 0;
+                                        const q = Number(it.quantity || 1) || 1;
+                                        return sum + (w * q);
+                                    }, 0);
+                                }
+
+                                // ✅ keep 2 decimals
+                                cartTotalWeight = Number(cartTotalWeight.toFixed(2));
+
+                                // Shipping Logic (must match backend)
+                                let shippingCharge = 0;
+                                let shippingHTML = "";
+
+                                if (total > 5000) {
+                                    shippingCharge = 0;
+                                    shippingHTML = `
+                                        <div class="custom-control custom-radio d-flex">
+                                            <input type="radio" class="custom-control-input" name="radio" checked />
+                                            <label class="custom-control-label">Free Shipping</label>
+                                        </div>
+                                    `;
+                                } else {
+                                    shippingCharge = 0;
+                                    total += shippingCharge;
+                                    shippingHTML = `
+                                        <div class="custom-control custom-radio d-flex">
+                                            <input type="radio" class="custom-control-input" name="radio" checked />
+                                            <label class="custom-control-label">Shipping Charges ₹${shippingCharge.toFixed(2)}</label>
+                                        </div>
+                                    `;
+                                }
+
+
+                                // Render to DOM
+                                $("#cart-items").html(cartHTML);
+                                $("#subtotal").text(`₹ ${subtotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+                                $("#total-tax").text(`₹ ${totalTax.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+                                // $("#total").text(`₹ ${total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+                                // ✅ Set base amount (items total) and let renderTotalsWithCoupon() decide final total
+                                cartItemsTotal = Number(total) || 0;
+                                renderTotalsWithCoupon();
+                                $(".order-shipping td .form-group-custom-control").html(shippingHTML);
+                                // ✅ override the old shipping UI with API shipping
+                                updateShippingCostFromApi();
+                            } else {
+                                cartTotalWeight = 0;
+                                cartItemsTotal = 0;
+                                currentShippingCharge = 0;
+                                // Empty cart
+                                $("#cart-items").html("<tr><td colspan='2'>No items in cart.</td></tr>");
+                                $("#subtotal").text("₹ 0.00");
+                                $("#total-tax").text("₹ 0.00");
+                                $("#total").text("₹ 0.00");
+                                $(".order-shipping td .form-group-custom-control").html(`
+                                    <div class="custom-control custom-radio d-flex">
+                                        <input type="radio" class="custom-control-input" name="radio" checked />
+                                        <label class="custom-control-label">Free Shipping</label>
+                                    </div>
+                                `);
+                            }
+                        },
+                        error: function () {
+                            console.error("Error fetching cart items.");
+                        }
+                    };
+
+                    // Determine how to send credentials
+                    if (authToken) {
+                        ajaxOptions.headers = { "Authorization": `Bearer ${authToken}` };
+                        ajaxOptions.data = JSON.stringify({});
+                    } else if (authTemp) {
+                        ajaxOptions.data = JSON.stringify({ cart_id: authTemp });
+                    } else {
+                        $("#cart-items").html("<tr><td colspan='2'>No items in cart.</td></tr>");
+                        $("#subtotal").text("₹ 0.00");
+                        $("#total-tax").text("₹ 0.00");
+                        $("#total").text("₹ 0.00");
+                        $(".order-shipping td .form-group-custom-control").html(`
+                            <div class="custom-control custom-radio d-flex">
+                                <input type="radio" class="custom-control-input" name="radio" checked />
+                                <label class="custom-control-label">Free Shipping</label>
+                            </div>
+                        `);
+                        return;
+                    }
+
+                    $.ajax(ajaxOptions);
+                }
+
+                function getSelectedAddress() {
+                  let selectedRadio = $("input[name='address_select']:checked").closest(".address-card");
+
+                  if (selectedRadio.length === 0) {
+                    alert("Please select a shipping address.");
+                    return null;
+                  }
+
+                  let name = selectedRadio.find(".card-header h3").text().trim();
+                  let contactNo = selectedRadio.find(".card-header .card-phone").text().trim();
+                  let address1 = selectedRadio.find(".card-body p:contains('Address 1')").text()
+                    .replace("Address 1:", "")
+                    .trim();
+
+                  // Raw add2
+                  let address2Raw = selectedRadio.find(".card-body p:contains('Address 2')").text()
+                    .replace("Address 2:", "")
+                    .trim();
+
+                  // Clean + check add2 ("" / " " / "NA" / "na" etc. → treat as empty)
+                  let address2 = address2Raw;
+                  let address2Upper = address2Raw.toUpperCase();
+                  let hasAddress2 = address2 && address2Upper !== "NA";
+
+                  // Extract Location (Country, State, City)
+                  let locationText = selectedRadio.find(".card-body p:contains('Location')").text()
+                    .replace("Location:", "")
+                    .trim();
+
+                  let locationParts = locationText.split(",").map(item => item.trim());
+
+                  let country = locationParts[0] || "";
+                  let state   = locationParts[1] || "";
+                  let city    = locationParts[2] || "";
+
+                  let postalCode = selectedRadio.find(".card-body p:contains('Postal Code')").text()
+                    .replace("Postal Code:", "")
+                    .trim();
+
+                  // 🔹 New required format:
+                  // name, mobile, city, state, country, pin, add1, add2(if valid)
+                  let shippingAddress = `${name}, ${contactNo}, ${city}, ${state}, ${country}, ${postalCode}, ${address1}`;
+
+                  if (hasAddress2) {
+                    shippingAddress += `, ${address2}`;
+                  }
+
+                  return shippingAddress;
+                }
+
+                $("#placeOrderBtn").click(function (event) {
+                    event.preventDefault();
+
+                    let shippingAddress = getSelectedAddress();
+                    if (!shippingAddress) return;
+                    // ✅ Ensure shipping charge is numeric + 2 decimals
+                    const shippingCharge = Number(currentShippingCharge || 0);
+
+                    let orderData = {
+                        status: "pending",
+                        payment_status: "pending",
+                        shipping_address: shippingAddress,
+                        shipping_charge: Number(shippingCharge.toFixed(2)) // ✅ send to API
+                    };
+                    // ✅ send coupon only when coupon feature enabled and coupon applied
+                    if (couponUse) {
+                        const couponCode = getAppliedCouponCode();
+                        if (couponCode) orderData.coupon_code = couponCode;
+                    }
+
+                    $.ajax({
+                        url: orderUrl,
+                        type: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${authToken}`,
+                            "Content-Type": "application/json"
+                        },
+                        data: JSON.stringify(orderData),
+                        success: function (response) {
+                            if (response.message.includes("success")) {
+                                let orderDetails = response.data.data;
+
+                                let orderId = orderDetails.order_id;
+                                let razorpayOrderId = orderDetails.razorpay_order_id;
+                                let totalAmount = orderDetails.total_amount;
+                                let userName = orderDetails.name;
+                                let userEmail = orderDetails.email;
+                                let userPhone = orderDetails.phone;
+                                let userId = orderDetails.user_id;
+
+                                // ✅ Start Razorpay
+                                openRazorpayPopup(razorpayOrderId, totalAmount, orderId, userId, userName, userEmail, userPhone, shippingAddress);
+                            } else {
+                                alert("Failed to place order. Please try again.");
+                            }
+                        },
+                        error: function () {
+                            alert("Failed to place order. Please try again.");
+                        }
+                    });
+                });
+
+                // Check if user_role in localStorage is 'vendor'
+                if (localStorage.getItem("user_role") === "vendor") {
+                    $("#get_quotation").show();
+                } else {
+                    $("#get_quotation").hide();
+                }
+
+                // Quotation button click event
+                $("#get_quotation").click(function(event) {
+                    event.preventDefault();
+
+                    let shippingAddress = getSelectedAddress();
+                    if (!shippingAddress) return;
+
+                    let quoteData = {
+                        status: "pending",
+                        payment_status: "pending",
+                        shipping_address: shippingAddress
+                    };
+
+                    $.ajax({
+                        url: "<?php echo BASE_URL; ?>/quotation",
+                        type: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${authToken}`,
+                            "Content-Type": "application/json"
+                        },
+                        data: JSON.stringify(quoteData),
+                        success: function(response) {
+                            // Check if the message indicates success
+                            if (response.data && response.data.message && response.data.message.includes("Quotation created successfully")) {
+                                // Access the actual quotation data
+                                let quotationData = response.data.data;  // Accessing the nested 'data' field
+
+                                // Build query parameters from the returned data
+                                let params = new URLSearchParams();
+                                for (let key in quotationData) {
+                                    if (quotationData.hasOwnProperty(key)) {
+                                        params.append(key, quotationData[key]);
+                                    }
+                                }
+
+                                // Redirect to the quotation page with all data passed as query parameters
+                                window.location.href = "quotation.php?" + params.toString();
+                            } else {
+                                // If quotation creation fails, show error
+                                Swal.fire("Error", "Failed to create quotation. Please try again.", "error");
+                            }
+                        },
+                        error: function() {
+                            Swal.fire("Error", "Failed to get quotation. Please try again.", "error");
+                        }
+                    });
+                });
+
+                function openRazorpayPopup(order_id, amount, orderId, userId, name, email, phone, shippingAddress) {
+                    const amountNumber = parseFloat(amount);
+                    if (isNaN(amountNumber) || amountNumber <= 0) {
+                        alert("Something went wrong with the order amount. Please try again.");
+                        return;
+                    }
+                    const amountPaise = Math.round(amountNumber * 100);
+
+                    var options = {
+                        key: "rzp_live_OYEz8EFvKlVIEq",
+                        amount: amountPaise,
+                        currency: "INR",
+                        name: "HANERI ELECTRICALS LLP",
+                        description: `Order ID: ${orderId}`,
+                        image: "https://haneri.com/images/Haneri_Favicon.jpg",
+                        order_id: order_id,
+
+                        // 🔴 REMOVE this:
+                        // handler: function (response) { ... },
+
+                        // ✅ ADD this instead:
+                        callback_url: "<?php echo BASE_URL; ?>/razorpay/callback?order_id=" 
+                                    + encodeURIComponent(orderId)
+                                    + "&shipping_address=" 
+                                    + encodeURIComponent(shippingAddress),
+
+                        redirect: true, // important
+                        // ✅ ADD THIS
+                        modal: {
+                            ondismiss: function () {
+                                window.location.href =
+                                    "order-complete.php"
+                                    + "?status=pending"
+                                    + "&method=Razorpay"
+                                    + "&payment_id=" + encodeURIComponent("N/A")
+                                    + "&amount=" + encodeURIComponent(amountNumber)
+                                    + "&order_id=" + encodeURIComponent(orderId)
+                                    + "&shipping_address=" + encodeURIComponent(shippingAddress);
+                            }
+                        },
+                        prefill: {
+                            name: name,
+                            email: email,
+                            contact: phone
+                        },
+                        theme: {
+                            color: "#f0f8fe"
+                        }
+                    };
+
+                    var rzp = new Razorpay(options);
+
+                    // You can keep payment.failed if you want an immediate redirect on explicit failure:
+                    rzp.on("payment.failed", function (response) {
+                        console.error("Razorpay payment failed:", response);
+
+                        // Show user the real reason (for now, for debugging)
+                        const desc =
+                            response?.error?.description ||
+                            response?.error?.reason ||
+                            response?.error?.code ||
+                            "Unknown error";
+                        alert("Payment failed: " + desc);
+
+                        // Redirect to failed page with real info
+                        window.location.href =
+                            "order-complete.php"
+                            + "?status=failed"
+                            + "&method=Razorpay"
+                            + "&payment_id=" + encodeURIComponent(
+                                response?.error?.metadata?.payment_id || "N/A"
+                            )
+                            + "&amount=" + encodeURIComponent(amountNumber)
+                            + "&order_id=" + encodeURIComponent(orderId)
+                            + "&error_code=" + encodeURIComponent(response?.error?.code || "")
+                            + "&error_desc=" + encodeURIComponent(desc)
+                            + "&shipping_address=" + encodeURIComponent(shippingAddress);
+                    });
+
+
+                    try {
+                        rzp.open();
+                    } catch (e) {
+                        console.error("Error while opening Razorpay:", e);
+                        alert("Could not open payment window. Please try again.");
+                    }
+                }
+
+                function processPayment(paymentId, orderId, razorpayOrderId, amount, userId, shippingAddress) {
+                    // 1) Save payment in your /payments API
+                    let paymentData = {
+                        method: "upi",
+                        razorpay_payment_id: paymentId,
+                        amount: amount,
+                        status: "paid",              // ✅ match your backend: 'pending', 'paid', 'failed', 'refunded'
+                        order_id: orderId,
+                        razorpay_order_id: razorpayOrderId,
+                        user_id: userId
+                    };
+
+                    $.ajax({
+                        url: `<?php echo BASE_URL; ?>/payments`,
+                        type: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${authToken}`,
+                            "Content-Type": "application/json"
+                        },
+                        data: JSON.stringify(paymentData),
+                        success: function (response) {
+                            if (response.message.includes("success")) {
+                                let paymentDetails = response.data;
+
+                                // 2) Immediately update order payment_status => 'paid'
+                                $.ajax({
+                                    url: `<?php echo BASE_URL; ?>/orders/${orderId}/update-status`,
+                                    type: "POST",
+                                    headers: {
+                                        "Authorization": `Bearer ${authToken}`,
+                                        "Content-Type": "application/json"
+                                    },
+                                    data: JSON.stringify({
+                                        payment_status: "paid"      // 👈 as per your API
+                                    }),
+                                    success: function (updateRes) {
+                                        // Optional: you can check updateRes.success here
+                                        // 3) Finally redirect to order-complete page
+                                        window.location.href = `order-complete.php?status=success`
+                                            + `&method=${encodeURIComponent(paymentDetails.method)}`
+                                            + `&payment_id=${encodeURIComponent(paymentDetails.razorpay_payment_id)}`
+                                            + `&amount=${encodeURIComponent(paymentDetails.amount)}`
+                                            + `&order_id=${encodeURIComponent(paymentDetails.order_id)}`;
+                                    },
+                                    error: function () {
+                                        // If update-status fails, still redirect (so user doesn't get stuck)
+                                        console.warn("Failed to update order payment_status, but payment is saved.");
+                                        window.location.href = `order-complete.php?status=success`
+                                            + `&method=${encodeURIComponent(paymentDetails.method)}`
+                                            + `&payment_id=${encodeURIComponent(paymentDetails.razorpay_payment_id)}`
+                                            + `&amount=${encodeURIComponent(paymentDetails.amount)}`
+                                            + `&order_id=${encodeURIComponent(paymentDetails.order_id)}`;
+                                    }
+                                });
+
+                            } else {
+                                alert("Payment processing failed. Please contact support.");
+                            }
+                        },
+                        error: function () {
+                            alert("Payment processing failed. Please contact support.");
+                        }
+                    });
+                }
+
+                fetchCartItems(); // Load cart items on page load
+            });
+        </script>
     </div>
     <!-- End .container -->
 </main>
