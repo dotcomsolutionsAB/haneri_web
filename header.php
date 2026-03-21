@@ -211,10 +211,7 @@ $data = loadData('configs/haneri.json');
                                                     <li>
                                                         <a href="#">Product Help</a>
                                                         <div class="submenu-description">
-                                                            <a href="https://haneri.com/faqs" class="description-link">FAQs</a> |
-                                                            <a href="#" class="description-link">Videos</a> |
-                                                            <a href="#" class="description-link">Catalogues</a> |
-                                                            <a href="#" class="description-link">Manuals</a>
+                                                            <a href="https://haneri.com/faqs" class="description-link">FAQs</a>
                                                         </div>
                                                     </li>
                                                     <li>
