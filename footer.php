@@ -147,10 +147,7 @@
 
     </div><!-- End .mobile-menu-container -->
 
-    <div class="sticky-navbar">
-        <!-- Mobile sitky bottom nav -->
-        <?php include("inc_files/mobile_sticky_bottom_nav.php"); ?>
-    </div>
+    <!-- Mobile sticky bottom nav disabled (was: inc_files/mobile_sticky_bottom_nav.php) -->
 
     <!-- <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a> -->
 
@@ -263,110 +260,6 @@
         // }, 15000); // failsafe after 15s
         // });
     </script> -->
-    <!--Mobile Sticky code-->
-    <style>
-      .sticky-navbar.fixed {
-        display:none;
-      }
-      /* ===== MOBILE STICKY BAR ===== */
-      @media (max-width:520px) {
-        body {
-          padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px));
-        }
-        .wpp i {
-          font-size: 25px !important;
-        }
-        .mobile_sticky_bar {
-            display: none;
-          position: fixed;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          z-index: 9999;
-          display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          align-items: stretch;
-          background: #fff;
-          /* border-top: 1px solid #e9edf0; */
-          box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.06);
-          padding-bottom: env(safe-area-inset-bottom, 0px);
-        }
-    
-        .mobile_sticky_bar .sticky-info {
-          margin: 0;
-          padding: 0;
-        }
-    
-        .mobile_sticky_bar .sticky-info > a {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 4px;
-          padding: 8px 0;
-          text-decoration: none;
-          font-size: 11px;
-          line-height: 1.1;
-          color: #222;
-        }
-    
-        .mobile_sticky_bar .sticky-info i {
-          font-size: 25px;
-          line-height: 1;
-        }
-    
-        .mobile_sticky_bar .sticky-info > a:active {
-          background: #f6f6f6;
-        }
-      }
-    </style>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const mobile_sticky_buttons = Array.from(document.querySelectorAll('.sticky-info'));
-        if (!mobile_sticky_buttons.length) return;
-    
-        const mobile_sticky_mql = window.matchMedia('(max-width:520px)');
-        let mobile_sticky_built = false;
-        let mobile_sticky_bar = null;
-    
-        function mobile_sticky_buildBar() {
-          if (mobile_sticky_built) return;
-          mobile_sticky_bar = document.createElement('div');
-          mobile_sticky_bar.className = 'mobile_sticky_bar';
-    
-          // Move existing sticky-info elements into the bar
-          mobile_sticky_buttons.forEach(node => mobile_sticky_bar.appendChild(node));
-    
-          // Append to body so fixed positioning is viewport-relative
-          document.body.appendChild(mobile_sticky_bar);
-          mobile_sticky_built = true;
-        }
-    
-        function mobile_sticky_destroyBar() {
-          if (!mobile_sticky_built || !mobile_sticky_bar) return;
-    
-          // Move items back out if needed
-          while (mobile_sticky_bar.firstChild) {
-            document.body.insertBefore(mobile_sticky_bar.firstChild, mobile_sticky_bar);
-          }
-          mobile_sticky_bar.remove();
-          mobile_sticky_bar = null;
-          mobile_sticky_built = false;
-        }
-    
-        function mobile_sticky_sync() {
-          if (mobile_sticky_mql.matches) {
-            mobile_sticky_buildBar();
-          } else {
-            mobile_sticky_destroyBar();
-          }
-        }
-    
-        // Run immediately and on viewport changes
-        mobile_sticky_sync();
-        mobile_sticky_mql.addEventListener('change', mobile_sticky_sync);
-        window.addEventListener('resize', mobile_sticky_sync);
-      });
-    </script>
 </body>
 
 </html>

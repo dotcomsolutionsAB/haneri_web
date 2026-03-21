@@ -537,6 +537,19 @@ footer .widget {
 footer a:hover {
     color: #bab9b9;
 }
+
+/* Mobile sticky bottom bar — disabled site-wide */
+.sticky-navbar,
+.mobile_sticky_bar {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+@media (max-width: 520px) {
+    body {
+        padding-bottom: 0 !important;
+    }
+}
 footer a {
     /* color: inherit; */
     line-height: 2.4;
@@ -4063,9 +4076,6 @@ footer .social-icon {
         @media (max-width: 520px) {
             .tab_data{
                 min-height: 45vh;
-            }
-            .sticky-navbar {
-                bottom: -70px;
             }
         }
 

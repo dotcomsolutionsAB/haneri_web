@@ -163,10 +163,7 @@
         <?php include("inc_files/mobile_sidebar.php"); ?>
     </div>
 
-    <div class="sticky-navbar">
-        <!-- Mobile sitky bottom nav -->
-        <?php include("inc_files/mobile_sticky_bottom_nav.php"); ?>
-    </div>
+    <!-- Mobile sticky bottom nav disabled -->
 
     <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
 
