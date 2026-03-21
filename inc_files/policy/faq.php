@@ -54,7 +54,7 @@
     }
     .cats-wrap .heading1{
         text-align:center;
-        color:#00473E;
+        color:#005d5a;
         font-family:"Barlow Condensed",sans-serif;
         line-height:1.25;
         margin:0 0 40px;
@@ -93,7 +93,7 @@
         border:1px solid #d9e3e0;
         /* border-radius:6px; */
         background:#f6fbfa;
-        color:#075E5E;
+        color:#005d5a;
         font-family: "Barlow Condensed";
         font-size:24px;
         /* font:600 14px/1 "Open Sans",Arial,sans-serif; */
@@ -108,7 +108,7 @@
     }
     .cats-nav{
         width:32px;height:32px;border:0;border-radius:4px;cursor:pointer;
-        background:#e7f2f0;color:#075E5E;font-size:18px;line-height:1;display:grid;place-items:center
+        background:#e7f2f0;color:#005d5a;font-size:18px;line-height:1;display:grid;place-items:center
     }
     .cats-nav:disabled{opacity:.4;cursor:not-allowed}
 
@@ -159,7 +159,7 @@
         height:22px;
         /* border-radius:50%; */
         /* border:1px solid #cfe1de; */
-        color:#075E5E;
+        color:#005d5a;
         display:grid;
         place-items:center;
         /* font-weight:700; */
@@ -174,9 +174,9 @@
         padding-left: 10px;
     }
     .acd-item.open .acd-toggle{
-        /* background:#075E5E; */
-        color: #075E5E;
-        border-color: #075E5E;
+        /* background:#005d5a; */
+        color: #005d5a;
+        border-color: #005d5a;
         font-weight: 900;
     }
     .acd-item.open .acd-toggle::after{content:"–"}
@@ -584,7 +584,7 @@
 
   .journal-title {
       font-size: 70px;
-      color: #00473E;
+      color: #005d5a;
       line-height: 1;
       font-weight: 500;
   }
@@ -624,7 +624,7 @@
   .air-button {
     border: none;
     background: none;
-    color: #075E5E;
+    color: #005d5a;
     cursor: pointer;
     padding: 6px;
     display: flex;
@@ -661,7 +661,7 @@
     .air-results-box .air-close{
         position:absolute; top:10px; right:16px;
         border:0; background:transparent; cursor:pointer;
-        font-size:26px; line-height:1; color:#075E5E;
+        font-size:26px; line-height:1; color:#005d5a;
     }
 
     .air-results-overlay {
@@ -700,7 +700,7 @@
     top: 12px;
     right: 20px;
     font-size: 26px;
-    color: #075E5E;
+    color: #005d5a;
     cursor: pointer;
     line-height: 1;
     } */
@@ -736,7 +736,7 @@
     .res-meta {
     margin-left:8px;
     font:600 11px/1 "Open Sans", Arial, sans-serif;
-    color:#075E5E;
+    color:#005d5a;
     background:#e7f2f0;
     padding:2px 6px;
     border-radius:3px;
@@ -744,7 +744,7 @@
     .res-toggle {
     width:22px; height:22px;
     display:grid; place-items:center;
-    color:#075E5E;
+    color:#005d5a;
     font-weight:900;
     }
     .res-toggle::after { content:"+"; }

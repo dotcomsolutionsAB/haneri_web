@@ -211,13 +211,13 @@
     font-size: 36px;
     line-height: 0.8;
     margin-bottom: 20px;
-    color: #00473E;
+    color: #005d5a;
 }
 
 .about-text h3 span {
     font-weight: bold;
     font-size: 42px;
-    color: #00473E;
+    color: #005d5a;
 }
 
 .about-text p {
@@ -232,9 +232,9 @@
     display: inline-block;
     padding: 15px 25px;
     font-size: 16px;
-    color: #00473E;
+    color: #005d5a;
     background-color: transparent;
-    border: 2px solid #00473E;
+    border: 2px solid #005d5a;
     border-radius: 10px;
     text-transform: uppercase;
     font-weight: bold;
@@ -243,7 +243,7 @@
 }
 
 .btn-know-more:hover {
-    background-color: #00473E;
+    background-color: #005d5a;
     color: #fff;
 }
 
@@ -257,7 +257,7 @@
     padding: 0px;
     font-size: 74px;
     line-height: 1.0;
-    color: #00473E;
+    color: #005d5a;
     font-family: system-ui;
     font-size: 85px;
     font-weight: lighter;
@@ -336,7 +336,7 @@
 
 .bespoke-text {
     flex: 1;
-    background-color: #00473E;
+    background-color: #005d5a;
     color: #fff;
     display: flex;
     /* align-items: center; */
@@ -444,8 +444,8 @@
     background: rgb(49 88 88);
 }
 #scroll-top.fixed:hover {
-    color: #315858;
-    background: #a7bbbf;
+    color: #005d5a;
+    background: #c8e5e3;
 }
 /* end faq style */
 
@@ -475,7 +475,7 @@
 footer {
     font-size: 1.3rem;
     color: #fff;
-    background: rgb(0, 71, 62);
+    background: rgb(0, 93, 90);
 }
 .widget-title {
     color: #fff;
@@ -735,7 +735,7 @@ footer a {
 .work-together-section .contentss .contact-btn {
     display: inline-block;
     background-color: white;
-    color: #315858;
+    color: #005d5a;
     font-weight: bold;
     padding: 8px 15px;
     font-size: 15px;
@@ -748,7 +748,7 @@ footer a {
     width: 35%;
 }
 .work-together-section .contentss .contact-btn:hover {
-    background-color: #9fefe599;
+    background-color: #005d5a99;
     color: white;
     box-shadow: 3px 3px 0px 0px;
 }
@@ -888,7 +888,7 @@ Turbosilent
 /* Only For Turbo silent */
 .wave-box {
     overflow-x: hidden;
-    background: linear-gradient(135deg, #00473E, #011d19, #64f4e0);
+    background: linear-gradient(135deg, #005d5a, #005d5a, #005d5a);
     background-size: 200% 200%;
     animation: bgFlow 10s ease-in-out infinite;
     position: relative;
@@ -1059,7 +1059,7 @@ Turbosilent
   }
 
     .why{
-    background: radial-gradient(#4a6a65, #00473e);
+    background: radial-gradient(#005d5a, #005d5a);
     color: #fff;
     border-radius: 15px;
     box-shadow: 10px 10px 1px 1px #ccccccab;
@@ -1089,7 +1089,7 @@ Turbosilent
     }
   /* Body Main heading */
     .primary{
-      color:#00473E;
+      color:#005d5a;
     }
     .dark{
       color: #000;
@@ -1151,7 +1151,7 @@ Turbosilent
       padding: 5px 65px; /* Spacing inside the heading */
       position: relative; /* Enable pseudo-elements */
       display: inline-block; /* Allow background to wrap the text */
-      background: linear-gradient(135deg, #047f89, #315859);
+      background: linear-gradient(135deg, #005d5a, #005d5a);
       border-radius: 0px; /* Rounded corners */
       overflow: hidden; /* Prevent overflow of child elements */
       width:100%;      
@@ -1254,7 +1254,7 @@ Turbosilent
   .work-together-section .contentss .contact-btn {
     display: inline-block;
     background-color: white;
-    color: #315858;
+    color: #005d5a;
     font-weight: bold;
     padding: 8px 15px;
     font-size: 15px;
@@ -1267,7 +1267,7 @@ Turbosilent
     width: 35%;
   }
   .work-together-section .contentss .contact-btn:hover {
-    background-color: #9fefe599;
+    background-color: #005d5a99;
     color: white;
     box-shadow: 3px 3px 0px 0px;
   }
@@ -1592,7 +1592,7 @@ Turbosilent
     padding: 5px 65px; /* Spacing inside the heading */
     position: relative; /* Enable pseudo-elements */
     display: inline-block; /* Allow background to wrap the text */
-    background: linear-gradient(135deg, #047f89, #315859);
+    background: linear-gradient(135deg, #005d5a, #005d5a);
     border-radius: 0px; /* Rounded corners */
     overflow: hidden; /* Prevent overflow of child elements */
     width:100%;

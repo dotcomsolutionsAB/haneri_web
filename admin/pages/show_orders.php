@@ -1733,7 +1733,7 @@ const fetchProviderRates = (provider) => {
         font-weight: 600;
         /* margin-bottom: 10px; */
         text-align: left;
-        color: #00473e;
+        color: #005d5a;
         width: 100%;
         padding: 5px;
         background: #e6e6e6;
@@ -1755,7 +1755,7 @@ const fetchProviderRates = (provider) => {
         padding: 0px;
     }
     .swal2-confirm {
-        background-color: #00473e !important; /* Change "Punch" button to blue */
+        background-color: #005d5a !important; /* Change "Punch" button to blue */
     }
     /* Custom popup style */
     .shipment_popup {

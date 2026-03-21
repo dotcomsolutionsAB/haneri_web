@@ -8,7 +8,7 @@
     --gap-row: 30px;
     --space-md: 28px;
     --radius: 10px;
-    --green: #00473E;
+    --green: #005d5a;
     --orange: #CA5D27;
   }
 

@@ -22,7 +22,7 @@
     .checkout-progress-bar li.active a{
         font-family: 'Barlow Condensed';
         font-size: 20px !important;
-        color: #00473E !important;
+        color: #005d5a !important;
         letter-spacing: 0.02em;
     }
     .checkout-progress-bar li.disabled a {
@@ -116,7 +116,7 @@
 
     .no-address-icon i {
         font-size: 45px;
-        color: #00473E ;
+        color: #005d5a ;
     }
 
     .no-address-title {
@@ -134,7 +134,7 @@
 
     .no-address-btn {
         padding: 10px 20px;
-        background: #00473E ;
+        background: #005d5a ;
         color: #fff;
         border-radius: 8px;
         font-weight: 600;
@@ -143,7 +143,7 @@
         letter-spacing: 0.02em !important;
     }
     .no-address-btn:hover {
-        background: #00473E ;
+        background: #005d5a ;
     }
 
     /* Animations */
@@ -1159,7 +1159,7 @@
                 color: #1b4e47;
             }
             .add_address{
-                color: #00473e !important;
+                color: #005d5a !important;
             }
             
         </style>
@@ -2218,8 +2218,8 @@
         transition: border-color 0.2s, color 0.2s, background 0.2s;
     }
     .swal-send-otp-btn:hover:not(:disabled) {
-        border-color: #00473e;
-        color: #00473e;
+        border-color: #005d5a;
+        color: #005d5a;
         background: #f8faf9;
     }
     .swal-send-otp-btn:disabled {
@@ -2282,7 +2282,7 @@
 <!-- Otp css -->
 <style>
   :root {
-    --primary-green: #00473E;
+    --primary-green: #005d5a;
     --login-font: "Open Sans", sans-serif;
   }
 
@@ -2344,7 +2344,7 @@
   }
   .otp-input:focus {
     border-color: var(--primary-green);
-    box-shadow: 0 0 0 1px #00473e1c;
+    box-shadow: 0 0 0 1px #005d5a1c;
   }
 
   .otp-link-btn {

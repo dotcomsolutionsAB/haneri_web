@@ -137,14 +137,14 @@
                         font-size: 20px;
                         font-weight: bold;
                         margin-top: 40px;
-                        color:rgb(37, 108, 99);
+                        color:rgb(0, 93, 90);
                     }
                     .about .row.row-bg {
                         display: flex;
                         align-items: center;
                         justify-content: center;
                     }
-                    /* #00473e */
+                    /* #005d5a */
                 </style>
             </div>
         </main><!-- End .main -->

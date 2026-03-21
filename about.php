@@ -79,7 +79,7 @@
                 font-size: 20px;
                 font-weight: bold;
                 margin-top: 40px;
-                color: rgb(37, 108, 99);
+                color: rgb(0, 93, 90);
             }
         </style>
 

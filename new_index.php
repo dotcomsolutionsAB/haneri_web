@@ -107,7 +107,7 @@
       .steel-hero .heading_1 {
         margin: 0 0 18px;
         text-align: left;
-        color: #315859;
+        color: #005d5a;
       }
 
       .steel-vid-wrap {

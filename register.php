@@ -100,7 +100,7 @@
   }
   .pw-toggle:hover { color: #000; }
   .forget-password{
-    color: #00473E !important;
+    color: #005d5a !important;
   }
   .register_btn {
     border-radius: 10px !important;
@@ -143,8 +143,8 @@
     margin-bottom: 10px !important;
   }
   .btn-primary {
-    background: #00473e;
-    border-color: #00473e;
+    background: #005d5a;
+    border-color: #005d5a;
     color: #fff;
     border-radius: 10px;
     padding: 10px 20px;

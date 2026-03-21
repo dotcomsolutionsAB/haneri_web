@@ -121,7 +121,7 @@
 
         .journal-title {
             font-size: 70px;
-            color: #00473E;
+            color: #005d5a;
             font-weight: 500;
         }
 
@@ -158,7 +158,7 @@
 
         .category-title {
             font-size: 70px;
-            color: #00473E;
+            color: #005d5a;
             font-weight: 500;
             margin-bottom: 20px;
         }
@@ -195,7 +195,7 @@
             font-family: 'Barlow Condensed' !important;
             font-weight: 500 !important;
             line-height: 1;
-            color: #00473E !important;
+            color: #005d5a !important;
             text-align: left !important;
         }
 
@@ -217,8 +217,8 @@
             transition: 0.3s ease;
             width: fit-content;
             color: #fff;
-            background-color: #00473E;
-            border-color: #00473E;
+            background-color: #005d5a;
+            border-color: #005d5a;
             cursor: pointer;
             font-family: "Open Sans", sans-serif;
             line-height: 1.429;
@@ -236,7 +236,7 @@
 
         .haneri-title {
             font-size: 70px;
-            color: #00473E;
+            color: #005d5a;
             font-weight: 500;
             margin-bottom: 20px;
         }
@@ -253,7 +253,7 @@
 
         .explore-button {
             font-size: 16px;
-            background-color: #00473E;
+            background-color: #005d5a;
             color: #ffffff;
             padding: 12px 30px;
             /* border-radius: 25px; */
@@ -264,8 +264,8 @@
 
         .explore-button:hover {
             background-color: #ffffff;
-            color: #00473E;
-            border:2px solid #00473E;
+            color: #005d5a;
+            border:2px solid #005d5a;
         }
 
 </style>

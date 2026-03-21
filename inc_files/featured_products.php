@@ -25,7 +25,7 @@
   @media (max-width: 600px){  .fi4-grid{ grid-template-columns: 1fr; } }
 
   .fi4-swatch--active {
-    outline: 2px solid #315859;;
+    outline: 2px solid #005d5a;;
     /* border-color: #9c9c9c !important;
     width: 20px;
     height: 24px; */
@@ -80,11 +80,11 @@
     font-family: 'Barlow Condensed';
     font-weight: 400 !important;
     line-height: 1;
-    color: #315859;
+    color: #005d5a;
     text-align: left;
   }
-  /*.fi4-price .label{ color:#315859; font-weight:700; letter-spacing:.02em; }*/
-  /*.fi4-price .value{ color:#315859; font-weight:700; letter-spacing:.02em; }*/
+  /*.fi4-price .label{ color:#005d5a; font-weight:700; letter-spacing:.02em; }*/
+  /*.fi4-price .value{ color:#005d5a; font-weight:700; letter-spacing:.02em; }*/
   .fi4-price del{ color:#B8B8B8; font-weight:600; }
 
   .fi4-swatches{ display:flex; gap:10px; margin: 6px 0 18px 0; padding-left: 2px;}

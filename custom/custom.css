@@ -19,8 +19,8 @@
     object-fit: contain;
 }
 .button:hover {
-    /* background-color: #315859; */
-    color: #315859;
+    /* background-color: #005d5a; */
+    color: #005d5a;
 }
 .button-group {
     position: sticky;
@@ -54,7 +54,7 @@
 }
 .heading_1{
     font-size: 30px;
-    color: #315859;
+    color: #005d5a;
     text-align: left;
     font-weight: 500;
     font-family: 'Barlow Condensed';

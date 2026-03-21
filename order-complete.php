@@ -65,7 +65,7 @@
         position: absolute;
         width: 8px;
         height: 14px;
-        background: linear-gradient(135deg, #00473E, #68d8c5);
+        background: linear-gradient(135deg, #005d5a, #005d5a);
         opacity: 0;
         border-radius: 2px;
         animation: confettiFall 1.8s forwards ease-out;
@@ -122,7 +122,7 @@
         content: "";
         position: absolute;
         inset: -60px;
-        background: radial-gradient(circle at top left, rgba(0, 71, 62, 0.08), transparent 55%);
+        background: radial-gradient(circle at top left, rgba(0, 93, 90, 0.08), transparent 55%);
         opacity: 0.9;
         z-index: 0;
     }
@@ -147,7 +147,7 @@
     }
 
     .hero-card-success .hero-icon-circle {
-        background: linear-gradient(135deg, #00473E, #1ba887);
+        background: linear-gradient(135deg, #005d5a, #005d5a);
     }
     .hero-card-failed .hero-icon-circle {
         background: linear-gradient(135deg, #f43f5e, #be123c);
@@ -175,7 +175,7 @@
     }
     .status-badge-success {
         background: rgba(34, 197, 94, 0.09);
-        color: #15803d;
+        color: #005d5a;
         border: 1px solid rgba(34, 197, 94, 0.4);
     }
     .status-badge-failed {
@@ -197,7 +197,7 @@
         margin-top: 8px;
         padding: 6px 18px;
         border-radius: 999px;
-        background: #00473E;
+        background: #005d5a;
         color: #ffffff;
     }
 
@@ -271,7 +271,7 @@
     }
 
     .btn_color{
-        background:rgb(0, 71, 62);
+        background:rgb(0, 93, 90);
     }
     .summary-value-multiline {
         white-space: normal;
@@ -347,7 +347,7 @@
         text-transform: uppercase;
         font-size: 13px;
         border: none;
-        background: #00473E;
+        background: #005d5a;
         transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
     }
 
@@ -355,7 +355,7 @@
         transform: translateY(-1px);
         color: #fff;
         background-color: #343a40;
-        border-color: #00473E;
+        border-color: #005d5a;
         filter: brightness(1.03);
     }
 

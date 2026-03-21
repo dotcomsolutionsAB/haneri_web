@@ -74,7 +74,7 @@
     --cap-radius: 14px;
     --cap-shadow: 0 6px 20px rgba(0,0,0,.06);
     --cap-stroke: #e5e7eb;
-    --cap-heading-color: #00473E;
+    --cap-heading-color: #005d5a;
   }
 
   /* Wrapper */
@@ -160,7 +160,7 @@
 
   /* Border highlight on hover */
   .cpblts_div_img:hover::after {
-    border-color: #00473E;      /* same as your theme green */
+    border-color: #005d5a;      /* same as your theme green */
   }   
 
   /* Tablet (≥768px) */

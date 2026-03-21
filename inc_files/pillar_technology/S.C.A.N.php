@@ -20,7 +20,7 @@
   --card-pad: 16px;
   --radius: 12px;
   --stroke: #e6efee;
-  --green: #00473E;
+  --green: #005d5a;
   --orange: #CA5D27;
 }
 
@@ -137,7 +137,7 @@
 }
 #scan-Tech .bldch3 p{
   margin:0;
-  color:#315859;
+  color:#005d5a;
   font-size:14.5px;
   line-height:1.6;
 }
@@ -337,10 +337,10 @@
             </li>
             <li>
               <strong>Multi-Mode Control Logic :</strong>
-               <span style="color:#00473E">Breeze Mode</span> Powered by dynamic speed variation algorithms to mimic
+               <span style="color:#005d5a">Breeze Mode</span> Powered by dynamic speed variation algorithms to mimic
               natural airflow.
               <br>
-              <span style="color:#00473E">Turbo Mode</span> Leverages direct motor communication to maximize fan
+              <span style="color:#005d5a">Turbo Mode</span> Leverages direct motor communication to maximize fan
               performance instantly.
             </li>
           </ul>

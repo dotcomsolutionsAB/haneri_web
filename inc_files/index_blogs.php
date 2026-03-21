@@ -154,7 +154,7 @@ In today’s world, where energy efficiency and sustainable living are becoming 
   font-weight: 500;
   font-size: clamp(18px, 2.2vw, 22px);
   line-height: 1.15;
-  color: #2a5b57;
+  color: #005d5a;
   margin: 0;
   text-align: left;
 }
@@ -174,7 +174,7 @@ In today’s world, where energy efficiency and sustainable living are becoming 
   border-radius: 10px;
   border: 1px solid #e5eceb;
   background: #f4faf9;
-  color: #075E5E;
+  color: #005d5a;
   font: 600 13px/1 "Open Sans", Arial, sans-serif;
   text-decoration: none;
   white-space: nowrap;

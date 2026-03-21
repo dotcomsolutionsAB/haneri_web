@@ -134,7 +134,7 @@
 .checkout-progress-bar li.active a {
     font-family: 'Barlow Condensed';
     font-size: 20px !important;
-    color: #00473E;
+    color: #005d5a;
     letter-spacing: 0.02em;
 }
 .cart-summary h3 {
@@ -145,7 +145,7 @@
 .table.table-cart tr th{
     font-family: 'Barlow Condensed';
     font-size: 20px !important;
-    color: #00473E;
+    color: #005d5a;
     letter-spacing: 0.02em;
 }
 .checkout-methods .btn {
@@ -183,20 +183,20 @@
     font-weight:600;
     font-family: 'Barlow Condensed';
     font-size: 18px !important;
-    color: #00473E;
+    color: #005d5a;
     letter-spacing: 0.02em;
 }
 .f145{
     font-family: 'Barlow Condensed';
     font-size: 18px !important;
-    color: #00473E;
+    color: #005d5a;
     letter-spacing: 0.02em;
     font-weight:600;
 }
 .f14{
     font-family: 'Barlow Condensed';
     font-size: 18px !important;
-    color: #00473E;
+    color: #005d5a;
     letter-spacing: 0.02em;
 }
 </style>
@@ -333,7 +333,7 @@
                 let priceHtml = `&#8377;${sellingPrice.toFixed(2)}`;
                 if (discount > 0) {
                     let originalPrice = sellingPrice / (1 - discount / 100);
-                    priceHtml = `<span class="cart-original-price" style="text-decoration:line-through;color:#888;font-size:0.9em;">&#8377;${originalPrice.toFixed(2)}</span> ${priceHtml} <span class="cart-discount-badge" style="display:inline-block;margin-left:4px;padding:2px 6px;background:#e8f5e9;color:#2e7d32;border-radius:4px;font-size:12px;font-weight:600;">${discount}% off</span>`;
+                    priceHtml = `<span class="cart-original-price" style="text-decoration:line-through;color:#888;font-size:0.9em;">&#8377;${originalPrice.toFixed(2)}</span> ${priceHtml} <span class="cart-discount-badge" style="display:inline-block;margin-left:4px;padding:2px 6px;background:#c8e5e3;color:#005d5a;border-radius:4px;font-size:12px;font-weight:600;">${discount}% off</span>`;
                 }
 
                 console.log(`Adding item: ${productName}, Price: ${sellingPrice}, Quantity: ${quantity}, Discount: ${discount}%`);
@@ -591,7 +591,7 @@
         padding: 12px 28px;
         font-size: 16px;
         font-weight: 600;
-        background: #00473e;
+        background: #005d5a;
         color: #fff;
         border-radius: 6px;
         text-decoration: none;
@@ -600,7 +600,7 @@
     }
 
     .empty-cart-btn:hover {
-        background: #01695c;
+        background: #005d5a;
         transform: translateY(-3px);
         box-shadow: 0 6px 18px rgba(0,0,0,0.20);
         color:#000;
@@ -767,7 +767,7 @@
                 </div>
             `,
             confirmButtonText: 'Create Quote',
-            confirmButtonColor: '#00473e',
+            confirmButtonColor: '#005d5a',
             showCancelButton: true,
             cancelButtonText: 'Cancel',
             cancelButtonColor: '#dc3545',

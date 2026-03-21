@@ -1,4 +1,13 @@
 <?php include("header.php"); ?>
+<script>
+(function () {
+    try {
+        if (localStorage.getItem('auth_token')) {
+            window.location.replace('profile.php');
+        }
+    } catch (e) {}
+})();
+</script>
 <?php include("configs/config.php"); ?> 
 <!-- Firebase App (core) -->
 <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
@@ -121,7 +130,7 @@
   }
 
   :root {
-    --primary-green: #00473E;
+    --primary-green: #005d5a;
     --login-font: "Barlow Condensed", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   }
 
@@ -141,7 +150,7 @@
     color: #000;
   }
   .forget-password {
-    color: #00473E !important;
+    color: #005d5a !important;
   }
   .login_btn {
     border-radius: 10px !important;
@@ -313,7 +322,7 @@
   }
   .otp-input:focus {
     border-color: var(--primary-green);
-    box-shadow: 0 0 0 1px #00473e1c;
+    box-shadow: 0 0 0 1px #005d5a1c;
   }
 
   .otp-link-btn {

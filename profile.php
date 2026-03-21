@@ -20,7 +20,7 @@
 		flex-direction: column;
 		font-size: 10px;
 		background: transparent;
-		color: #00473e;
+		color: #005d5a;
 		border: none;
 	}
 	.view-invoice i{

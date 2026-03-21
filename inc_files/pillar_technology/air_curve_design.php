@@ -18,7 +18,7 @@
     --card-pad: 16px;
     --radius: 12px;
     --stroke: #e6efee;
-    --green: #00473E;
+    --green: #005d5a;
     --orange: #CA5D27;
   }
 
@@ -125,7 +125,7 @@
   }
   #air-curve .bldch3 p{
     margin:0;
-    color:#315859;
+    color:#005d5a;
     font-size:14.5px;
     line-height:1.6;
   }

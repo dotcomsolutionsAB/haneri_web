@@ -219,8 +219,8 @@
     </main>
 
     <div id="flash-message" style="display: none; position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
-      background: #b3e3dd; color: #00473E; padding: 14px 24px; border-radius: 8px; font-weight: 500; font-size: 16px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15); transition: bottom 0.4s ease; z-index: 9999; border: 1px solid 00473E;">
+      background: #c8e5e3; color: #005d5a; padding: 14px 24px; border-radius: 8px; font-weight: 500; font-size: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15); transition: bottom 0.4s ease; z-index: 9999; border: 1px solid #005d5a;">
       Item added to cart!
     </div>
     
@@ -265,7 +265,7 @@
         padding: 10px 20px;
         border-radius: 5px;
         border: 0;
-        color: #00473ec2;
+        color: #005d5ac2;
         font-size: 16px;
         }
 
@@ -281,7 +281,7 @@
             padding: 10px 20px;
             border-radius: 5px;
             border: 0px;
-            color: #00473e;
+            color: #005d5a;
             font-size: 14px;
             cursor: pointer;
             font-family: 'Open Sans' !important;
@@ -300,7 +300,7 @@
             flex-direction: column;
           }
           .apply_filter {
-            background: #00473e;
+            background: #005d5a;
             padding: 10px 20px;
             border-radius: 5px;
             border: 0px;
@@ -372,7 +372,7 @@
               height: 20px !important;
             }
             .color-dot.active {
-              outline: 2px solid #315859; !important;
+              outline: 2px solid #005d5a; !important;
               width: 20px !important;
               height: 20px !important;
             }
@@ -392,7 +392,7 @@
               flex-direction: column;
             }
             .apply_filter {
-              background: #00473e;
+              background: #005d5a;
               padding: 10px 20px;
               border-radius: 5px;
               border: 0px;
@@ -412,7 +412,7 @@
               padding: 10px 20px;
               border-radius: 5px;
               border: 0px;
-              color: #00473e;
+              color: #005d5a;
               font-size: 14px;
               cursor: pointer;
               font-family: 'Open Sans' !important;
@@ -1212,7 +1212,7 @@
             $.ajax(ajaxOptions);
         }
 
-        function showFlashMessage(message = "Success!", background = '#b3e3dd', textColor = '#00473E') {
+        function showFlashMessage(message = "Success!", background = '#c8e5e3', textColor = '#005d5a') {
             const flash = document.getElementById("flash-message");
             flash.innerText = message;
             flash.style.background = background;
@@ -1465,7 +1465,7 @@
             font-family: 'Barlow Condensed';
             font-weight: 500 !important;
             line-height: 1;
-            color: #315859;
+            color: #005d5a;
             text-align: left;
         }
         .old-price {
@@ -1547,26 +1547,26 @@
         text-transform: math-auto !important;
       }
       .toolbox .select-custom .form-control {
-        border-color: #00473e;
+        border-color: #005d5a;
         font-family: 'Barlow Condensed';
         text-transform: math-auto;
         font-weight: 500;
       }
       @media (max-width: 991px) {
         .toolbox .select-custom .form-control {
-          color: #00473e;
+          color: #005d5a;
         }
         .sidebar-toggle span {
           font-size: 11px;
           font-weight: 600;
-          color: #00473e;
+          color: #005d5a;
         }
         .sidebar-toggle svg {
-          stroke: #00473e;
+          stroke: #005d5a;
         }
         .sidebar-toggle {
           border-width: 2px;
-          border-color: #00473e;
+          border-color: #005d5a;
           font-weight: 700;
         }
       }

@@ -305,7 +305,7 @@
     font-weight: 700;
     font-size: 14px;
     line-height: 18px;
-    color: #075E5E;
+    color: #005d5a;
     margin: 6px 0 4px;
     text-transform: uppercase;
   }
@@ -333,7 +333,7 @@
     font-size: 14px;
     line-height: 18px;
     text-transform: uppercase;
-    color: #075E5E;
+    color: #005d5a;
     margin: 0 0 6px;
   }
 
@@ -353,7 +353,7 @@
   }
 
   .variant-color-circle.selected {
-    outline: 2px solid #315859;
+    outline: 2px solid #005d5a;
   }
 
   /* ===== PRICES / CART ===== */
@@ -401,7 +401,7 @@
     font-family: "Open Sans", Arial, sans-serif;
     font-size: 14px;
     font-weight: 600;
-    color: #075E5E;
+    color: #005d5a;
     text-decoration: none;
   }
 
@@ -443,7 +443,7 @@
 
   .hx-benefit .hx-txt {
     font-family: "Open Sans", sans-serif;
-    color: #075E5E;
+    color: #005d5a;
     font-weight: 600;
     font-size: 12px;
     line-height: 1.2;
@@ -460,7 +460,7 @@
     font-size: 36px;
     font-weight:400;
     line-height: 1.1;
-    color: #2a5b57;
+    color: #005d5a;
     margin: 0 0 10px;
   }
 
@@ -498,7 +498,7 @@
     top: 0;
     font-weight: 700;
     font-size: 18px;
-    color: #075E5E;
+    color: #005d5a;
     line-height: 1;
   }
 
@@ -536,7 +536,7 @@
     font-size: 36px;
     font-weight: 400;
     line-height: 1.1;
-    color: #2a5b57;
+    color: #005d5a;
     margin: 0 0 10px;
     text-align:left;
   }
@@ -903,7 +903,7 @@
     border-radius: 10px;
     font-size: 18px;
     line-height: 1;
-    color: #315859;
+    color: #005d5a;
     cursor: pointer;
     border: 1px solid #e7e7e7;
   }
@@ -929,7 +929,7 @@
   .dsc-total {
     font-size: 4rem ;
     font-family: "Barlow Condensed", sans-serif;
-    color: #075e5e;
+    color: #005d5a;
     font-weight: 600;
   }
   .dsc-tax {
@@ -955,13 +955,13 @@
     /* min-width: 120px; */
   }
   .dsc-add {
-    background: #075E5E;
+    background: #005d5a;
     color: #fff;
   }
   .dsc-view {
     background: #f7faf9;
     border: 1px solid #e9edf0;
-    color: #075E5E;
+    color: #005d5a;
   }
 
   /* Desktop / Tablet only – mobile par yeh bar band rakho */
@@ -1020,7 +1020,7 @@
     border-radius: 8px;
     font-size: 18px;
     line-height: 1;
-    color: #315859;
+    color: #005d5a;
   }
   #m-qty {
     width: 48px;
@@ -1040,7 +1040,7 @@
   .msc-total-main {
     font-size: 20px;
     font-family: "Barlow Condensed", sans-serif;
-    color: #075e5e;
+    color: #005d5a;
     font-weight: 600;
   }
   .msc-tax {
@@ -1059,13 +1059,13 @@
     font: 700 13px/1 "Open Sans", Arial, sans-serif;
   }
   .msc-add {
-    background: #075E5E;
+    background: #005d5a;
     color: #fff;
   }
   .msc-view {
     background: #f7faf9;
     border: 1px solid #e9edf0;
-    color: #075E5E;
+    color: #005d5a;
   }
 
   /* Only show on small screens */
@@ -1091,7 +1091,7 @@
     font-family: "Barlow Condensed", sans-serif;
     font-size: 30px;
     line-height: 1.1;
-    color: #2a5b57;
+    color: #005d5a;
     font-weight: 600;
     text-transform: uppercase;
   }
@@ -1156,7 +1156,7 @@
     font-family: 'Barlow Condensed';
     font-weight: 500 !important;
     line-height: 1;
-    color: #315859;
+    color: #005d5a;
     text-align: left;
   }
   .rp-mrp {
@@ -1173,7 +1173,7 @@
     border-radius: 10px;
     border: 1px solid #e9edf0;
     color: #f7faf9;
-    background-color: #075e5e;
+    background-color: #005d5a;
     font-weight: 700;
     font-size: 14px;
     text-decoration: none;
@@ -2662,8 +2662,8 @@
     border-radius: 10px !important;
   }
   .btn-primary_light {
-    border-color: #075e5e;
-    background-color: #075e5e;
+    border-color: #005d5a;
+    background-color: #005d5a;
     color: #fff;
     box-shadow: none;
     border-radius: 10px;
@@ -2694,7 +2694,7 @@
     }
     .new-price{
     font-size: 4.4rem !important;
-    color:#075e5e;
+    color:#005d5a;
     }
     .reducePercent{
     font-size: 24px;

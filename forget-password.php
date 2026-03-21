@@ -97,11 +97,11 @@
     }
     .reset_btn {
         border-radius: 10px !important;
-        background: #00473e;
-        border-color: #00473e;
+        background: #005d5a;
+        border-color: #005d5a;
     }
     .forget-password {
-        color: #00473E !important;
+        color: #005d5a !important;
     }
 </style>
 <script>
