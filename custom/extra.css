@@ -2327,9 +2327,28 @@ footer .social-icon {
     }
 
     .edit-add{
-        color: blue !important;
+        color: #005d5a !important;
         background-color: transparent !important;
-        border-color: transparent !important;
+        border: 1px solid #005d5a !important;
+    }
+    .edit-add:hover,
+    .edit-add:focus {
+        color: #fff !important;
+        background-color: #005d5a !important;
+        border-color: #005d5a !important;
+    }
+    /* Beat Bootstrap .btn-primary on address cards (checkout / profile) */
+    .btn.btn-primary.btn-sm.edit-add {
+        color: #005d5a !important;
+        background-color: rgba(0, 93, 90, 0.08) !important;
+        border: 1px solid #005d5a !important;
+        box-shadow: none !important;
+    }
+    .btn.btn-primary.btn-sm.edit-add:hover,
+    .btn.btn-primary.btn-sm.edit-add:focus {
+        color: #fff !important;
+        background-color: #005d5a !important;
+        border-color: #005d5a !important;
     }
  /* checkout page css end */
 
