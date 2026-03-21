@@ -488,10 +488,26 @@ footer .social-icon {
     /* margin: 0 0 -1rem; */
     display: flex;
     gap: 10px;
-    align-items: center;
+    align-items: flex-start;
 }
 .footer .contact-widget {
     margin: 0rem;
+}
+/* Company info: icon + text top-aligned; avoid stretched paragraph height */
+.footer .contact-widget > p {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    height: auto;
+    line-height: 1.5;
+}
+.footer .contact-widget > p:first-child {
+    flex-shrink: 0;
+    line-height: 1;
+    padding-top: 0.2rem;
+}
+.footer .contact-widget > p:first-child i {
+    vertical-align: top;
 }
 footer p {
     margin-bottom: 0rem;

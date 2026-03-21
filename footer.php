@@ -70,8 +70,9 @@
                                                 ?>
                                             <br>
                                                 <?php 
+                                                    $mapsUrl = 'https://www.google.com/maps/search/A-48+Sector+57+Noida+Uttar+Pradesh+201301/@19.6922828,61.0418276,4z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI2MDMxOC4xIKXMDSoASAFQAw%3D%3D';
                                                     if ($data && isset($data['address'])) {
-                                                        echo $data['address'];
+                                                        echo '<a href="' . htmlspecialchars($mapsUrl, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($data['address'], ENT_QUOTES, 'UTF-8') . '</a>';
                                                     } else {
                                                         echo 'Address not found';
                                                     }
@@ -99,7 +100,7 @@
                                             <a href="mailto:<?php echo $data['email']; ?>">
                                                 <?php 
                                                     if ($data && isset($data['email'])) {
-                                                        echo $data['email'];
+                                                        echo "info@haneri.com";
                                                     } else {
                                                         echo 'email not found';
                                                     }
