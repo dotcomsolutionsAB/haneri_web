@@ -681,6 +681,7 @@
 			$( '.mobile-menu-overlay, .mobile-menu-close' ).on( 'click', function ( e ) {
 				$( 'body' ).removeClass( 'mmenu-active' );
 				$( '.menu-toggler' ).removeClass( 'active' );
+				$( '.mobile-menu-toggler' ).removeClass( 'active' );
 				e.preventDefault();
 			} );
 

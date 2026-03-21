@@ -1,28 +1,29 @@
 @media (min-width: 768px) and (max-width: 991px) {
     .mobile-menu-container {
-        background-color: #053d3d !important;
+        background-color: #005d5a !important;
       }
     .mmenu-btn:after {
         display: inline-block;
         margin-top: -2px;
-        font-family: "Barlow Condensed";
-        content: "+" !important;
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        content: "\2b" !important;
      }
     .open a {
-        background-color: #053d3d !important;
+        background-color: rgba(0, 0, 0, 0.12) !important;
     }
     .open>a>.mmenu-btn:after {
-        content: "-" !important;
+        content: "\f00d" !important;
     }
     .col-sm-6 {
         max-width: 32%;
         flex: 0 0 32%;
     }
     
-    /*ham burger menu*/
+    /* Hamburger — Next reference ~24px teal (overridden in Haneri block @ max-width 991) */
     .mobile-menu-toggler {
-        font-size: 36px !important;
-        margin-right: 2.5rem;
+        font-size: 1.5rem !important;
+        margin-right: 0.75rem;
     }
 }
     .cart-table-container {
@@ -551,7 +552,14 @@ footer a:hover {
     }
 }
 
-/* ========== Haneri mobile drawer nav (reference layout) ========== */
+/* ========== Haneri mobile nav (Next-style: panel below main header) ========== */
+:root {
+    --haneri-header-h: 72px;
+    --haneri-brand-teal: #005d5a;
+    --haneri-brand-orange: #ca5d27;
+    --haneri-nav-muted: #464646;
+}
+
 .mobile-menu-wrapper .list-none {
     list-style: none;
 }
@@ -661,112 +669,106 @@ footer a:hover {
     content: "\f00d" !important;
 }
 
-/* Haneri mobile drawer — top bar (light) + teal nav (matches live reference) */
-.mobile-menu-wrapper .haneri-mobile-drawer-header {
-    display: grid;
-    grid-template-columns: 3rem 1fr auto;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.85rem 0.75rem 0.85rem 0.5rem;
-    background: #fff;
-    border-bottom: 1px solid rgba(0, 71, 62, 0.12);
-    flex-shrink: 0;
-    position: sticky;
-    top: 0;
-    z-index: 3;
-}
-.mobile-menu-wrapper .haneri-mobile-drawer-close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    margin: 0;
-    padding: 0;
-    border: none;
-    background: transparent;
-    color: #00473e;
-    font-size: 1.35rem;
-    line-height: 1;
-    cursor: pointer;
-    border-radius: 8px;
-}
-.mobile-menu-wrapper .haneri-mobile-drawer-close:hover {
-    background: rgba(0, 71, 62, 0.06);
-    color: #00332b;
-}
-.mobile-menu-wrapper .haneri-mobile-drawer-logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none !important;
-}
-.mobile-menu-wrapper .haneri-mobile-drawer-logo img {
-    max-height: 32px;
-    width: auto;
-    max-width: 140px;
-    object-fit: contain;
-}
-.mobile-menu-wrapper .haneri-mobile-drawer-actions {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    padding-right: 0.25rem;
-}
-.mobile-menu-wrapper .haneri-drawer-divider {
-    display: inline-block;
-    width: 1px;
-    height: 22px;
-    margin: 0 0.35rem;
-    background: rgba(0, 71, 62, 0.22);
-    flex-shrink: 0;
-}
-.mobile-menu-wrapper .haneri-drawer-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    color: #00473e;
-    font-size: 1.15rem;
-    text-decoration: none !important;
-    border-radius: 8px;
-}
-.mobile-menu-wrapper .haneri-drawer-icon:hover {
-    background: rgba(0, 71, 62, 0.06);
-    color: #00332b;
-}
-/* Theme positions .mobile-menu-close top-right — reset when inside drawer header */
-.mobile-menu-wrapper .haneri-mobile-drawer-header .mobile-menu-close {
-    position: static !important;
-    top: auto !important;
-    right: auto !important;
+/* Desktop main nav — Next reference: #464646 14px semibold uppercase, hover #ca5d27 */
+@media (min-width: 992px) {
+    .header .main-nav .menu > li > a {
+        color: var(--haneri-nav-muted, #464646) !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        letter-spacing: -0.25px;
+        text-transform: uppercase;
+        font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+        padding: 15px !important;
+        transition: color 0.3s ease;
+    }
+    .header .main-nav .menu > li > a:hover {
+        color: var(--haneri-brand-orange, #ca5d27) !important;
+    }
 }
 
-/* Mobile menu: full-width panel drops from top (not slide-in from left) */
+/* Mobile menu: full-width panel drops below fixed header (no duplicate drawer bar) */
 @media (max-width: 991px) {
     .mmenu-active .page-wrapper,
     .sidebar-opened .page-wrapper {
         left: 0 !important;
     }
+
+    /* Keep real header above overlay + panel */
+    .mmenu-active .header.header {
+        z-index: 1062 !important;
+    }
+
+    .header .header-middle.sticky-header {
+        background: #fff !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .mobile-menu-toggler {
+        color: var(--haneri-brand-teal, #005d5a) !important;
+        font-size: 1.5rem !important;
+        line-height: 1 !important;
+        padding: 0.5rem !important;
+        margin-right: 0.75rem !important;
+        background: transparent !important;
+        border: none !important;
+        cursor: pointer;
+    }
+    .mobile-menu-toggler .haneri-icon-menu-close {
+        display: none !important;
+    }
+    .mobile-menu-toggler.active .haneri-icon-menu-open {
+        display: none !important;
+    }
+    .mobile-menu-toggler.active .haneri-icon-menu-close {
+        display: inline-block !important;
+    }
+
+    .header .logo img,
+    .header .logos img {
+        max-height: 24px !important;
+        width: auto;
+    }
+    @media (min-width: 576px) {
+        .header .logo img,
+        .header .logos img {
+            max-height: 32px !important;
+        }
+    }
+
+    .header-right .header-icon,
+    .header-right {
+        color: var(--haneri-brand-teal, #005d5a) !important;
+    }
+
+    .mobile-menu-overlay {
+        top: var(--haneri-header-h, 72px) !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        height: auto !important;
+        z-index: 1054 !important;
+    }
+
     .mobile-menu-container {
         left: 0 !important;
         right: 0 !important;
-        top: 0 !important;
+        top: var(--haneri-header-h, 72px) !important;
         bottom: auto !important;
         width: 100% !important;
         max-width: none !important;
         height: auto !important;
-        max-height: min(100vh, 100dvh) !important;
+        max-height: calc(100vh - var(--haneri-header-h, 72px)) !important;
+        max-height: calc(100dvh - var(--haneri-header-h, 72px)) !important;
         transform: translateY(-100%) !important;
         transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
         box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
         overflow-x: hidden !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
-        background-color: #00504b !important;
+        background-color: var(--haneri-brand-teal, #005d5a) !important;
         display: flex;
         flex-direction: column;
+        z-index: 1055 !important;
     }
     .mmenu-active .mobile-menu-container {
         transform: translateY(0) !important;
@@ -782,7 +784,7 @@ footer a:hover {
         flex: 1;
         margin: 0 !important;
         padding: 0.25rem 0 1.5rem;
-        background: #00504b;
+        background: var(--haneri-brand-teal, #005d5a);
     }
 }
 
@@ -3676,19 +3678,20 @@ footer .social-icon {
             margin-bottom: 2px;
         }
         .mobile-menu-container {
-            background-color: #053d3d !important;
+            background-color: #005d5a !important;
         }
         .open a{
-            background-color: #053d3d !important;
+            background-color: rgba(0, 0, 0, 0.12) !important;
         }
         .mmenu-btn:after {
             display: inline-block;
             margin-top: -2px;
-            font-family: "Barlow Condensed";
-            content: "+" !important;
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            content: "\2b" !important;
         }
         .open>a>.mmenu-btn:after {
-            content: "-" !important;
+            content: "\f00d" !important;
         }
         .mobile-menu-container .search-wrapper .form-control {
             background: #4d7575;

@@ -175,6 +175,7 @@
 
     <!-- Main JS File -->
     <script src="assets/js/main.min.js"></script>
+    <?php include __DIR__ . '/inc_files/haneri_mobile_footer_scripts.php'; ?>
 </body>
 
 </html>
