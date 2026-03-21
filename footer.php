@@ -61,16 +61,16 @@
                                         <p><i class="fas fa-home"></i></p>
                                         <p>
                                             <span>
-                                                <?php 
+                                                <?php
+                                                    $mapsUrl = 'https://www.google.com/maps/search/A-48+Sector+57+Noida+Uttar+Pradesh+201301/@19.6922828,61.0418276,4z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI2MDMxOC4xIKXMDSoASAFQAw%3D%3D';
                                                     if ($data && isset($data['name'])) {
-                                                        echo $data['name'];
+                                                        echo '<a href="' . htmlspecialchars($mapsUrl, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($data['name'], ENT_QUOTES, 'UTF-8') . '</a>';
                                                     } else {
                                                         echo 'Name not found';
                                                     }
                                                 ?>
                                             <br>
-                                                <?php 
-                                                    $mapsUrl = 'https://www.google.com/maps/search/A-48+Sector+57+Noida+Uttar+Pradesh+201301/@19.6922828,61.0418276,4z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI2MDMxOC4xIKXMDSoASAFQAw%3D%3D';
+                                                <?php
                                                     if ($data && isset($data['address'])) {
                                                         echo '<a href="' . htmlspecialchars($mapsUrl, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($data['address'], ENT_QUOTES, 'UTF-8') . '</a>';
                                                     } else {
@@ -277,6 +277,7 @@
           font-size: 25px !important;
         }
         .mobile_sticky_bar {
+            display: none;
           position: fixed;
           left: 0;
           right: 0;

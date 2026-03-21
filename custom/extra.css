@@ -442,6 +442,12 @@ footer {
 .widget-title {
     color: #fff;
 }
+.footer .widget.center .widget-title {
+    transition: color 0.2s ease;
+}
+.footer .widget.center .widget-title:hover {
+    color: #ca5d27;
+}
 .footer .contact-widget .widget-title {
     color: #dfdfdf;
     font-weight: 600;
