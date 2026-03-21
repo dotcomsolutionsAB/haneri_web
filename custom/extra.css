@@ -577,11 +577,12 @@ footer a:hover {
     width: 100%;
     box-sizing: border-box;
     margin: 0 !important;
-    padding: 1rem 1.5rem !important;
+    padding: 1.35rem 1.65rem !important;
     color: #fff !important;
     font-size: 1rem !important;
     font-weight: 400;
-    letter-spacing: 0.05em;
+    font-family: "Barlow Condensed", "Open Sans", sans-serif;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     text-decoration: none !important;
     line-height: 1.35;
@@ -629,6 +630,7 @@ footer a:hover {
     line-height: 1 !important;
     font-size: 0.875rem !important;
     background: transparent !important;
+    color: #fff !important;
     order: 2;
 }
 .mobile-menu-wrapper .haneri-mobile-menu .mmenu-btn:after {
@@ -644,6 +646,88 @@ footer a:hover {
 }
 .mobile-menu-wrapper .haneri-mobile-menu .open > .mmenu-btn::after {
     content: "\f068" !important;
+}
+
+/* Haneri mobile drawer — top bar (light) + teal nav (matches live reference) */
+.mobile-menu-wrapper .haneri-mobile-drawer-header {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 0.75rem 0.85rem 0.5rem;
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 71, 62, 0.12);
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+}
+.mobile-menu-wrapper .haneri-mobile-drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #00473e;
+    font-size: 1.35rem;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.mobile-menu-wrapper .haneri-mobile-drawer-close:hover {
+    background: rgba(0, 71, 62, 0.06);
+    color: #00332b;
+}
+.mobile-menu-wrapper .haneri-mobile-drawer-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none !important;
+}
+.mobile-menu-wrapper .haneri-mobile-drawer-logo img {
+    max-height: 32px;
+    width: auto;
+    max-width: 140px;
+    object-fit: contain;
+}
+.mobile-menu-wrapper .haneri-mobile-drawer-actions {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding-right: 0.25rem;
+}
+.mobile-menu-wrapper .haneri-drawer-divider {
+    display: inline-block;
+    width: 1px;
+    height: 22px;
+    margin: 0 0.35rem;
+    background: rgba(0, 71, 62, 0.22);
+    flex-shrink: 0;
+}
+.mobile-menu-wrapper .haneri-drawer-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #00473e;
+    font-size: 1.15rem;
+    text-decoration: none !important;
+    border-radius: 8px;
+}
+.mobile-menu-wrapper .haneri-drawer-icon:hover {
+    background: rgba(0, 71, 62, 0.06);
+    color: #00332b;
+}
+/* Theme positions .mobile-menu-close top-right — reset when inside drawer header */
+.mobile-menu-wrapper .haneri-mobile-drawer-header .mobile-menu-close {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
 }
 
 /* Mobile menu: full-width panel drops from top (not slide-in from left) */
@@ -667,13 +751,25 @@ footer a:hover {
         overflow-x: hidden !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
+        background-color: #053d3d !important;
+        display: flex;
+        flex-direction: column;
     }
     .mmenu-active .mobile-menu-container {
         transform: translateY(0) !important;
     }
     .mobile-menu-wrapper {
-        padding-top: 3.25rem !important;
-        padding-bottom: 2rem !important;
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        flex: 1;
+    }
+    .mobile-menu-wrapper .haneri-mobile-nav {
+        flex: 1;
+        margin: 0 !important;
+        padding: 0.25rem 0 1.5rem;
+        background: #053d3d;
     }
 }
 
