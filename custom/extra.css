@@ -550,6 +550,133 @@ footer a:hover {
         padding-bottom: 0 !important;
     }
 }
+
+/* ========== Haneri mobile drawer nav (reference layout) ========== */
+.mobile-menu-wrapper .list-none {
+    list-style: none;
+}
+.mobile-menu-wrapper .p-0 {
+    padding: 0;
+}
+.mobile-menu-wrapper .haneri-mobile-nav {
+    margin: 0;
+    padding: 0;
+}
+.mobile-menu-wrapper .haneri-mobile-menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.mobile-menu-wrapper .haneri-mobile-menu > li.haneri-mobile-nav-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+.mobile-menu-wrapper .haneri-mobile-menu > .haneri-mobile-nav-item > .haneri-mobile-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 !important;
+    padding: 1rem 1.5rem !important;
+    color: #fff !important;
+    font-size: 1rem !important;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    line-height: 1.35;
+}
+.mobile-menu-wrapper .haneri-mobile-menu > .haneri-mobile-nav-item > .haneri-mobile-nav-link:hover,
+.mobile-menu-wrapper .haneri-mobile-menu > .haneri-mobile-nav-item > .haneri-mobile-nav-link:focus {
+    color: #fff !important;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+.mobile-menu-wrapper .haneri-mobile-menu li.open > a.haneri-mobile-nav-link,
+.mobile-menu-wrapper .haneri-mobile-menu li.open > a {
+    color: #fff !important;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+.mobile-menu-wrapper .haneri-mobile-menu li ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: rgba(0, 0, 0, 0.18);
+}
+.mobile-menu-wrapper .haneri-mobile-menu li ul li a {
+    display: block;
+    margin: 0 !important;
+    padding: 0.85rem 1.5rem 0.85rem 2rem !important;
+    color: rgba(255, 255, 255, 0.92) !important;
+    font-size: 0.95rem !important;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    text-decoration: none !important;
+}
+.mobile-menu-wrapper .haneri-mobile-menu li ul li a:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff !important;
+}
+.mobile-menu-wrapper .haneri-mobile-menu .mmenu-btn {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 0 0 0.75rem !important;
+    padding: 0 !important;
+    flex-shrink: 0;
+    line-height: 1 !important;
+    font-size: 0.875rem !important;
+    background: transparent !important;
+    order: 2;
+}
+.mobile-menu-wrapper .haneri-mobile-menu .mmenu-btn:after {
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    content: "\2b" !important;
+    display: inline-block !important;
+    margin-top: 0 !important;
+}
+.mobile-menu-wrapper .haneri-mobile-menu li.open > a > .mmenu-btn:after,
+.mobile-menu-wrapper .haneri-mobile-menu .open > a > .mmenu-btn:after {
+    content: "\f068" !important;
+}
+.mobile-menu-wrapper .haneri-mobile-menu .open > .mmenu-btn::after {
+    content: "\f068" !important;
+}
+
+/* Mobile menu: full-width panel drops from top (not slide-in from left) */
+@media (max-width: 991px) {
+    .mmenu-active .page-wrapper,
+    .sidebar-opened .page-wrapper {
+        left: 0 !important;
+    }
+    .mobile-menu-container {
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+        bottom: auto !important;
+        width: 100% !important;
+        max-width: none !important;
+        height: auto !important;
+        max-height: min(100vh, 100dvh) !important;
+        transform: translateY(-100%) !important;
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .mmenu-active .mobile-menu-container {
+        transform: translateY(0) !important;
+    }
+    .mobile-menu-wrapper {
+        padding-top: 3.25rem !important;
+        padding-bottom: 2rem !important;
+    }
+}
+
 footer a {
     /* color: inherit; */
     line-height: 2.4;
