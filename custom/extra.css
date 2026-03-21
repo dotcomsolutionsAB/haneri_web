@@ -568,7 +568,7 @@ footer a:hover {
     list-style: none;
 }
 .mobile-menu-wrapper .haneri-mobile-menu > li.haneri-mobile-nav-item {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 .mobile-menu-wrapper .haneri-mobile-menu > .haneri-mobile-nav-item > .haneri-mobile-nav-link {
     display: flex;
@@ -595,27 +595,39 @@ footer a:hover {
 .mobile-menu-wrapper .haneri-mobile-menu li.open > a.haneri-mobile-nav-link,
 .mobile-menu-wrapper .haneri-mobile-menu li.open > a {
     color: #fff !important;
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: rgba(0, 0, 0, 0.12);
 }
+/* Sub-menu panel — charcoal-teal (reference #1e3b38) */
 .mobile-menu-wrapper .haneri-mobile-menu li ul {
     margin: 0;
-    padding: 0;
+    padding: 0.35rem 0 0.65rem;
     list-style: none;
-    background: rgba(0, 0, 0, 0.18);
+    background: #1e3b38 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.mobile-menu-wrapper .haneri-mobile-menu li ul li {
+    margin: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.mobile-menu-wrapper .haneri-mobile-menu li ul li:last-child {
+    border-bottom: none;
 }
 .mobile-menu-wrapper .haneri-mobile-menu li ul li a {
     display: block;
     margin: 0 !important;
-    padding: 0.85rem 1.5rem 0.85rem 2rem !important;
-    color: rgba(255, 255, 255, 0.92) !important;
-    font-size: 0.95rem !important;
+    padding: 1.05rem 1.65rem 1.05rem 2.35rem !important;
+    color: #fff !important;
+    font-size: 0.9375rem !important;
     font-weight: 400;
+    font-family: "Open Sans", "Barlow Condensed", sans-serif;
     text-transform: none;
     letter-spacing: 0.02em;
     text-decoration: none !important;
+    line-height: 1.45;
 }
-.mobile-menu-wrapper .haneri-mobile-menu li ul li a:hover {
-    background: rgba(255, 255, 255, 0.06);
+.mobile-menu-wrapper .haneri-mobile-menu li ul li a:hover,
+.mobile-menu-wrapper .haneri-mobile-menu li ul li a:focus {
+    background: rgba(255, 255, 255, 0.07);
     color: #fff !important;
 }
 .mobile-menu-wrapper .haneri-mobile-menu .mmenu-btn {
@@ -640,12 +652,13 @@ footer a:hover {
     display: inline-block !important;
     margin-top: 0 !important;
 }
+/* Expanded: show × (not minus) */
 .mobile-menu-wrapper .haneri-mobile-menu li.open > a > .mmenu-btn:after,
 .mobile-menu-wrapper .haneri-mobile-menu .open > a > .mmenu-btn:after {
-    content: "\f068" !important;
+    content: "\f00d" !important;
 }
 .mobile-menu-wrapper .haneri-mobile-menu .open > .mmenu-btn::after {
-    content: "\f068" !important;
+    content: "\f00d" !important;
 }
 
 /* Haneri mobile drawer — top bar (light) + teal nav (matches live reference) */
@@ -751,7 +764,7 @@ footer a:hover {
         overflow-x: hidden !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
-        background-color: #053d3d !important;
+        background-color: #00504b !important;
         display: flex;
         flex-direction: column;
     }
@@ -769,7 +782,7 @@ footer a:hover {
         flex: 1;
         margin: 0 !important;
         padding: 0.25rem 0 1.5rem;
-        background: #053d3d;
+        background: #00504b;
     }
 }
 
