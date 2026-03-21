@@ -1,11 +1,15 @@
 <div class="mobile-menu-wrapper">
-    <nav class="mobile-nav haneri-mobile-nav">
-        <ul class="mobile-menu haneri-mobile-menu list-none p-0">
-            <li class="haneri-mobile-nav-item">
-                <a class="haneri-mobile-nav-link" href="https://haneri.com/">Home</a>
+    <div class="mobile-menu-close" role="button" tabindex="0" aria-label="Close menu">
+        <i class="fas fa-times"></i>
+    </div>
+
+    <nav class="mobile-nav">
+        <ul class="mobile-menu">
+            <li>
+                <a href="https://haneri.com/">Home</a>
             </li>
-            <li class="haneri-mobile-nav-item">
-                <a class="haneri-mobile-nav-link" href="https://haneri.com/shop">Categories</a>
+            <li>
+                <a href="https://haneri.com/shop">Categories</a>
                 <ul>
                     <li><a href="https://haneri.com/shop?category=Ceiling Fan">Ceiling Fan</a></li>
                     <li><a href="https://haneri.com/shop?category=Table Wall Pedestals">Table Wall Pedestals</a></li>
@@ -13,8 +17,8 @@
                     <li><a href="https://haneri.com/shop?category=Personal">Personal</a></li>
                 </ul>
             </li>
-            <li class="haneri-mobile-nav-item">
-                <a class="haneri-mobile-nav-link" href="https://haneri.com/air-curve-design">Pillar Technology</a>
+            <li>
+                <a href="https://haneri.com/air-curve-design">Pillar Technology</a>
                 <ul>
                     <li><a href="https://haneri.com/air-curve-design">Air Curve Design</a></li>
                     <li><a href="https://haneri.com/turbosilent-bldc">TurboSilent BLDC</a></li>
@@ -23,8 +27,8 @@
                     <li><a href="https://haneri.com/scan">SCAN</a></li>
                 </ul>
             </li>
-            <li class="haneri-mobile-nav-item">
-                <a class="haneri-mobile-nav-link" href="https://haneri.com/our-story">About Us</a>
+            <li>
+                <a href="https://haneri.com/our-story">About Us</a>
                 <ul>
                     <li><a href="https://haneri.com/our-story#vision">Vision</a></li>
                     <li><a href="https://haneri.com/our-story#mission">Mission</a></li>
@@ -32,8 +36,8 @@
                     <li><a href="https://haneri.com/our-brands#haneri">Our Brands</a></li>
                 </ul>
             </li>
-            <li class="haneri-mobile-nav-item">
-                <a class="haneri-mobile-nav-link" href="https://haneri.com/faqs">Support</a>
+            <li>
+                <a href="https://haneri.com/faqs">Support</a>
                 <ul>
                     <li><a href="https://haneri.com/faqs">FAQs</a></li>
                     <li><a href="https://haneri.com/contact">Corporate Enquiry</a></li>

@@ -76,9 +76,8 @@ $data = loadData('configs/haneri.json');
             <div class="header-middle sticky-header">
                 <div class="container">
                     <div class="header-left">
-                        <button class="mobile-menu-toggler" type="button" aria-label="Toggle menu">
-                            <i class="fas fa-bars haneri-icon-menu-open" aria-hidden="true"></i>
-                            <i class="fas fa-times haneri-icon-menu-close" aria-hidden="true"></i>
+                        <button class="mobile-menu-toggler" type="button">
+                            <i class="fas fa-bars"></i>
                         </button>
                         <!-- <a href="https://haneri.com" class="logo"> -->
                         <a href="https://haneri.com/" class="logo">
@@ -245,11 +244,11 @@ $data = loadData('configs/haneri.json');
                             <a href="https://haneri.com/account/profile" class="header-icon header-icon-user" title="Profile">
                                 <i class="icon-user-2"></i>
                             </a> |
-                            <a href="https://haneri.com/account/cart" class="header-icon header-icon-wishlist" title="Cart">
-                                <i class="fas fa-shopping-cart"></i>
-                            </a> |
-                            <a href="https://wa.me/918377826826" class="header-icon" target="_blank" rel="noopener noreferrer" title="WhatsApp">
+                            <a href="#" class="header-icon">
                                 <i class="fab fa-whatsapp"></i>
+                            </a> |
+                            <a href="https://haneri.com/account/cart" class="header-icon header-icon-wishlist" title="Wishlist">
+                                <i class="fas fa-shopping-cart"></i>
                             </a> |
                             <a href="#" class="header-icon" id="logout-btn" title="Logout">
                                 <i class="fas fa-sign-out-alt"></i>
@@ -259,10 +258,7 @@ $data = loadData('configs/haneri.json');
                             <a href="https://haneri.com/account/login" class="header-icon header-icon-user" title="Login">
                                 <i class="icon-user-2"></i>
                             </a> |
-                            <a href="https://haneri.com/account/cart" class="header-icon header-icon-wishlist" title="Cart">
-                                <i class="fas fa-shopping-cart"></i>
-                            </a> |
-                            <a href="https://wa.me/918377826826" class="header-icon" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                            <a href="#" class="header-icon"><i class="fab fa-whatsapp"></i></a>
                         <?php endif; ?>
 
                         <!-- <div class="header-search header-search-popup header-search-category d-none d-sm-block">
@@ -283,10 +279,10 @@ $data = loadData('configs/haneri.json');
                     <a href="https://haneri.com/account/profile" class="header-icon header-icon-user" title="Profile">
                         <i class="icon-user-2"></i>
                     </a> |
-                    <a href="https://haneri.com/account/cart" class="header-icon cart" title="Cart">
+                    <a href="#" class="header-icon"><i class="fab fa-whatsapp"></i></a> |
+                    <a href="https://haneri.com/account/cart" class="header-icon cart" title="cart">
                         <i class="fas fa-shopping-cart"></i>
                     </a> |
-                    <a href="https://wa.me/918377826826" class="header-icon" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i class="fab fa-whatsapp"></i></a> |
                     <a href="#" class="header-icon" id="logout-btn" title="Logout">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
@@ -304,10 +300,7 @@ $data = loadData('configs/haneri.json');
                     <a href="https://haneri.com/account/login" class="header-icon header-icon-user" title="Login">
                         <i class="icon-user-2"></i>
                     </a> |
-                    <a href="https://haneri.com/account/cart" class="header-icon header-icon-wishlist" title="Cart">
-                        <i class="fas fa-shopping-cart"></i>
-                    </a> |
-                    <a href="https://wa.me/918377826826" class="header-icon" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="header-icon"><i class="fab fa-whatsapp"></i></a>
                 `;
             }
         });
