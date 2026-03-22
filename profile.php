@@ -1,12 +1,23 @@
 <script>
-	document.addEventListener("DOMContentLoaded", function() {
-		const authToken = localStorage.getItem("auth_token");
-
-		if (!authToken) {
-			// If no token, redirect to login page
-			window.location.href = "login.php";
+(function () {
+	try {
+		// Magic login link: profile.php?token=YOUR_JWT#address (hash is not sent to server; use for tab)
+		// Or: profile.php?token=YOUR_JWT&tab=address
+		var url = new URL(window.location.href);
+		var token = url.searchParams.get("token");
+		if (token !== null && String(token).replace(/\s/g, "") !== "") {
+			localStorage.setItem("auth_token", String(token).trim());
+			url.searchParams.delete("token");
+			var qs = url.searchParams.toString();
+			window.history.replaceState({}, document.title, url.pathname + (qs ? "?" + qs : "") + url.hash);
 		}
-	});
+	} catch (e) {}
+
+	if (!localStorage.getItem("auth_token")) {
+		var back = "profile.php" + window.location.search + window.location.hash;
+		window.location.replace("login.php?redirect=" + encodeURIComponent(back));
+	}
+})();
 </script>
 
 
@@ -1377,10 +1388,10 @@
 </script>
 
 <!-- 
-Quotation: profile.php#quotation
-Orders: profile.php#order
-Address: profile.php#address
-Edit: profile.php#edit
+Tabs: profile.php#quotation | #order | #address | #edit
+Or: profile.php?tab=address
+Magic login + Addresses tab: profile.php?token=YOUR_JWT#address
+  (JWT must be in ?token=… ; #address selects the tab — do not put # inside the token value)
  -->
 
 

@@ -1,9 +1,25 @@
 <?php include("header.php"); ?>
 <script>
+/** Relative in-app path only (e.g. profile.php#address); blocks open redirects */
+window.haneriGetSafeRedirect = function () {
+    try {
+        var raw = new URLSearchParams(window.location.search).get("redirect");
+        if (!raw) return null;
+        var decoded = decodeURIComponent(raw);
+        if (/^https?:/i.test(decoded)) return null;
+        if (decoded.indexOf("://") !== -1) return null;
+        if (!String(decoded).trim()) return null;
+        if (/^(javascript|data|vbscript):/i.test(decoded.trim())) return null;
+        return decoded;
+    } catch (e) {
+        return null;
+    }
+};
 (function () {
     try {
-        if (localStorage.getItem('auth_token')) {
-            window.location.replace('profile.php');
+        if (localStorage.getItem("auth_token")) {
+            var next = window.haneriGetSafeRedirect() || "profile.php";
+            window.location.replace(next);
         }
     } catch (e) {}
 })();
@@ -410,6 +426,14 @@
       localStorage.setItem("user_role",  user.role   || "");
       if (user.id) {
           localStorage.setItem("user_id", user.id);
+      }
+
+      const afterLogin = (typeof window.haneriGetSafeRedirect === "function")
+          ? window.haneriGetSafeRedirect()
+          : null;
+      if (afterLogin) {
+          window.location.href = afterLogin;
+          return true;
       }
 
       // Redirect by role
