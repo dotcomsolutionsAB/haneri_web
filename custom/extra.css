@@ -4138,21 +4138,35 @@ footer .social-icon {
     margin-bottom: 20px;
 }
 .haneri-account-sidebar-inner {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(0, 93, 90, 0.08);
-    padding: 20px 16px;
+    background: linear-gradient(165deg, #f4faf9 0%, #ffffff 42%, #ffffff 100%);
+    border-radius: 16px;
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.06),
+        0 0 0 1px rgba(0, 93, 90, 0.07);
+    padding: 22px 18px;
     position: sticky;
     top: 100px;
 }
-.haneri-account-sidebar-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #222;
-    margin: 0 0 16px;
-    padding-bottom: 12px;
+.haneri-account-sidebar-head {
+    margin-bottom: 18px;
+    padding-bottom: 16px;
     border-bottom: 2px solid #005d5a;
+}
+.haneri-account-sidebar-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1a1d26;
+    margin: 0 0 6px;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    line-height: 1.2;
+}
+.haneri-account-sidebar-sub {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: #6b7280;
+    line-height: 1.45;
+    max-width: 16rem;
 }
 .haneri-account-nav {
     list-style: none;
@@ -4160,43 +4174,127 @@ footer .social-icon {
     padding: 0;
 }
 .haneri-account-nav li {
-    margin: 0;
+    margin: 0 0 6px;
     padding: 0;
-    border-bottom: 1px solid #eee;
-}
-.haneri-account-nav li:last-child {
     border-bottom: none;
 }
-.haneri-account-nav a {
-    display: block;
-    padding: 12px 8px;
-    color: #333;
-    font-weight: 500;
-    border-radius: 8px;
-    transition: background 0.2s, color 0.2s;
+.haneri-account-nav li:last-child {
+    margin-bottom: 0;
 }
-.haneri-account-nav a:hover,
-.haneri-account-nav a:focus {
-    background: rgba(0, 93, 90, 0.08);
-    color: #005d5a;
+/* Base fallbacks; Porto .nav-tabs overrides below */
+.haneri-account-nav .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     text-decoration: none;
 }
-.haneri-account-nav a.active {
-    background: rgba(0, 93, 90, 0.12);
+.haneri-account-nav-icon {
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    background: rgba(0, 93, 90, 0.1);
+    transition: background 0.2s, transform 0.2s;
+}
+.haneri-account-nav-icon i {
+    font-size: 1.15rem;
     color: #005d5a;
-    font-weight: 600;
+    line-height: 1;
+}
+.haneri-account-nav-label {
+    flex: 1;
+    text-align: left;
+    min-width: 0;
 }
 .haneri-account-nav-logout {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid #eee;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+.haneri-account-logout .haneri-account-nav-icon {
+    background: rgba(192, 57, 43, 0.1);
+}
+.haneri-account-logout .haneri-account-nav-icon i {
+    color: #c0392b;
 }
 .haneri-account-logout {
+    color: #b83226 !important;
+}
+.haneri-account-logout:hover,
+.haneri-account-logout:focus {
+    background: rgba(192, 57, 43, 0.08) !important;
+    color: #942a20 !important;
+}
+.haneri-account-logout:hover .haneri-account-nav-icon,
+.haneri-account-logout:focus .haneri-account-nav-icon {
+    background: rgba(192, 57, 43, 0.16);
+}
+
+/* Kill Porto / Bootstrap tab chrome; brand teal active state */
+.profile_page .haneri-account-sidebar .haneri-account-nav.nav-tabs {
+    border-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+.profile_page .haneri-account-sidebar .haneri-account-nav.nav-tabs .nav-item {
+    margin-bottom: 6px !important;
+    margin-right: 0 !important;
+    width: 100%;
+}
+.profile_page .haneri-account-sidebar .haneri-account-nav .nav-link {
+    padding: 12px 12px !important;
+    margin: 0;
+    border: 0 !important;
+    border-bottom: 0 !important;
+    border-radius: 12px !important;
+    color: #3d4451 !important;
+    font-weight: 600 !important;
+    font-size: 0.9375rem !important;
+    line-height: 1.3 !important;
+    text-transform: none !important;
+    font-family: inherit !important;
+    transition:
+        background 0.2s,
+        color 0.2s,
+        box-shadow 0.2s;
+}
+.profile_page .haneri-account-sidebar .haneri-account-nav .nav-link:hover,
+.profile_page .haneri-account-sidebar .haneri-account-nav .nav-link:focus {
+    color: #005d5a !important;
+    background: rgba(0, 93, 90, 0.08) !important;
+}
+.profile_page .haneri-account-sidebar .haneri-account-nav .nav-link.haneri-account-logout:hover,
+.profile_page .haneri-account-sidebar .haneri-account-nav .nav-link.haneri-account-logout:focus {
+    color: #942a20 !important;
+    background: rgba(192, 57, 43, 0.1) !important;
+}
+.profile_page .haneri-account-sidebar .haneri-account-nav .nav-link.haneri-account-logout:hover .haneri-account-nav-icon i,
+.profile_page .haneri-account-sidebar .haneri-account-nav .nav-link.haneri-account-logout:focus .haneri-account-nav-icon i {
     color: #c0392b !important;
 }
-.haneri-account-logout:hover {
-    background: rgba(192, 57, 43, 0.08) !important;
-    color: #a93226 !important;
+.profile_page .haneri-account-sidebar .haneri-account-nav .nav-item.show .nav-link,
+.profile_page .haneri-account-sidebar .haneri-account-nav .nav-link.active {
+    border-bottom-color: transparent !important;
+    color: #fff !important;
+    background: linear-gradient(135deg, #006d69 0%, #005d5a 100%) !important;
+    box-shadow: 0 6px 20px rgba(0, 93, 90, 0.35);
+}
+.profile_page .haneri-account-sidebar .haneri-account-nav .nav-link.active .haneri-account-nav-icon,
+.profile_page .haneri-account-sidebar .haneri-account-nav .nav-item.show .nav-link .haneri-account-nav-icon {
+    background: rgba(255, 255, 255, 0.2);
+}
+.profile_page .haneri-account-sidebar .haneri-account-nav .nav-link.active .haneri-account-nav-icon i,
+.profile_page .haneri-account-sidebar .haneri-account-nav .nav-item.show .nav-link .haneri-account-nav-icon i {
+    color: #fff !important;
+}
+.profile_page .haneri-account-sidebar .haneri-account-nav .nav-link:hover .haneri-account-nav-icon {
+    transform: scale(1.03);
+}
+.profile_page .haneri-account-sidebar .haneri-account-nav .nav-link.active:hover {
+    color: #fff !important;
+    filter: brightness(1.05);
 }
 .haneri-account-main {
     min-width: 0;
@@ -4240,6 +4338,15 @@ footer .social-icon {
     padding: 20px 12px 16px !important;
     height: 100%;
     transition: box-shadow 0.25s, border-color 0.25s, transform 0.2s;
+}
+/* 2-col mobile grid (col-6 up to md): gap so wrapped rows don’t touch */
+@media (max-width: 767px) {
+    .haneri-account-quicklinks > [class*="col-"] {
+        margin-bottom: 16px;
+    }
+    .haneri-account-quicklinks > [class*="col-"]:last-child {
+        margin-bottom: 0;
+    }
 }
 .haneri-account-quicklinks .haneri-account-tile:hover {
     box-shadow: 0 8px 28px rgba(0, 93, 90, 0.12);
@@ -4387,25 +4494,59 @@ footer .social-icon {
     .haneri-account-nav li {
         flex: 0 0 auto;
         border-bottom: none;
+        margin-bottom: 0 !important;
+        width: auto !important;
     }
-    .haneri-account-nav a {
+    .profile_page .haneri-account-sidebar .haneri-account-nav .nav-link {
         white-space: nowrap;
-        padding: 10px 14px;
-        border-radius: 999px;
-        background: #f5f5f5;
-        font-size: 0.875rem;
+        padding: 8px 14px 8px 10px !important;
+        border-radius: 999px !important;
+        background: #eef2f1 !important;
+        color: #3d4451 !important;
+        box-shadow: none !important;
+        font-size: 0.8125rem !important;
     }
-    .haneri-account-nav a.active {
-        background: #005d5a;
+    .profile_page .haneri-account-sidebar .haneri-account-nav .nav-link:hover {
+        background: rgba(0, 93, 90, 0.12) !important;
+        color: #005d5a !important;
+    }
+    .profile_page .haneri-account-sidebar .haneri-account-nav .nav-link.active {
+        background: #005d5a !important;
         color: #fff !important;
+        box-shadow: 0 4px 14px rgba(0, 93, 90, 0.3) !important;
+    }
+    .haneri-account-sidebar .haneri-account-nav-icon {
+        flex: 0 0 32px;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+    }
+    .haneri-account-sidebar .haneri-account-nav-icon i {
+        font-size: 0.95rem;
     }
     .haneri-account-nav-logout {
         margin-top: 0;
         padding-top: 0;
         border-top: none;
     }
+    .haneri-account-nav-logout .nav-link {
+        background: rgba(192, 57, 43, 0.08) !important;
+    }
+    .profile_page .haneri-account-sidebar .haneri-account-nav .nav-link.haneri-account-logout:hover,
+    .profile_page .haneri-account-sidebar .haneri-account-nav .nav-link.haneri-account-logout:focus {
+        background: rgba(192, 57, 43, 0.16) !important;
+        color: #942a20 !important;
+    }
+    .haneri-account-sidebar-head {
+        margin-bottom: 14px;
+        padding-bottom: 12px;
+    }
     .haneri-account-sidebar-title {
-        font-size: 1rem;
+        font-size: 1.05rem;
+    }
+    .haneri-account-sidebar-sub {
+        font-size: 0.75rem;
+        max-width: none;
     }
 }
 @media (max-width: 575px) {
@@ -4417,8 +4558,5 @@ footer .social-icon {
     }
     .haneri-account-welcome-title {
         font-size: 1.15rem;
-    }
-    .haneri-account-quicklinks > [class*="col-"] {
-        margin-bottom: 12px;
     }
 }

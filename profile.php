@@ -43,35 +43,55 @@
 		<div class="row haneri-account-row">
 			<div class="sidebar widget widget-dashboard mb-lg-0 mb-3 col-lg-3 order-0 haneri-account-sidebar">
 				<div class="haneri-account-sidebar-inner">
-				<h2 class="text-uppercase haneri-account-sidebar-title">My Account</h2>
+				<div class="haneri-account-sidebar-head">
+					<h2 class="haneri-account-sidebar-title">My account</h2>
+					<p class="haneri-account-sidebar-sub">Manage orders, addresses &amp; profile</p>
+				</div>
 				<ul class="nav nav-tabs flex-column mb-0 haneri-account-nav" role="tablist">
 					<li class="nav-item">
 						<a class="nav-link active" id="dashboard-tab" data-toggle="tab" href="#dashboard"
-							role="tab" aria-controls="dashboard" aria-selected="true">Dashboard</a>
+							role="tab" aria-controls="dashboard" aria-selected="true">
+							<span class="haneri-account-nav-icon" aria-hidden="true"><i class="icon-home"></i></span>
+							<span class="haneri-account-nav-label">Dashboard</span>
+						</a>
 					</li>
 
 					<li class="nav-item">
 						<a class="nav-link" id="order-tab" data-toggle="tab" href="#order" role="tab"
-							aria-controls="order" aria-selected="true">Orders</a>
+							aria-controls="order" aria-selected="true">
+							<span class="haneri-account-nav-icon" aria-hidden="true"><i class="icon-bag-2"></i></span>
+							<span class="haneri-account-nav-label">Orders</span>
+						</a>
 					</li>
 
 					<li class="nav-item">
 						<a class="nav-link" id="quotation-tab" data-toggle="tab" href="#quotation" role="tab"
-							aria-controls="quotation" aria-selected="true">Quotation</a>
+							aria-controls="quotation" aria-selected="true">
+							<span class="haneri-account-nav-icon" aria-hidden="true"><i class="sicon-doc"></i></span>
+							<span class="haneri-account-nav-label">Quotation</span>
+						</a>
 					</li>
 
 					<li class="nav-item">
 						<a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab"
-							aria-controls="address" aria-selected="false">Addresses</a>
+							aria-controls="address" aria-selected="false">
+							<span class="haneri-account-nav-icon" aria-hidden="true"><i class="sicon-location-pin"></i></span>
+							<span class="haneri-account-nav-label">Addresses</span>
+						</a>
 					</li>
 
 					<li class="nav-item">
 						<a class="nav-link" id="edit-tab" data-toggle="tab" href="#edit" role="tab"
-							aria-controls="edit" aria-selected="false">Account
-							details</a>
+							aria-controls="edit" aria-selected="false">
+							<span class="haneri-account-nav-icon" aria-hidden="true"><i class="icon-user-2"></i></span>
+							<span class="haneri-account-nav-label">Account details</span>
+						</a>
 					</li>
 					<li class="nav-item haneri-account-nav-logout">
-						<a href="#" class="nav-link haneri-account-logout" id="logout-btn">Logout</a>
+						<a href="#" class="nav-link haneri-account-logout" id="logout-btn">
+							<span class="haneri-account-nav-icon" aria-hidden="true"><i class="icon-lock"></i></span>
+							<span class="haneri-account-nav-label">Log out</span>
+						</a>
 					</li>
 				</ul>
 				</div>
