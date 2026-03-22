@@ -4128,10 +4128,13 @@ footer .social-icon {
         }
 
 /* ========== Haneri account / profile page ========== */
+/* Do not set padding-top here — it would override .padding_top_100 on the same element */
 .haneri-account-wrap {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 12px 48px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 48px;
 }
 /* .haneri-account-row: use Bootstrap .row gutters */
 .haneri-account-sidebar {
@@ -4551,7 +4554,9 @@ footer .social-icon {
 }
 @media (max-width: 575px) {
     .haneri-account-wrap {
-        padding: 0 8px 32px;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-bottom: 32px;
     }
     .haneri-account-dashboard {
         padding: 16px 14px 4px;
