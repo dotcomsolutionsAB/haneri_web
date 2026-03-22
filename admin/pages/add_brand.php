@@ -5,7 +5,6 @@
     $current_page = "Add Brands"; // Dynamically set this based on the page
 ?>
 <?php include("header1.php"); ?>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
             <!-- End of Header -->
             <!-- Content -->

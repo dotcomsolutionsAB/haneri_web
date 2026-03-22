@@ -26,6 +26,7 @@
     <link href="assets/css/styles.css" rel="stylesheet" />
     
     <link rel="stylesheet" href="custom/custom_style.css">
+    <link rel="stylesheet" href="../../custom/haneri-swal.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 </head>
 
@@ -144,6 +145,7 @@
             </header>
 
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="../../custom/haneri-swal-defaults.js"></script>
             <script>
                 document.getElementById("ad-logout").addEventListener("click", function () {
                     Swal.fire({

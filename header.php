@@ -56,6 +56,7 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
 
     <!-- Custom -->
     <link rel="stylesheet" href="custom/extra.css">
+    <link rel="stylesheet" href="custom/haneri-swal.css">
     <link rel="stylesheet" href="custom/custom.css">
     <script>
         window.HANERI_HEADER = <?php echo json_encode(array(
@@ -75,6 +76,7 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&family=Open+Sans:wght@400;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="custom/haneri-swal-defaults.js"></script>
 
 </head>
 

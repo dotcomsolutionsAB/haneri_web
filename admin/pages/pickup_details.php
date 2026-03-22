@@ -7,7 +7,6 @@
     $current_page = "Delhivery Pickup Locations";
 ?>
 <?php include "header1.php"; ?>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- Content -->
 <main class="grow content pt-5" id="content" role="content">
