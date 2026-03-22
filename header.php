@@ -24,7 +24,7 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Haneri</title>
+    <title>Haneri - Premium Ceiling Fans</title>
     <meta name="keywords" content="" />
     <meta name="description" content="Haneri">
     <meta name="author" content="Cognitive Branding">

@@ -199,6 +199,44 @@
     color: #005d5a;
     letter-spacing: 0.02em;
 }
+
+/* Cart line colour palette (matches shop / PDP swatches) */
+.cart-product-cell {
+    text-align: left;
+    max-width: 280px;
+}
+.cart-product-line {
+    margin-bottom: 0;
+}
+.cart-color-palette {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+}
+.cart-palette-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    flex-shrink: 0;
+    box-sizing: border-box;
+    cursor: default;
+}
+.cart-palette-dot--active {
+    box-shadow: 0 0 0 2px #005d5a;
+    border-color: rgba(0, 93, 90, 0.35);
+}
+@media (max-width: 520px) {
+    .cart-product-cell {
+        max-width: none;
+        text-align: center;
+    }
+    .cart-color-palette {
+        justify-content: center;
+    }
+}
 </style>
 
 <script>
@@ -220,6 +258,88 @@
         if (!cartTableBody) {
             console.error("Cart table body not found. Ensure the table has ID 'cartTable'.");
             return;
+        }
+
+        // Colour names → hex (keep in sync with shop.php getColorHex)
+        const HANERI_VARIANT_COLOR_MAP = {
+            'Denim Blue': '#6497B2',
+            'Baby Pink': '#C7ABA9',
+            'Pearl White': '#F5F5F5',
+            'Matte Black': '#21201E',
+            'Pine': '#DDC194',
+            'Beige': '#E6E0D4',
+            'Walnut': '#926148',
+            'Sunset Copper': '#936053',
+            'Royal Brass': '#B7A97C',
+            'Regal Gold': '#D3B063',
+            'Pure Steel': '#878782',
+            'Metallic Grey': '#D4D4D4',
+            'Sand Beige': '#D3CBBB',
+            'Metallic Walnut': '#7F513F',
+            'Espresso Walnut': '#926148',
+            'Moonlit White': '#E6E6E6',
+            'Natural Pine': '#DDC194',
+            'Velvet Black': '#0B0A08'
+        };
+
+        function haneriCartColorHex(name) {
+            if (!name) return '#ddd';
+            const s = String(name).trim();
+            const looksHex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(s);
+            return looksHex ? s : (HANERI_VARIANT_COLOR_MAP[s] || '#ddd');
+        }
+
+        function escapeHtmlAttr(str) {
+            if (str == null) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function fetchVariantsForProducts(productIds) {
+            const map = {};
+            const ids = [...new Set((productIds || []).map(function (id) { return String(id); }).filter(Boolean))];
+            if (!ids.length) return Promise.resolve(map);
+            const headers = { 'Content-Type': 'application/json' };
+            if (token) headers['Authorization'] = 'Bearer ' + token;
+            return Promise.all(ids.map(function (pid) {
+                return fetch('<?php echo BASE_URL; ?>/products/get_products/' + encodeURIComponent(pid), {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({})
+                })
+                    .then(function (r) { return r.json(); })
+                    .then(function (data) {
+                        var p = data && data.data;
+                        if (p && Array.isArray(p.variants)) map[pid] = p.variants;
+                    })
+                    .catch(function () {});
+            })).then(function () { return map; });
+        }
+
+        function buildCartPaletteHtml(item, variantMapByProductId) {
+            var rawPid = item.product_id != null ? item.product_id : item.productId;
+            var pid = rawPid != null ? String(rawPid) : '';
+            var selId = item.variant_id != null ? item.variant_id : item.variantId;
+            var variants = (pid && variantMapByProductId[pid]) || item.product_variants || item.variants;
+            if (variants && variants.length) {
+                var dots = variants.map(function (v) {
+                    var label = v.variant_value || v.color || '';
+                    var hex = haneriCartColorHex(label);
+                    var vId = v.id;
+                    var active = (vId != null && selId != null && String(vId) === String(selId)) ? ' cart-palette-dot--active' : '';
+                    return '<span class="cart-palette-dot' + active + '" role="listitem" style="background-color:' + hex + '" title="' + escapeHtmlAttr(label) + '"></span>';
+                }).join('');
+                return '<div class="cart-color-palette" role="list" aria-label="Colour options">' + dots + '</div>';
+            }
+            var v = item.variant_value || item.color;
+            if (v) {
+                var hexOne = haneriCartColorHex(v);
+                return '<div class="cart-color-palette" role="list" aria-label="Colour"><span class="cart-palette-dot cart-palette-dot--active" style="background-color:' + hexOne + '" title="' + escapeHtmlAttr(v) + '"></span></div>';
+            }
+            return '';
         }
 
         // console.log("Auth Token:", token);
@@ -261,7 +381,14 @@
 
                 if (data && Array.isArray(data.data) && data.data.length > 0) {
                     console.log("Data received, displaying cart...");
-                    displayCart(data.data);
+                    var pids = data.data.map(function (i) {
+                        return i.product_id != null ? i.product_id : i.productId;
+                    }).filter(function (id) { return id != null && id !== ''; });
+                    fetchVariantsForProducts(pids).then(function (varMap) {
+                        displayCart(data.data, varMap);
+                    }).catch(function () {
+                        displayCart(data.data, {});
+                    });
                 } else {
                     console.warn("Cart is empty or data is missing.");
 
@@ -305,7 +432,8 @@
         }
 
         // =============== DISPLAY CART ITEMS ===============
-        function displayCart(cartItems) {
+        function displayCart(cartItems, variantMapByProductId) {
+            variantMapByProductId = variantMapByProductId || {};
             document.querySelector(".empty-cart-box")?.remove();
             document.querySelector(".cart-table-container").style.display = "block";
 
@@ -343,10 +471,17 @@
 
                 console.log(`Adding item: ${productName}, Price: ${sellingPrice}, Quantity: ${quantity}, Discount: ${discount}%`);
 
+                const paletteHtml = buildCartPaletteHtml(item, variantMapByProductId);
+
                 cartTableBody.innerHTML += `
                     <tr data-cart-id="${item.id}">
                         <td data-label="Image"><img src="${productImage}" alt="${productName}" width="50"></td>
-                        <td data-label="Product" class="f14">${productName} ${variantName}</td>
+                        <td data-label="Product" class="f14 cart-product-td">
+                            <div class="cart-product-cell">
+                                <div class="cart-product-line">${productName} ${variantName}</div>
+                                ${paletteHtml}
+                            </div>
+                        </td>
                         <td data-label="Price" class="f14">${priceHtml}</td>
                         <td data-label="Quantity">
                             <div class="quantity-container">
