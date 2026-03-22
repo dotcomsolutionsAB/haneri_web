@@ -439,8 +439,9 @@
 								window.openAddAddressForm = function () {
 									Swal.fire({
 										title: 'Add New Address',
-										width: '700px', // Wider popup
+										width: 'min(920px, calc(100vw - 32px))',
 										customClass: {
+											popup: 'swal-checkout-address',
 											confirmButton: 'add-address-btn',
 											cancelButton: 'cancel-address-btn'
 										},
