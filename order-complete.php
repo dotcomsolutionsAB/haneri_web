@@ -24,16 +24,16 @@
         $accentClass = "hero-card-success";
         $amountLabel = "Total Paid";
     } elseif ($isFailed) {
-        $mainTitle   = "Order Created, But Payment Failed.";
-        $subtitle    = "You can retry the payment from your order history or contact support.";
+        $mainTitle   = "Payment Failed, Order Cancelled.";
+        $subtitle    = "Kindly place the order again.";
         $badgeText   = "Payment Failed";
         $badgeClass  = "status-badge-failed";
         $iconClass   = "fas fa-times-circle";
         $accentClass = "hero-card-failed";
         $amountLabel = "Order Value";
     } else { // cancelled
-        $mainTitle   = "Order Created, Payment pending.";
-        $subtitle    = "You closed the payment window. You can complete payment later from your account.";
+        $mainTitle   = "Order Cancelled.";
+        $subtitle    = "You closed the payment window. Kindly place the order again.";
         $badgeText   = "Payment Pending";
         $badgeClass  = "status-badge-pending";
         $iconClass   = "fas fa-exclamation-circle";
