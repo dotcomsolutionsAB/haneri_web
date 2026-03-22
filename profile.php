@@ -26,16 +26,16 @@
 <style>
 	.view-invoice{
 		display: flex;
-		gap: 2px;
+		gap: 4px;
 		align-items: center;
 		flex-direction: column;
-		font-size: 10px;
+		font-size: 0.8125rem;
 		background: transparent;
 		color: #005d5a;
 		border: none;
 	}
 	.view-invoice i{
-		font-size: 18px;
+		font-size: 1.25rem;
 	}
 </style>
 <main class="main profile_page">
@@ -175,65 +175,57 @@
 				</script>
 
 				<style>
-					.table-order tbody {
+					.profile_page .table-order tbody {
 						display: block;
-						max-height: 300px; /* Adjust height as needed */
+						max-height: 300px;
 						overflow-y: auto;
 					}
-					.table-order thead, 
-					.table-order tbody tr {
+					.profile_page .table-order thead,
+					.profile_page .table-order tbody tr {
 						display: table;
 						width: 100%;
 						table-layout: fixed;
 					}
-					.table td{
-
-					}
-					.table td, .table th {
-						padding: .75rem;
+					.profile_page .table-order td,
+					.profile_page .table-order th {
+						padding: 0.85rem 0.75rem;
 						vertical-align: middle;
 						border-top: 1px solid #dee2e6;
 						text-align: center;
+						font-size: 1rem;
 					}
-					.table-order tbody tr .addressess{
-						font-size:smaller;
+					.profile_page .table-order tbody tr .addressess {
+						font-size: 0.9375rem;
 						text-align: start;
 					}
 					@media (max-width: 520px) {
-						.order-table-container {
+						.profile_page .order-table-container {
 							overflow-x: auto;
 							width: 100%;
 						}
-
-						.table-order {
-							min-width: 600px; /* Allow full columns to be scrollable */
+						.profile_page .table-order {
+							min-width: 600px;
 						}
-
-						.table-order thead {
-							font-size: 14px;
+						.profile_page .table-order thead {
+							font-size: 0.9375rem;
 						}
-
-						.table-order tbody {
+						.profile_page .table-order tbody {
 							max-height: 200px;
 						}
-
-						.table-order tbody tr .addressess {
-							font-size: 12px;
+						.profile_page .table-order tbody tr .addressess {
+							font-size: 0.875rem;
 							text-align: left;
 						}
-
-						.table-order td,
-						.table-order th {
-							font-size: 13px;
-							padding: 0.5rem;
+						.profile_page .table-order td,
+						.profile_page .table-order th {
+							font-size: 0.9375rem;
+							padding: 0.6rem 0.5rem;
 						}
-
-						.btn.btn-dark {
-							font-size: 14px;
-							padding: 0.6rem 1rem;
+						.profile_page .table-order .btn.btn-dark {
+							font-size: 1rem;
+							padding: 0.65rem 1rem;
 						}
 					}
-
 				</style>
 				<!-- Orders Showing For each Profile -->
 				<div class="tab-pane fade" id="order" role="tabpanel">
@@ -709,7 +701,7 @@
 												width: 100%;
 												height: 45px;
 												padding: 10px;
-												font-size: 14px;
+												font-size: 1rem;
 												border-radius: 5px;
 												border: 1px solid #ccc;
 											}

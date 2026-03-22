@@ -4136,6 +4136,12 @@ footer .social-icon {
     padding-right: 12px;
     padding-bottom: 48px;
 }
+/* Uniform, slightly larger base type for the whole account area (inherits into tables, labels, etc.) */
+.main.profile_page .haneri-account-wrap {
+    font-size: 1.0625rem; /* 17px at 16px root */
+    line-height: 1.55;
+    color: #2c3338;
+}
 /* .haneri-account-row: use Bootstrap .row gutters */
 .haneri-account-sidebar {
     margin-bottom: 20px;
@@ -4156,20 +4162,20 @@ footer .social-icon {
     border-bottom: 2px solid #005d5a;
 }
 .haneri-account-sidebar-title {
-    font-size: 1.25rem;
+    font-size: 1.375rem;
     font-weight: 700;
     color: #1a1d26;
     margin: 0 0 6px;
     letter-spacing: -0.02em;
     text-transform: none;
-    line-height: 1.2;
+    line-height: 1.25;
 }
 .haneri-account-sidebar-sub {
     margin: 0;
-    font-size: 0.8125rem;
-    color: #6b7280;
-    line-height: 1.45;
-    max-width: 16rem;
+    font-size: 0.9375rem;
+    color: #5c6370;
+    line-height: 1.5;
+    max-width: 18rem;
 }
 .haneri-account-nav {
     list-style: none;
@@ -4203,7 +4209,7 @@ footer .social-icon {
     transition: background 0.2s, transform 0.2s;
 }
 .haneri-account-nav-icon i {
-    font-size: 1.15rem;
+    font-size: 1.28rem;
     color: #005d5a;
     line-height: 1;
 }
@@ -4254,8 +4260,8 @@ footer .social-icon {
     border-radius: 12px !important;
     color: #3d4451 !important;
     font-weight: 600 !important;
-    font-size: 0.9375rem !important;
-    line-height: 1.3 !important;
+    font-size: 1.0625rem !important;
+    line-height: 1.35 !important;
     text-transform: none !important;
     font-family: inherit !important;
     transition:
@@ -4310,21 +4316,22 @@ footer .social-icon {
     border: 1px solid rgba(0, 93, 90, 0.1);
 }
 .haneri-account-welcome-title {
-    font-size: 1.35rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #222;
     margin: 0 0 12px;
 }
 .haneri-account-welcome-text {
-    font-size: 0.95rem;
+    font-size: 1.0625rem;
     line-height: 1.65;
-    color: #555;
+    color: #444;
     margin: 0 0 20px;
 }
 .haneri-account-inline-link {
     padding: 0 !important;
     vertical-align: baseline;
     font-weight: 600;
+    font-size: inherit !important;
     color: #005d5a !important;
     text-decoration: underline;
     border: none;
@@ -4357,19 +4364,19 @@ footer .social-icon {
     transform: translateY(-2px);
 }
 .haneri-account-quicklinks .haneri-account-tile a i {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
     color: #005d5a;
     margin-bottom: 8px;
     display: inline-block;
 }
 .haneri-account-quicklinks .haneri-account-tile h3 {
-    font-size: 0.85rem;
-    letter-spacing: 0.06em;
+    font-size: 0.9375rem;
+    letter-spacing: 0.05em;
     margin: 0;
-    color: #333;
+    color: #2c3338;
 }
 .haneri-account-section-title {
-    font-size: 1.15rem;
+    font-size: 1.3125rem;
     font-weight: 700;
     color: #222;
     margin: 0 0 16px;
@@ -4398,21 +4405,22 @@ footer .social-icon {
     background: rgba(0, 93, 90, 0.08);
     color: #1a1a1a;
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: 0.875rem;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.035em;
     border-bottom: 2px solid #005d5a;
     white-space: nowrap;
-    padding: 12px 10px;
+    padding: 14px 12px;
 }
 .haneri-account-table-card .table tbody td {
-    padding: 12px 10px;
+    padding: 14px 12px;
     vertical-align: middle;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 .haneri-account-empty {
-    color: #888;
+    color: #666;
     font-style: italic;
+    font-size: 1.0625rem;
     padding: 24px !important;
 }
 .haneri-account-addresses .add-List {
@@ -4432,12 +4440,18 @@ footer .social-icon {
     overflow: hidden;
 }
 .haneri-account-addresses .add-List .card-body {
-    padding: 16px;
+    padding: 18px;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+}
+.haneri-account-addresses .add-List .card-title {
+    font-size: 1.125rem;
 }
 .haneri-account-btn-primary {
     border-radius: 8px;
     padding: 10px 20px;
     font-weight: 600;
+    font-size: 1.0625rem;
     background: #005d5a !important;
     border-color: #005d5a !important;
 }
@@ -4453,13 +4467,27 @@ footer .social-icon {
     padding: 20px 16px 8px;
     margin-bottom: 24px;
 }
+.haneri-account-form-card label,
+.haneri-account-form-card .col-form-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2c3338;
+    margin-bottom: 0.35rem;
+}
 .haneri-account-form-card .form-control {
     border-radius: 8px;
     border-color: #ddd;
+    font-size: 1.0625rem;
+    padding: 0.55rem 0.85rem;
+    min-height: calc(1.55em + 1.1rem + 2px);
 }
 .haneri-account-form-card .form-control:focus {
     border-color: #005d5a;
     box-shadow: 0 0 0 0.2rem rgba(0, 93, 90, 0.15);
+}
+.haneri-account-form-card small,
+.haneri-account-form-card .form-text {
+    font-size: 0.9375rem;
 }
 .haneri-account-form-card .btn-dark {
     background: #005d5a !important;
@@ -4467,6 +4495,7 @@ footer .social-icon {
     border-radius: 8px;
     padding: 10px 28px;
     font-weight: 600;
+    font-size: 1.0625rem;
 }
 .haneri-account-form-card .btn-dark:hover {
     background: #004a47 !important;
@@ -4507,7 +4536,7 @@ footer .social-icon {
         background: #eef2f1 !important;
         color: #3d4451 !important;
         box-shadow: none !important;
-        font-size: 0.8125rem !important;
+        font-size: 0.9375rem !important;
     }
     .profile_page .haneri-account-sidebar .haneri-account-nav .nav-link:hover {
         background: rgba(0, 93, 90, 0.12) !important;
@@ -4525,7 +4554,7 @@ footer .social-icon {
         border-radius: 50%;
     }
     .haneri-account-sidebar .haneri-account-nav-icon i {
-        font-size: 0.95rem;
+        font-size: 1.05rem;
     }
     .haneri-account-nav-logout {
         margin-top: 0;
@@ -4545,10 +4574,10 @@ footer .social-icon {
         padding-bottom: 12px;
     }
     .haneri-account-sidebar-title {
-        font-size: 1.05rem;
+        font-size: 1.25rem;
     }
     .haneri-account-sidebar-sub {
-        font-size: 0.75rem;
+        font-size: 0.875rem;
         max-width: none;
     }
 }
@@ -4562,6 +4591,9 @@ footer .social-icon {
         padding: 16px 14px 4px;
     }
     .haneri-account-welcome-title {
-        font-size: 1.15rem;
+        font-size: 1.35rem;
+    }
+    .haneri-account-quicklinks .haneri-account-tile h3 {
+        font-size: 0.875rem;
     }
 }
