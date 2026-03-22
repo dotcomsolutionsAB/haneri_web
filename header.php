@@ -6,6 +6,12 @@ header('Content-Type: text/html; charset=utf-8');
 include('configs/read.php');
 // Load the data from the JSON file
 $data = loadData('configs/haneri.json');
+
+// Header utility icons (order: Profile → Cart → WhatsApp), inline SVGs for JS + SSR
+$HANERI_WHATSAPP_URL = 'https://wa.me/918377826826';
+$haneri_svg_profile = '<svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+$haneri_svg_cart = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="22" height="22" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"></path></svg>';
+$haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path></svg>';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,6 +52,17 @@ $data = loadData('configs/haneri.json');
     <!-- Custom -->
     <link rel="stylesheet" href="custom/extra.css">
     <link rel="stylesheet" href="custom/custom.css">
+    <script>
+        window.HANERI_HEADER = <?php echo json_encode(array(
+            'waUrl' => $HANERI_WHATSAPP_URL,
+            'svgProfile' => $haneri_svg_profile,
+            'svgCart' => $haneri_svg_cart,
+            'svgWhatsapp' => $haneri_svg_whatsapp,
+            'profileUrl' => 'https://haneri.com/account/profile',
+            'loginUrl' => 'https://haneri.com/account/login',
+            'cartUrl' => 'https://haneri.com/account/cart',
+        ), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+    </script>
     <link rel="stylesheet" href="custom/pop_up.css">
     <!--<link rel="stylesheet" href="custom/hass.css">-->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -231,33 +248,9 @@ $data = loadData('configs/haneri.json');
                         </nav>
                     </div><!-- End .header-left -->
 
-                    <div class="header-right">
-                        <?php 
-                            $isLoggedIn = "<script>document.write(localStorage.getItem('auth_token') ? 'true' : 'false');</script>";
-                        ?>
-
-                        <?php if ($isLoggedIn === "true") : ?>
-                            <!-- Show when user is logged in -->
-                            <a href="https://haneri.com/account/profile" class="header-icon header-icon-user" title="Profile">
-                                <i class="icon-user-2"></i>
-                            </a> |
-                            <a href="#" class="header-icon">
-                                <i class="fab fa-whatsapp"></i>
-                            </a> |
-                            <a href="https://haneri.com/account/cart" class="header-icon header-icon-wishlist" title="Wishlist">
-                                <i class="fas fa-shopping-cart"></i>
-                            </a>
-                        <?php else : ?>
-                            <!-- Show when user is NOT logged in -->
-                            <a href="https://haneri.com/account/login" class="header-icon header-icon-user" title="Login">
-                                <i class="icon-user-2"></i>
-                            </a> |
-                            <a href="#" class="header-icon"><i class="fab fa-whatsapp"></i></a>
-                        <?php endif; ?>
-
-                        <!-- <div class="header-search header-search-popup header-search-category d-none d-sm-block">
-                            <a href="#" class="search-toggle" role="button"><i class="icon-magnifier"></i></a>
-                        </div> -->
+                    <div class="header-right haneri-header-util">
+                        <?php /* SSR (logged out): Profile → Cart → WhatsApp — JS refreshes when token exists */ ?>
+                        <a href="https://haneri.com/account/login" class="header-icon header-icon-svg" title="Login"><?php echo $haneri_svg_profile; ?></a><span class="header-icon-sep" aria-hidden="true">|</span><a href="https://haneri.com/account/cart" class="header-icon header-icon-svg" title="Cart"><?php echo $haneri_svg_cart; ?></a><span class="header-icon-sep" aria-hidden="true">|</span><a href="<?php echo htmlspecialchars($HANERI_WHATSAPP_URL, ENT_QUOTES, 'UTF-8'); ?>" class="header-icon header-icon-svg header-icon-whatsapp" title="WhatsApp" target="_blank" rel="noopener noreferrer"><?php echo $haneri_svg_whatsapp; ?></a>
                     </div>
                 </div>
             </div>
@@ -266,25 +259,20 @@ $data = loadData('configs/haneri.json');
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const authToken = localStorage.getItem("auth_token");
+            var H = window.HANERI_HEADER;
+            var el = document.querySelector(".header-right.haneri-header-util") || document.querySelector(".header-right");
+            if (!el || !H || !H.svgProfile) return;
 
-            if (authToken) {
-                document.querySelector(".header-right").innerHTML = `
-                    <a href="https://haneri.com/account/profile" class="header-icon header-icon-user" title="Profile">
-                        <i class="icon-user-2"></i>
-                    </a> |
-                    <a href="#" class="header-icon"><i class="fab fa-whatsapp"></i></a> |
-                    <a href="https://haneri.com/account/cart" class="header-icon cart" title="cart">
-                        <i class="fas fa-shopping-cart"></i>
-                    </a>
-                `;
-            } else {
-                document.querySelector(".header-right").innerHTML = `
-                    <a href="https://haneri.com/account/login" class="header-icon header-icon-user" title="Login">
-                        <i class="icon-user-2"></i>
-                    </a> |
-                    <a href="#" class="header-icon"><i class="fab fa-whatsapp"></i></a>
-                `;
-            }
+            var authToken = localStorage.getItem("auth_token");
+            var sep = '<span class="header-icon-sep" aria-hidden="true">|</span>';
+            var profileHref = authToken ? (H.profileUrl || "https://haneri.com/account/profile") : (H.loginUrl || "https://haneri.com/account/login");
+            var profileTitle = authToken ? "Profile" : "Login";
+            var cartUrl = H.cartUrl || "https://haneri.com/account/cart";
+            var waUrl = H.waUrl || "https://wa.me/";
+
+            el.innerHTML =
+                '<a href="' + profileHref + '" class="header-icon header-icon-svg" title="' + profileTitle + '">' + H.svgProfile + '</a>' + sep +
+                '<a href="' + cartUrl + '" class="header-icon header-icon-svg" title="Cart">' + H.svgCart + '</a>' + sep +
+                '<a href="' + waUrl + '" class="header-icon header-icon-svg header-icon-whatsapp" title="WhatsApp" target="_blank" rel="noopener noreferrer">' + H.svgWhatsapp + '</a>';
         });
     </script>

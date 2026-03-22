@@ -1967,6 +1967,45 @@ a.text-primary:focus, a.text-primary:hover {
 .header-icon i {
     font-size: 20px !important;
 }
+
+/* Header util: Profile | Cart | WhatsApp (inline SVGs) */
+.haneri-header-util {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+.haneri-header-util .header-icon.header-icon-svg {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    margin-left: 0.4rem !important;
+    margin-right: 0.4rem !important;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+.haneri-header-util .header-icon.header-icon-svg:first-of-type {
+    margin-left: 0 !important;
+}
+.haneri-header-util .header-icon.header-icon-svg svg {
+    display: block;
+}
+.haneri-header-util .header-icon-sep {
+    display: inline-block;
+    margin: 0 0.1rem;
+    opacity: 0.4;
+    font-size: 0.95rem;
+    line-height: 1;
+    vertical-align: middle;
+    user-select: none;
+    color: inherit;
+}
+.haneri-header-util .header-icon-svg:hover,
+.haneri-header-util .header-icon-svg:focus {
+    color: #005d5a !important;
+    text-decoration: none;
+}
+
 @media (min-width: 1220px) {
     .container {
         max-width: 100% !important;
