@@ -28,11 +28,11 @@
                             <h4 class="widget-title">Pillar Technology</h4>
                             <div class="links link-parts row">
                                 <ul class="link-part col-xl-12 mb-0">
-                                    <li><a href="https://haneri.com/air-curve-design">Air Curve Design</a></li>
-                                    <li><a href="https://haneri.com/turbosilent-bldc">Turbosilent BLDC</a></li>
-                                    <li><a href="https://haneri.com/hass">HASS</a></li>
-                                    <li><a href="https://haneri.com/lumiambience">Lumiambience</a></li>
-                                    <li><a href="https://haneri.com/scan">SCAN</a></li>
+                                    <li><a href="https://www.haneri.com/air-curve-design">Air Curve Design</a></li>
+                                    <li><a href="https://www.haneri.com/turbosilent-bldc">Turbosilent BLDC</a></li>
+                                    <li><a href="https://www.haneri.com/hass">HASS</a></li>
+                                    <li><a href="https://www.haneri.com/lumiambience">Lumiambience</a></li>
+                                    <li><a href="https://www.haneri.com/scan">SCAN</a></li>
                                 </ul>
                             </div>
                         </div><!-- End .widget -->
@@ -42,10 +42,10 @@
                             <h4 class="widget-title">Our Policy</h4>
                             <div class="links link-parts row">
                                 <ul class="link-part col-xl-12 mb-0">
-                                    <li><a href="https://haneri.com/faqs">FAQs</a></li>
-                                    <li><a href="https://haneri.com/privacy-policy">Privacy Policy</a></li>
-                                    <li><a href="https://haneri.com/shipping-policy">Shipping Policy</a></li>
-                                    <li><a href="https://haneri.com/wir-policy">WIR Policy</a></li>
+                                    <li><a href="https://www.haneri.com/faqs">FAQs</a></li>
+                                    <li><a href="https://www.haneri.com/privacy-policy">Privacy Policy</a></li>
+                                    <li><a href="https://www.haneri.com/shipping-policy">Shipping Policy</a></li>
+                                    <li><a href="https://www.haneri.com/wir-policy">WIR Policy</a></li>
                                 </ul>
                             </div>
                         </div><!-- End .widget -->

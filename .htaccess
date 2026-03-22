@@ -1,0 +1,9 @@
+# Canonical host: apex + HTTP → https://www.haneri.com (Apache; nginx needs equivalent server config)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^haneri\.com$ [NC]
+  RewriteRule ^ https://www.haneri.com%{REQUEST_URI} [L,R=301]
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP_HOST} ^www\.haneri\.com$ [NC]
+  RewriteRule ^ https://www.haneri.com%{REQUEST_URI} [L,R=301]
+</IfModule>

@@ -2113,7 +2113,7 @@
                         currency: "INR",
                         name: "HANERI ELECTRICALS LLP",
                         description: `Order ID: ${orderId}`,
-                        image: "https://haneri.com/images/Haneri_Favicon.jpg",
+                        image: "https://www.haneri.com/images/Haneri_Favicon.jpg",
                         order_id: order_id,
 
                         // 🔴 REMOVE this:

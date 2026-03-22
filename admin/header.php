@@ -1,3 +1,4 @@
+<?php require_once dirname(__DIR__) . '/configs/canonical_host.php'; ?>
 <script>
   const authssToken = localStorage.getItem("auth_token");
   const userssRole = localStorage.getItem("user_role");

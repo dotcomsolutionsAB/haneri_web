@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/configs/canonical_host.php'; ?>
 <script>
 (function () {
 	try {

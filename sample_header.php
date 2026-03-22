@@ -235,11 +235,11 @@
                         <nav class="main-nav font2">
                             <ul class="menu">
                                 <li class="active">
-                                    <a href="https://haneri.com/shop">Categories</a>
+                                    <a href="https://www.haneri.com/shop">Categories</a>
                                     <div class="megamenu megamenu-fixed-width megamenu-3cols categoryy">
                                         <div class="row">
                                             <section class="categories hover">
-                                                <a href="https://haneri.com/shop">
+                                                <a href="https://www.haneri.com/shop">
                                                     <div class="category hov">
                                                         <div class="img">
                                                             <img src="images/Ceilimg Fan.png" alt="Ceiling Fan">
@@ -249,7 +249,7 @@
                                                         </div>
                                                     </div>
                                                 </a>
-                                                <a href="https://haneri.com/shop">
+                                                <a href="https://www.haneri.com/shop">
                                                     <div class="category hov">
                                                         <div class="img">
                                                             <img src="images/Table Wall Pedestals.png" alt="Table Wall Pedestals">
@@ -259,7 +259,7 @@
                                                         </div>
                                                     </div>
                                                 </a>
-                                                <a href="https://haneri.com/shop">
+                                                <a href="https://www.haneri.com/shop">
                                                     <div class="category hov">
                                                         <div class="img">
                                                             <img src="images/Domestic Exhaust.png" alt="Domestic Exhaust">
@@ -269,7 +269,7 @@
                                                         </div>
                                                     </div>
                                                 </a>
-                                                <a href="https://haneri.com/shop">
+                                                <a href="https://www.haneri.com/shop">
                                                     <div class="category hov">
                                                         <div class="img">
                                                             <img src="images/Personal.png" alt="Personal">

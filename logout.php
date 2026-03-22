@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/configs/canonical_host.php'; ?>
 <script>
     // Clear authentication data from localStorage
     localStorage.removeItem("auth_token");

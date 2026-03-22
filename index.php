@@ -1,5 +1,5 @@
 <?php
-header("Location: https://www.haneri.com", true, 302);
+header("Location: https://www.haneri.com", true, 301);
 exit;
 ?>
 <?php include("header.php"); ?>

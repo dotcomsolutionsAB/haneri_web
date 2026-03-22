@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/configs/canonical_host.php';
 // Force UTF-8 for the whole page (must be before ANY HTML)
 header('Content-Type: text/html; charset=utf-8');
 
@@ -62,9 +63,9 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
             'svgProfile' => $haneri_svg_profile,
             'svgCart' => $haneri_svg_cart,
             'svgWhatsapp' => $haneri_svg_whatsapp,
-            'profileUrl' => 'https://haneri.com/account/profile',
-            'loginUrl' => 'https://haneri.com/account/login',
-            'cartUrl' => 'https://haneri.com/account/cart',
+            'profileUrl' => 'https://www.haneri.com/account/profile',
+            'loginUrl' => 'https://www.haneri.com/account/login',
+            'cartUrl' => 'https://www.haneri.com/account/cart',
             'cartFetchUrl' => BASE_URL . '/cart/fetch',
         ), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
     </script>
@@ -101,13 +102,13 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
                         <button class="mobile-menu-toggler" type="button">
                             <i class="fas fa-bars"></i>
                         </button>
-                        <!-- <a href="https://haneri.com" class="logo"> -->
-                        <a href="https://haneri.com/" class="logo">
+                        <!-- <a href="https://www.haneri.com" class="logo"> -->
+                        <a href="https://www.haneri.com/" class="logo">
                             <img src="images/Haneri Logo.png" alt="Haneri">
                         </a>
                         <div class="logo_div">
-                         <!--   <a href="https://haneri.com" class="logos"> -->
-                            <a href="https://haneri.com" class="logos">
+                         <!--   <a href="https://www.haneri.com" class="logos"> -->
+                            <a href="https://www.haneri.com" class="logos">
                                 <img src="images/Haneri Logo.png" alt="Haneri">
                             </a>
                         </div>
@@ -115,11 +116,11 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
                         <nav class="main-nav font2">
                             <ul class="menu">
                                 <li class="active">
-                                    <a href="https://haneri.com/shop">Categories</a>
+                                    <a href="https://www.haneri.com/shop">Categories</a>
                                     <div class="megamenu megamenu-fixed-width megamenu-3cols categoryy">
                                         <div class="row">
                                             <section class="categories hover">
-                                                <a href="https://haneri.com/shop?category=Ceiling Fan">
+                                                <a href="https://www.haneri.com/shop?category=Ceiling Fan">
                                                     <div class="category hov">
                                                         <div class="img">
                                                             <img src="images/Ceilimg Fan.png" alt="Ceiling Fan">
@@ -129,7 +130,7 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
                                                         </div>
                                                     </div>
                                                 </a>
-                                                <a href="https://haneri.com/shop?category=Table Wall Pedestals">
+                                                <a href="https://www.haneri.com/shop?category=Table Wall Pedestals">
                                                     <div class="category hov">
                                                         <div class="img">
                                                             <img src="images/Table Wall Pedestals.png" alt="Table Wall Pedestals">
@@ -139,7 +140,7 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
                                                         </div>
                                                     </div>
                                                 </a>
-                                                <a href="https://haneri.com/shop?category=Domestic Exhaust">
+                                                <a href="https://www.haneri.com/shop?category=Domestic Exhaust">
                                                     <div class="category hov">
                                                         <div class="img">
                                                             <img src="images/Domestic Exhaust.png" alt="Domestic Exhaust">
@@ -149,7 +150,7 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
                                                         </div>
                                                     </div>
                                                 </a>
-                                                <a href="https://haneri.com/shop?category=Personal">
+                                                <a href="https://www.haneri.com/shop?category=Personal">
                                                     <div class="category hov">
                                                         <div class="img">
                                                             <img src="images/Personal.png" alt="Personal">
@@ -164,16 +165,16 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="https://haneri.com/air-curve-design">Pillar Technology</a>
+                                    <a href="https://www.haneri.com/air-curve-design">Pillar Technology</a>
                                     <div class="megamenu megamenu-fixed-width megamenu-3cols">
                                         <div class="row">
                                             <div class="col-lg-10">
                                                 <ul class="submenu">
-                                                    <li><a href="https://haneri.com/air-curve-design">Air Curve Design</a></li>
-                                                    <li><a href="https://haneri.com/turbosilent-bldc">TurboSilent BLDC</a></li>
-                                                    <li><a href="https://haneri.com/hass">H.A.S.SÂ®</a></li>
-                                                    <li><a href="https://haneri.com/lumiambience">LumiAmbience</a></li>
-                                                    <li><a href="https://haneri.com/scan">S.C.A.N</a></li>
+                                                    <li><a href="https://www.haneri.com/air-curve-design">Air Curve Design</a></li>
+                                                    <li><a href="https://www.haneri.com/turbosilent-bldc">TurboSilent BLDC</a></li>
+                                                    <li><a href="https://www.haneri.com/hass">H.A.S.SÂ®</a></li>
+                                                    <li><a href="https://www.haneri.com/lumiambience">LumiAmbience</a></li>
+                                                    <li><a href="https://www.haneri.com/scan">S.C.A.N</a></li>
                                                 </ul>
                                             </div><!-- End .col-lg-4 -->
                                         </div>
@@ -194,29 +195,29 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
                                     }
                                 </style>
                                 <li class="active">
-                                    <a href="https://haneri.com/our-story">About Us</a>
+                                    <a href="https://www.haneri.com/our-story">About Us</a>
                                     <div class="megamenu megamenu-fixed-width megamenu-3cols">
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <ul class="submenu">
                                                     <li class="submenu-item">
-                                                        <a href="https://haneri.com/our-story">Our Story</a>
+                                                        <a href="https://www.haneri.com/our-story">Our Story</a>
                                                         <div class="submenu-description">
-                                                            <a href="https://haneri.com/our-story#vision" class="description-link">VISION</a> |
-                                                            <a href="https://haneri.com/our-story#mission" class="description-link"> MISSION</a> |
-                                                            <a href="https://haneri.com/our-story#values" class="description-link"> VALUES</a>
+                                                            <a href="https://www.haneri.com/our-story#vision" class="description-link">VISION</a> |
+                                                            <a href="https://www.haneri.com/our-story#mission" class="description-link"> MISSION</a> |
+                                                            <a href="https://www.haneri.com/our-story#values" class="description-link"> VALUES</a>
                                                         </div>
                                                     </li>
                                                     <li class="submenu-item">
-                                                        <a href="https://haneri.com/our-brands">Our Brands</a>
+                                                        <a href="https://www.haneri.com/our-brands">Our Brands</a>
                                                         <div class="submenu-description">
-                                                            <a href="https://haneri.com/our-brands#haneri" class="description-link">Haneri</a> |
-                                                            <a href="https://haneri.com/our-brands#bespoke" class="description-link"> Bespoke</a> |
-                                                            <a href="https://haneri.com/our-brands#professional" class="description-link"> Professional</a>
+                                                            <a href="https://www.haneri.com/our-brands#haneri" class="description-link">Haneri</a> |
+                                                            <a href="https://www.haneri.com/our-brands#bespoke" class="description-link"> Bespoke</a> |
+                                                            <a href="https://www.haneri.com/our-brands#professional" class="description-link"> Professional</a>
                                                         </div>
                                                     </li>
                                                     <li class="submenu-item">
-                                                        <a href="https://haneri.com/capabilities">Capabilities</a>
+                                                        <a href="https://www.haneri.com/capabilities">Capabilities</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -225,7 +226,7 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
                                 </li>
 
                                 <li class="active">
-                                    <a href="https://haneri.com/contact">Support</a>
+                                    <a href="https://www.haneri.com/contact">Support</a>
                                     <div class="megamenu megamenu-fixed-width megamenu-3cols">
                                         <div class="row">
                                             <div class="col-lg-10">
@@ -233,16 +234,16 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
                                                     <li>
                                                         <a href="#">Product Help</a>
                                                         <div class="submenu-description">
-                                                            <a href="https://haneri.com/faqs" class="description-link">FAQs</a>
+                                                            <a href="https://www.haneri.com/faqs" class="description-link">FAQs</a>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <a href="#">Corporate Enquiry</a>
                                                         <div class="submenu-description">
-                                                            <a href="https://haneri.com/contact" class="description-link">FORM</a> 
+                                                            <a href="https://www.haneri.com/contact" class="description-link">FORM</a> 
                                                         </div>
                                                     </li>
-                                                    <li><a href="https://haneri.com/contact">Contact Us</a></li>
+                                                    <li><a href="https://www.haneri.com/contact">Contact Us</a></li>
                                                 </ul>
                                             </div>
                                             
@@ -255,7 +256,7 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
 
                     <div class="header-right haneri-header-util">
                         <?php /* SSR (logged out): Profile → Cart → WhatsApp — JS refreshes when token exists */ ?>
-                        <a href="https://haneri.com/account/login" class="header-icon header-icon-svg" title="Login"><?php echo $haneri_svg_profile; ?></a><span class="header-icon-sep" aria-hidden="true">|</span><span class="haneri-header-cart-wrap"><a href="https://haneri.com/account/cart" class="header-icon header-icon-svg header-icon-cart haneri-cart-link" title="Cart"><?php echo $haneri_svg_cart; ?><span class="haneri-cart-badge" hidden data-haneri-cart-badge aria-live="polite"></span></a></span><span class="header-icon-sep" aria-hidden="true">|</span><a href="<?php echo htmlspecialchars($HANERI_WHATSAPP_URL, ENT_QUOTES, 'UTF-8'); ?>" class="header-icon header-icon-svg header-icon-whatsapp" title="WhatsApp" target="_blank" rel="noopener noreferrer"><?php echo $haneri_svg_whatsapp; ?></a>
+                        <a href="https://www.haneri.com/account/login" class="header-icon header-icon-svg" title="Login"><?php echo $haneri_svg_profile; ?></a><span class="header-icon-sep" aria-hidden="true">|</span><span class="haneri-header-cart-wrap"><a href="https://www.haneri.com/account/cart" class="header-icon header-icon-svg header-icon-cart haneri-cart-link" title="Cart"><?php echo $haneri_svg_cart; ?><span class="haneri-cart-badge" hidden data-haneri-cart-badge aria-live="polite"></span></a></span><span class="header-icon-sep" aria-hidden="true">|</span><a href="<?php echo htmlspecialchars($HANERI_WHATSAPP_URL, ENT_QUOTES, 'UTF-8'); ?>" class="header-icon header-icon-svg header-icon-whatsapp" title="WhatsApp" target="_blank" rel="noopener noreferrer"><?php echo $haneri_svg_whatsapp; ?></a>
                     </div>
                 </div>
             </div>
@@ -326,9 +327,9 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
 
                 var authToken = localStorage.getItem("auth_token");
                 var sep = '<span class="header-icon-sep" aria-hidden="true">|</span>';
-                var profileHref = authToken ? (H.profileUrl || "https://haneri.com/account/profile") : (H.loginUrl || "https://haneri.com/account/login");
+                var profileHref = authToken ? (H.profileUrl || "https://www.haneri.com/account/profile") : (H.loginUrl || "https://www.haneri.com/account/login");
                 var profileTitle = authToken ? "Profile" : "Login";
-                var cartUrl = H.cartUrl || "https://haneri.com/account/cart";
+                var cartUrl = H.cartUrl || "https://www.haneri.com/account/cart";
                 var waUrl = H.waUrl || "https://wa.me/";
 
                 el.innerHTML =
