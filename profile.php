@@ -146,32 +146,6 @@
 						</div><!-- End .row -->
 					</div>
 				</div><!-- End .tab-pane -->
-				<script>
-					document.getElementById("logout-btn").addEventListener("click", function () {
-						Swal.fire({
-							title: "Are you sure?",
-							text: "You will be logged out.",
-							icon: "warning",
-							showCancelButton: true,
-							confirmButtonColor: "#d33",
-							cancelButtonColor: "#3085d6",
-							confirmButtonText: "Yes, Logout"
-						}).then((result) => {
-							if (result.isConfirmed) {
-								// Remove authentication token
-								localStorage.removeItem("auth_token");
-								localStorage.removeItem("user_name");
-								localStorage.removeItem("user_role");
-								localStorage.removeItem("user_id");
-								localStorage.removeItem("unique_id");
-								localStorage.removeItem("guest_id");
-
-								// Redirect to login page (update with correct login URL)
-								window.location.href = "login.php";
-							}
-						});
-					});
-				</script>
 
 				<style>
 					.profile_page .table-order tbody {
@@ -1090,7 +1064,26 @@
 			if (userNameEl) userNameEl.textContent = userName ? userName : "Not Showing !";
 		}
 
-		// Logout functionality
+		// Logout (no confirmation — single handler)
+		function logoutUser(e) {
+			if (e) e.preventDefault();
+			[
+				"auth_token",
+				"user_name",
+				"user_email",
+				"user_mobile",
+				"user_role",
+				"user_id",
+				"unique_id",
+				"guest_id",
+				"pwd_000",
+				"temp_id"
+			].forEach(function (k) {
+				localStorage.removeItem(k);
+			});
+			window.location.href = "login.php";
+		}
+
 		const logoutBtn = document.getElementById("logout-btn");
 		if (logoutBtn) {
 			logoutBtn.addEventListener("click", logoutUser);
@@ -1099,11 +1092,6 @@
 		const logoutBtnAlt = document.getElementById("logout-btn-alt");
 		if (logoutBtnAlt) {
 			logoutBtnAlt.addEventListener("click", logoutUser);
-		}
-
-		function logoutUser() {
-			localStorage.clear(); // Remove all localStorage data
-			window.location.href = "login.php"; // Redirect to login page after logout
 		}
 
 		// Hide Quotation tab for customers

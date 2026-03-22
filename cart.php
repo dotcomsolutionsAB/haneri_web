@@ -4,11 +4,102 @@
 
 
 <style>
-    div:where(.swal2-container) .swal2-input {
-        width:25rem;
+    /* Quotation form only — was forcing every Swal to 40rem */
+    div:where(.swal2-container) .swal2-popup.swal-quotation-wide .swal2-input {
+        width: 25rem;
+        max-width: 100%;
+        box-sizing: border-box;
     }
-    div:where(.swal2-container).swal2-center>.swal2-popup {
-        width:40rem;
+    div:where(.swal2-container) .swal2-popup.swal-quotation-wide {
+        width: 40rem;
+        max-width: calc(100vw - 32px);
+    }
+
+    /* SweetAlert — match login OTP modal theme (teal accent, rounded card) */
+    :root {
+        --haneri-sw-primary: #005d5a;
+        --haneri-sw-primary-hover: #00352f;
+    }
+    .haneri-sw-popup {
+        border-radius: 14px !important;
+        padding: 22px 24px !important;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25) !important;
+        border-top: 4px solid var(--haneri-sw-primary) !important;
+        font-family: "Open Sans", sans-serif !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .haneri-sw-popup:not(.swal-quotation-wide) {
+        max-width: 420px !important;
+    }
+    .haneri-sw-popup .swal2-title.haneri-sw-title {
+        margin-top: 0 !important;
+        padding: 0 !important;
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        color: #222 !important;
+        line-height: 1.3 !important;
+    }
+    .haneri-sw-popup .haneri-sw-text,
+    .haneri-sw-popup .swal2-html-container.haneri-sw-text {
+        font-size: 14px !important;
+        color: #555 !important;
+        margin-top: 4px !important;
+        line-height: 1.45 !important;
+    }
+    .haneri-sw-popup .swal2-actions.haneri-sw-actions {
+        margin-top: 16px !important;
+        gap: 10px !important;
+        width: 100% !important;
+        justify-content: flex-end !important;
+    }
+    .haneri-sw-popup .haneri-sw-btn {
+        border-radius: 10px !important;
+        padding: 10px 20px !important;
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+    }
+    .haneri-sw-popup .haneri-sw-btn-primary {
+        background: var(--haneri-sw-primary) !important;
+        color: #fff !important;
+        border: 1px solid var(--haneri-sw-primary) !important;
+    }
+    .haneri-sw-popup .haneri-sw-btn-primary:hover {
+        background: var(--haneri-sw-primary-hover) !important;
+        border-color: var(--haneri-sw-primary-hover) !important;
+    }
+    .haneri-sw-popup .haneri-sw-btn-cancel {
+        background: #fff !important;
+        color: #444 !important;
+        border: 1px solid #dde2e4 !important;
+    }
+    .haneri-sw-popup .haneri-sw-btn-cancel:hover {
+        background: #f7f7f7 !important;
+    }
+    .haneri-sw-popup .swal2-icon.swal2-success {
+        border-color: rgba(0, 93, 90, 0.45) !important;
+        color: var(--haneri-sw-primary) !important;
+    }
+    .haneri-sw-popup .swal2-success [class^="swal2-success-line"] {
+        background-color: var(--haneri-sw-primary) !important;
+    }
+    .haneri-sw-popup .swal2-success .swal2-success-ring {
+        border-color: rgba(0, 93, 90, 0.25) !important;
+    }
+    @media (max-width: 520px) {
+        .haneri-sw-popup {
+            padding: 18px 16px !important;
+            max-width: 100% !important;
+        }
+        .haneri-sw-popup .swal2-actions.haneri-sw-actions {
+            flex-direction: column-reverse !important;
+            align-items: stretch !important;
+        }
+        .haneri-sw-popup .haneri-sw-btn {
+            width: 100% !important;
+        }
     }
     .cart-summary {
         border-radius: 5px;
@@ -256,6 +347,20 @@
             return;
         }
 
+        /** SweetAlert2 — same visual language as login OTP modal (teal bar, rounded card, pill buttons). */
+        const haneriSwalTheme = {
+            buttonsStyling: false,
+            reverseButtons: true,
+            customClass: {
+                popup: 'haneri-sw-popup',
+                title: 'haneri-sw-title',
+                htmlContainer: 'haneri-sw-text',
+                actions: 'haneri-sw-actions',
+                confirmButton: 'haneri-sw-btn haneri-sw-btn-primary',
+                cancelButton: 'haneri-sw-btn haneri-sw-btn-cancel'
+            }
+        };
+
         // Colour names → hex (keep in sync with shop.php getColorHex)
         const HANERI_VARIANT_COLOR_MAP = {
             'Denim Blue': '#6497B2',
@@ -502,15 +607,14 @@
 
         // =============== CLEAR CART: REMOVE ALL ITEMS ONE-BY-ONE ===============
         document.getElementById("clear-cart-btn").addEventListener("click", function () {
-            Swal.fire({
-                title: "Are you sure?",
-                text: "Your entire cart will be cleared.",
-                icon: "warning",
+            Swal.fire(Object.assign({}, haneriSwalTheme, {
+                title: "Clear your cart?",
+                text: "All items will be removed from your cart.",
+                icon: false,
                 showCancelButton: true,
-                confirmButtonColor: "#d33",
-                cancelButtonColor: "#3085d6",
-                confirmButtonText: "Yes, clear it!"
-            }).then((result) => {
+                confirmButtonText: "Yes, clear cart",
+                cancelButtonText: "Cancel"
+            })).then((result) => {
                 if (!result.isConfirmed) return;
 
                 // 1) Get all current cart item rows
@@ -518,7 +622,13 @@
 
                 // If already empty
                 if (!rows.length) {
-                    Swal.fire("Info", "Your cart is already empty.", "info");
+                    Swal.fire(Object.assign({}, haneriSwalTheme, {
+                        icon: false,
+                        title: "Already empty",
+                        text: "Your cart is already empty.",
+                        showCancelButton: false,
+                        confirmButtonText: "OK"
+                    }));
                     return;
                 }
 
@@ -530,8 +640,14 @@
                     }
                 });
 
-                // 3) Show success message (cart will refresh via removeCartItem -> fetchCart)
-                Swal.fire("Cleared!", "Your cart has been cleared.", "success");
+                // 3) Success (cart refreshes via removeCartItem -> fetchCart)
+                Swal.fire(Object.assign({}, haneriSwalTheme, {
+                    icon: "success",
+                    title: "Cart cleared",
+                    text: "Your cart has been cleared.",
+                    showCancelButton: false,
+                    confirmButtonText: "OK"
+                }));
             });
         });
 
@@ -861,10 +977,18 @@
                 </div>
             `,
             confirmButtonText: 'Create Quote',
-            confirmButtonColor: '#005d5a',
             showCancelButton: true,
             cancelButtonText: 'Cancel',
-            cancelButtonColor: '#dc3545',
+            buttonsStyling: false,
+            reverseButtons: true,
+            customClass: {
+                popup: 'swal-quotation-wide haneri-sw-popup',
+                title: 'haneri-sw-title',
+                htmlContainer: 'haneri-sw-text',
+                actions: 'haneri-sw-actions',
+                confirmButton: 'haneri-sw-btn haneri-sw-btn-primary',
+                cancelButton: 'haneri-sw-btn haneri-sw-btn-cancel'
+            },
             preConfirm: () => {
                 const qUser = document.getElementById('q_user').value;
                 const qEmail = document.getElementById('q_email').value;
