@@ -2012,7 +2012,7 @@ a.text-primary:focus, a.text-primary:hover {
     border-radius: 4px;
 }
 
-/* Cart icon + quantity badge (header) */
+/* Cart icon + quantity badge (header) — tight to icon, no bulky halo */
 .haneri-header-cart-wrap {
     display: inline-flex;
     align-items: center;
@@ -2021,20 +2021,27 @@ a.text-primary:focus, a.text-primary:hover {
 .haneri-header-util .haneri-cart-link.header-icon-svg {
     position: relative;
     overflow: visible;
+    line-height: 0;
+}
+.haneri-header-util .haneri-cart-link.header-icon-svg svg {
+    display: block;
+    vertical-align: top;
 }
 .haneri-cart-badge {
     position: absolute;
-    top: -4px;
-    right: -8px;
-    min-width: 1.125rem;
-    height: 1.125rem;
-    padding: 0 0.3rem;
+    /* Center of pill sits on icon top-right (no floating past the bag) */
+    top: 2px;
+    right: 2px;
+    transform: translate(50%, -50%);
+    min-width: 15px;
+    height: 15px;
+    padding: 0 4px;
     border-radius: 999px;
     background: #ca5d27;
     color: #fff !important;
-    font-size: 0.625rem;
+    font-size: 9px;
     font-weight: 700;
-    line-height: 1.125rem;
+    line-height: 1;
     text-align: center;
     box-sizing: border-box;
     display: none;
@@ -2043,9 +2050,10 @@ a.text-primary:focus, a.text-primary:hover {
     z-index: 2;
     pointer-events: none;
     font-family: "Open Sans", system-ui, sans-serif;
-    letter-spacing: 0;
-    border: 2px solid #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    letter-spacing: -0.02em;
+    border: none;
+    /* Thin crisp edge — avoid thick white “glow” */
+    box-shadow: 0 0 0 1px #fff, 0 1px 1.5px rgba(0, 0, 0, 0.18);
 }
 .haneri-cart-badge.is-visible {
     display: inline-flex !important;
