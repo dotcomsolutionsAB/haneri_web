@@ -1292,6 +1292,9 @@
             success: function (resp) {
                 cartItemsCache = Array.isArray(resp.data) ? resp.data : [];
                 syncCartStatusForSelected(); // update current variant if already selected
+                try {
+                    if (typeof window.haneriRefreshCartBadge === "function") window.haneriRefreshCartBadge();
+                } catch (e) {}
             },
             error: function (xhr) {
                 console.warn("fetchCartStatus error", xhr);

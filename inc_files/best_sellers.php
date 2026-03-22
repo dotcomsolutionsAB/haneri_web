@@ -115,6 +115,9 @@
                                 if (!authToken && !existingTempId && cartRes.data.user_id) {
                                     localStorage.setItem("temp_id", cartRes.data.user_id);
                                 }
+                                try {
+                                    if (typeof window.haneriRefreshCartBadge === "function") window.haneriRefreshCartBadge();
+                                } catch (err2) {}
 
                                 const cardFoot = e.target.closest(".card-foot");
                                 cardFoot.innerHTML = `

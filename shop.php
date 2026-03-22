@@ -1193,6 +1193,9 @@
                 if (!token && !tempId && data.data && typeof data.data.user_id === "string") {
                     localStorage.setItem("temp_id", data.data.user_id);
                 }
+                try {
+                    if (typeof window.haneriRefreshCartBadge === "function") window.haneriRefreshCartBadge();
+                } catch (e) {}
                 showFlashMessage("Item added to cart!");
                 window.location.href = 'cart.php';
                 } else {

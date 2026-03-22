@@ -7,6 +7,10 @@ include('configs/read.php');
 // Load the data from the JSON file
 $data = loadData('configs/haneri.json');
 
+if (!defined('BASE_URL')) {
+    require_once __DIR__ . '/configs/config.php';
+}
+
 // Header utility icons (order: Profile → Cart → WhatsApp), inline SVGs for JS + SSR
 $HANERI_WHATSAPP_URL = 'https://wa.me/918377826826';
 $haneri_svg_profile = '<svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
@@ -61,6 +65,7 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
             'profileUrl' => 'https://haneri.com/account/profile',
             'loginUrl' => 'https://haneri.com/account/login',
             'cartUrl' => 'https://haneri.com/account/cart',
+            'cartFetchUrl' => BASE_URL . '/cart/fetch',
         ), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
     </script>
     <link rel="stylesheet" href="custom/pop_up.css">
@@ -250,7 +255,7 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
 
                     <div class="header-right haneri-header-util">
                         <?php /* SSR (logged out): Profile → Cart → WhatsApp — JS refreshes when token exists */ ?>
-                        <a href="https://haneri.com/account/login" class="header-icon header-icon-svg" title="Login"><?php echo $haneri_svg_profile; ?></a><span class="header-icon-sep" aria-hidden="true">|</span><a href="https://haneri.com/account/cart" class="header-icon header-icon-svg" title="Cart"><?php echo $haneri_svg_cart; ?></a><span class="header-icon-sep" aria-hidden="true">|</span><a href="<?php echo htmlspecialchars($HANERI_WHATSAPP_URL, ENT_QUOTES, 'UTF-8'); ?>" class="header-icon header-icon-svg header-icon-whatsapp" title="WhatsApp" target="_blank" rel="noopener noreferrer"><?php echo $haneri_svg_whatsapp; ?></a>
+                        <a href="https://haneri.com/account/login" class="header-icon header-icon-svg" title="Login"><?php echo $haneri_svg_profile; ?></a><span class="header-icon-sep" aria-hidden="true">|</span><span class="haneri-header-cart-wrap"><a href="https://haneri.com/account/cart" class="header-icon header-icon-svg header-icon-cart haneri-cart-link" title="Cart"><?php echo $haneri_svg_cart; ?><span class="haneri-cart-badge" hidden data-haneri-cart-badge aria-live="polite"></span></a></span><span class="header-icon-sep" aria-hidden="true">|</span><a href="<?php echo htmlspecialchars($HANERI_WHATSAPP_URL, ENT_QUOTES, 'UTF-8'); ?>" class="header-icon header-icon-svg header-icon-whatsapp" title="WhatsApp" target="_blank" rel="noopener noreferrer"><?php echo $haneri_svg_whatsapp; ?></a>
                     </div>
                 </div>
             </div>
@@ -258,21 +263,88 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
         </header>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var H = window.HANERI_HEADER;
-            var el = document.querySelector(".header-right.haneri-header-util") || document.querySelector(".header-right");
-            if (!el || !H || !H.svgProfile) return;
+        (function () {
+            function haneriCartLineCount(items) {
+                if (!Array.isArray(items)) return 0;
+                return items.reduce(function (sum, row) {
+                    var q = parseInt(row && row.quantity, 10);
+                    return sum + (isNaN(q) ? 0 : Math.max(0, q));
+                }, 0);
+            }
 
-            var authToken = localStorage.getItem("auth_token");
-            var sep = '<span class="header-icon-sep" aria-hidden="true">|</span>';
-            var profileHref = authToken ? (H.profileUrl || "https://haneri.com/account/profile") : (H.loginUrl || "https://haneri.com/account/login");
-            var profileTitle = authToken ? "Profile" : "Login";
-            var cartUrl = H.cartUrl || "https://haneri.com/account/cart";
-            var waUrl = H.waUrl || "https://wa.me/";
+            function haneriRefreshCartBadge() {
+                var H = window.HANERI_HEADER;
+                var badge = document.querySelector("[data-haneri-cart-badge]");
+                if (!H || !H.cartFetchUrl || !badge) return;
 
-            el.innerHTML =
-                '<a href="' + profileHref + '" class="header-icon header-icon-svg" title="' + profileTitle + '">' + H.svgProfile + '</a>' + sep +
-                '<a href="' + cartUrl + '" class="header-icon header-icon-svg" title="Cart">' + H.svgCart + '</a>' + sep +
-                '<a href="' + waUrl + '" class="header-icon header-icon-svg header-icon-whatsapp" title="WhatsApp" target="_blank" rel="noopener noreferrer">' + H.svgWhatsapp + '</a>';
-        });
+                var token = localStorage.getItem("auth_token");
+                var tempId = localStorage.getItem("temp_id");
+                if (!token && !tempId) {
+                    badge.textContent = "";
+                    badge.hidden = true;
+                    badge.classList.remove("is-visible");
+                    return;
+                }
+
+                var body = token ? {} : { cart_id: tempId };
+                var headers = { "Content-Type": "application/json" };
+                if (token) headers["Authorization"] = "Bearer " + token;
+
+                fetch(H.cartFetchUrl, { method: "POST", headers: headers, body: JSON.stringify(body) })
+                    .then(function (r) {
+                        return r.json();
+                    })
+                    .then(function (data) {
+                        var items = data && data.data;
+                        var n = haneriCartLineCount(Array.isArray(items) ? items : []);
+                        if (n > 0) {
+                            badge.textContent = n > 99 ? "99+" : String(n);
+                            badge.hidden = false;
+                            badge.classList.add("is-visible");
+                            badge.setAttribute("aria-label", n + " items in cart");
+                        } else {
+                            badge.textContent = "";
+                            badge.hidden = true;
+                            badge.classList.remove("is-visible");
+                            badge.removeAttribute("aria-label");
+                        }
+                    })
+                    .catch(function () {
+                        badge.textContent = "";
+                        badge.hidden = true;
+                        badge.classList.remove("is-visible");
+                    });
+            }
+
+            window.haneriRefreshCartBadge = haneriRefreshCartBadge;
+            window.addEventListener("haneri-cart-changed", haneriRefreshCartBadge);
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var H = window.HANERI_HEADER;
+                var el = document.querySelector(".header-right.haneri-header-util") || document.querySelector(".header-right");
+                if (!el || !H || !H.svgProfile) return;
+
+                var authToken = localStorage.getItem("auth_token");
+                var sep = '<span class="header-icon-sep" aria-hidden="true">|</span>';
+                var profileHref = authToken ? (H.profileUrl || "https://haneri.com/account/profile") : (H.loginUrl || "https://haneri.com/account/login");
+                var profileTitle = authToken ? "Profile" : "Login";
+                var cartUrl = H.cartUrl || "https://haneri.com/account/cart";
+                var waUrl = H.waUrl || "https://wa.me/";
+
+                el.innerHTML =
+                    '<a href="' + profileHref + '" class="header-icon header-icon-svg" title="' + profileTitle + '">' + H.svgProfile + "</a>" +
+                    sep +
+                    '<span class="haneri-header-cart-wrap">' +
+                    '<a href="' + cartUrl + '" class="header-icon header-icon-svg header-icon-cart haneri-cart-link" title="Cart">' +
+                    H.svgCart +
+                    '<span class="haneri-cart-badge" hidden data-haneri-cart-badge aria-live="polite"></span>' +
+                    "</a></span>" +
+                    sep +
+                    '<a href="' + waUrl + '" class="header-icon header-icon-svg header-icon-whatsapp" title="WhatsApp" target="_blank" rel="noopener noreferrer">' +
+                    H.svgWhatsapp +
+                    "</a>";
+
+                haneriRefreshCartBadge();
+            });
+        })();
     </script>

@@ -296,6 +296,11 @@
             .catch(error => {
                 console.error("Error fetching cart:", error);
                 cartTableBody.innerHTML = "<tr><td colspan='6' class='text-center text-danger'>Error loading cart.</td></tr>";
+            })
+            .finally(() => {
+                try {
+                    if (typeof window.haneriRefreshCartBadge === "function") window.haneriRefreshCartBadge();
+                } catch (e) {}
             });
         }
 

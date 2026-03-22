@@ -2012,6 +2012,45 @@ a.text-primary:focus, a.text-primary:hover {
     border-radius: 4px;
 }
 
+/* Cart icon + quantity badge (header) */
+.haneri-header-cart-wrap {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+.haneri-header-util .haneri-cart-link.header-icon-svg {
+    position: relative;
+    overflow: visible;
+}
+.haneri-cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -8px;
+    min-width: 1.125rem;
+    height: 1.125rem;
+    padding: 0 0.3rem;
+    border-radius: 999px;
+    background: #ca5d27;
+    color: #fff !important;
+    font-size: 0.625rem;
+    font-weight: 700;
+    line-height: 1.125rem;
+    text-align: center;
+    box-sizing: border-box;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    pointer-events: none;
+    font-family: "Open Sans", system-ui, sans-serif;
+    letter-spacing: 0;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+.haneri-cart-badge.is-visible {
+    display: inline-flex !important;
+}
+
 @media (min-width: 1220px) {
     .container {
         max-width: 100% !important;

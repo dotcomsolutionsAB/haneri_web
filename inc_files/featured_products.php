@@ -165,6 +165,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!authToken && !tempId && json?.data?.user_id) {
                 try { localStorage.setItem("temp_id", json.data.user_id); } catch (e) {}
                 }
+                try {
+                    if (typeof window.haneriRefreshCartBadge === "function") window.haneriRefreshCartBadge();
+                } catch (e2) {}
 
                 // ✅ SAFE replace (no outerHTML)
                 const view = document.createElement("a");
