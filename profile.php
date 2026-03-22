@@ -39,11 +39,12 @@
 	}
 </style>
 <main class="main profile_page">
-	<div class="container account-container custom-account-container padding_top_100">
-		<div class="row">
-			<div class="sidebar widget widget-dashboard mb-lg-0 mb-3 col-lg-3 order-0">
-				<h2 class="text-uppercase">My Account</h2>
-				<ul class="nav nav-tabs flex-column mb-0" role="tablist">
+	<div class="container account-container custom-account-container padding_top_100 haneri-account-wrap">
+		<div class="row haneri-account-row">
+			<div class="sidebar widget widget-dashboard mb-lg-0 mb-3 col-lg-3 order-0 haneri-account-sidebar">
+				<div class="haneri-account-sidebar-inner">
+				<h2 class="text-uppercase haneri-account-sidebar-title">My Account</h2>
+				<ul class="nav nav-tabs flex-column mb-0 haneri-account-nav" role="tablist">
 					<li class="nav-item">
 						<a class="nav-link active" id="dashboard-tab" data-toggle="tab" href="#dashboard"
 							role="tab" aria-controls="dashboard" aria-selected="true">Dashboard</a>
@@ -69,33 +70,33 @@
 							aria-controls="edit" aria-selected="false">Account
 							details</a>
 					</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link" id="logout-btn">Logout</a>
+					<li class="nav-item haneri-account-nav-logout">
+						<a href="#" class="nav-link haneri-account-logout" id="logout-btn">Logout</a>
 					</li>
 				</ul>
+				</div>
 			</div>
-			<div class="col-lg-9 order-lg-last order-1 tab-content tab_data">
+			<div class="col-lg-9 order-lg-last order-1 tab-content tab_data haneri-account-main">
 				<div class="tab-pane fade show active" id="dashboard" role="tabpanel">
-					<div class="dashboard-content">
-						<h6>
-							Hello <strong class="text-dark" id="user-name">..</strong>
-						</h6>
-
-						<p>
+					<div class="dashboard-content haneri-account-dashboard">
+						<div class="haneri-account-welcome">
+							<h6 class="haneri-account-welcome-title">
+								Hello <strong class="haneri-account-user-name" id="user-name">..</strong>
+							</h6>
+							<p class="haneri-account-welcome-text">
 							From your account dashboard you can view your
-							<a class="btn btn-link alink link-to-tab" href="#order">recent orders</a>,
+							<a class="btn btn-link alink link-to-tab haneri-account-inline-link" href="#order">recent orders</a>,
 							manage your
-							<a class="btn btn-link alink link-to-tab" href="#address">shipping and billing
+							<a class="btn btn-link alink link-to-tab haneri-account-inline-link" href="#address">shipping and billing
 								addresses</a>, and
-							<a class="btn btn-link alink link-to-tab" href="#edit">edit your password and account
+							<a class="btn btn-link alink link-to-tab haneri-account-inline-link" href="#edit">edit your password and account
 								details.</a>
-						</p>
+							</p>
+						</div>
 
-						<div class="mb-4"></div>
-
-						<div class="row row-lg">
-							<div class="col-6 col-md-3">
-								<div class="feature-box text-center pb-4">
+						<div class="row row-lg haneri-account-quicklinks">
+							<div class="col-6 col-md-4">
+								<div class="feature-box text-center pb-4 haneri-account-tile">
 									<a href="#order" class="link-to-tab"><i
 											class="sicon-social-dropbox"></i></a>
 									<div class="feature-box-content">
@@ -104,8 +105,8 @@
 								</div>
 							</div>
 
-							<div class="col-6 col-md-3">
-								<div class="feature-box text-center pb-4">
+							<div class="col-6 col-md-4">
+								<div class="feature-box text-center pb-4 haneri-account-tile">
 									<a href="#address" class="link-to-tab"><i
 											class="sicon-location-pin"></i></a>
 									<div class="feature-box-content">
@@ -114,8 +115,8 @@
 								</div>
 							</div>
 
-							<div class="col-6 col-md-3">
-								<div class="feature-box text-center pb-4">
+							<div class="col-6 col-md-4">
+								<div class="feature-box text-center pb-4 haneri-account-tile">
 									<a href="#edit" class="link-to-tab"><i class="icon-user-2"></i></a>
 									<div class="feature-box-content p-0">
 										<h3>ACCOUNT DETAILS</h3>
@@ -217,10 +218,10 @@
 				<!-- Orders Showing For each Profile -->
 				<div class="tab-pane fade" id="order" role="tabpanel">
 					<div class="order-content">
-						<h3 class="account-sub-title d-none d-md-block">
+						<h3 class="account-sub-title haneri-account-section-title">
 							<i class="sicon-social-dropbox align-middle mr-3"></i>Orders
 						</h3>
-						<div class="order-table-container text-center">
+						<div class="order-table-container text-center haneri-account-table-card">
 							<table class="table table-order text-left">
 								<thead>
 									<tr>
@@ -269,7 +270,7 @@
 
 							if (!Array.isArray(orders) || orders.length === 0) {
 								console.log("No orders found.");
-								tableBody.innerHTML = `<tr><td colspan="5" class="text-center">No Orders Found</td></tr>`;
+								tableBody.innerHTML = `<tr><td colspan="6" class="text-center haneri-account-empty">No orders yet</td></tr>`;
 								return;
 							}
 
@@ -313,10 +314,10 @@
 				<!-- Quotation Showing For each Profile -->
 				<div class="tab-pane fade" id="quotation" role="tabpanel">
 					<div class="quotation-content">
-						<h3 class="account-sub-title d-none d-md-block">
+						<h3 class="account-sub-title haneri-account-section-title">
 							<i class="sicon-doc align-middle mr-3"></i>Quotation
 						</h3>
-						<div class="quotation-table-container text-center">
+						<div class="quotation-table-container text-center haneri-account-table-card">
 							<table class="table table-quotation text-left">
 								<thead>
 									<tr>
@@ -339,9 +340,9 @@
 				</div>
 
 				<div class="tab-pane fade" id="address" role="tabpanel">
-					<h3 class="account-sub-title d-none d-md-block mb-1">
+					<h3 class="account-sub-title haneri-account-section-title mb-1">
 						<i class="sicon-location-pin align-middle mr-3"></i>Addresses</h3>
-					<div class="addresses-content">
+					<div class="addresses-content haneri-account-addresses">
 						<!-- <p class="mb-4">
 							The following addresses will be used on the checkout page by
 							default.
@@ -357,7 +358,7 @@
 									You have not set up this type of address yet.
 								</div>
 
-								<a class="btn btn-default address-action" href="javascript:void(0);" onclick="openAddAddressForm()">
+								<a class="btn address-action haneri-account-btn-primary" href="javascript:void(0);" onclick="openAddAddressForm()">
 									Add Address
 								</a>
 							</div>
@@ -835,9 +836,9 @@
 				</div><!-- End .tab-pane -->
 
 				<div class="tab-pane fade" id="edit" role="tabpanel">
-					<h3 class="account-sub-title d-none d-md-block mt-0 pt-1 ml-1"><i
+					<h3 class="account-sub-title haneri-account-section-title mt-0 pt-1 ml-1"><i
 							class="icon-user-2 align-middle mr-3 pr-1"></i>Account Details</h3>
-					<div class="account-content">
+					<div class="account-content haneri-account-form-card">
 						<form id="profileForm">
 							<div class="row">
 								<div class="col-md-6">
