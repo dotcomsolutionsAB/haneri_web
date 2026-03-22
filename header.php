@@ -246,9 +246,6 @@ $data = loadData('configs/haneri.json');
                             </a> |
                             <a href="https://haneri.com/account/cart" class="header-icon header-icon-wishlist" title="Wishlist">
                                 <i class="fas fa-shopping-cart"></i>
-                            </a> |
-                            <a href="#" class="header-icon" id="logout-btn" title="Logout">
-                                <i class="fas fa-sign-out-alt"></i>
                             </a>
                         <?php else : ?>
                             <!-- Show when user is NOT logged in -->
@@ -279,19 +276,8 @@ $data = loadData('configs/haneri.json');
                     <a href="#" class="header-icon"><i class="fab fa-whatsapp"></i></a> |
                     <a href="https://haneri.com/account/cart" class="header-icon cart" title="cart">
                         <i class="fas fa-shopping-cart"></i>
-                    </a> |
-                    <a href="#" class="header-icon" id="logout-btn" title="Logout">
-                        <i class="fas fa-sign-out-alt"></i>
                     </a>
                 `;
-
-                document.getElementById("logout-btn").addEventListener("click", function() {
-                    localStorage.removeItem("auth_token");
-                    localStorage.removeItem("user_name");
-                    localStorage.removeItem("user_role");
-                    localStorage.removeItem("user_id");
-                    window.location.href = "https://haneri.com"; // Redirect to login page after logout
-                });
             } else {
                 document.querySelector(".header-right").innerHTML = `
                     <a href="https://haneri.com/account/login" class="header-icon header-icon-user" title="Login">

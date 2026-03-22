@@ -4340,6 +4340,20 @@ footer .social-icon {
 .haneri-account-inline-link:hover {
     color: #004a47 !important;
 }
+.haneri-account-quicklinks a.haneri-account-tile {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    color: inherit !important;
+    cursor: pointer;
+    min-height: 140px;
+}
+.haneri-account-quicklinks a.haneri-account-tile:focus {
+    outline: 2px solid #005d5a;
+    outline-offset: 3px;
+}
 .haneri-account-quicklinks .haneri-account-tile {
     background: #fff;
     border-radius: 12px;
@@ -4358,22 +4372,30 @@ footer .social-icon {
         margin-bottom: 0;
     }
 }
-.haneri-account-quicklinks .haneri-account-tile:hover {
+.haneri-account-quicklinks .haneri-account-tile:hover,
+.haneri-account-quicklinks a.haneri-account-tile:hover {
     box-shadow: 0 8px 28px rgba(0, 93, 90, 0.12);
     border-color: rgba(0, 93, 90, 0.2);
     transform: translateY(-2px);
 }
-.haneri-account-quicklinks .haneri-account-tile a i {
+.haneri-account-quicklinks .haneri-account-tile-icon {
     font-size: 2.5rem;
     color: #005d5a;
     margin-bottom: 8px;
     display: inline-block;
+    line-height: 1;
 }
-.haneri-account-quicklinks .haneri-account-tile h3 {
+.haneri-account-quicklinks .haneri-account-tile-title {
+    display: block;
     font-size: 0.9375rem;
+    font-weight: 700;
     letter-spacing: 0.05em;
+    text-transform: uppercase;
     margin: 0;
     color: #2c3338;
+}
+.haneri-account-quicklinks a.haneri-account-tile:hover .haneri-account-tile-title {
+    color: #005d5a;
 }
 .haneri-account-section-title {
     font-size: 1.3125rem;
@@ -4459,6 +4481,79 @@ footer .social-icon {
     background: #004a47 !important;
     border-color: #004a47 !important;
 }
+/* Profile — addresses: one column, full-width cards, white “Add address” (beat Porto .address .address-action) */
+.profile_page .haneri-account-addresses .address .address-action.haneri-account-btn-primary,
+.profile_page .haneri-account-addresses .haneri-account-add-address-btn {
+    color: #fff !important;
+    background: #005d5a !important;
+    border: 1px solid #005d5a !important;
+}
+.profile_page .haneri-account-addresses .address .address-action.haneri-account-btn-primary:hover,
+.profile_page .haneri-account-addresses .address .address-action.haneri-account-btn-primary:focus,
+.profile_page .haneri-account-addresses .haneri-account-add-address-btn:hover,
+.profile_page .haneri-account-addresses .haneri-account-add-address-btn:focus {
+    color: #fff !important;
+    background: #004a47 !important;
+    border-color: #004a47 !important;
+}
+.profile_page .haneri-account-addresses .haneri-account-address-list.add-List,
+.profile_page .haneri-account-addresses #addressList {
+    width: 100%;
+    max-width: 100%;
+    justify-items: stretch;
+}
+.profile_page .haneri-account-addresses .address-card {
+    width: 100% !important;
+    max-width: 100%;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    justify-self: stretch;
+    box-sizing: border-box;
+}
+.profile_page .haneri-account-addresses .address-card .card-body p {
+    font-size: 1.0625rem;
+    line-height: 1.5;
+}
+.profile_page .haneri-account-addresses .address-card .card-body p strong {
+    font-weight: 700;
+}
+.profile_page .haneri-account-addresses .address-card .card-header .card-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.profile_page .haneri-account-addresses .address-card .card-header .card-phone {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+.profile_page .haneri-account-addresses .cardf.card-footer {
+    align-items: center;
+}
+.profile_page .haneri-account-addresses .cardf .red {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.profile_page .haneri-account-addresses .cardf .select-radio {
+    margin: 0;
+    flex-shrink: 0;
+}
+.profile_page .haneri-account-addresses .footer-label {
+    font-size: 1rem;
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+}
+.profile_page .haneri-account-addresses .haneri-account-address-heading {
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+.profile_page .haneri-account-addresses .haneri-account-address-empty-msg {
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    color: #555;
+}
 .haneri-account-form-card {
     background: #fff;
     border-radius: 12px;
@@ -4501,6 +4596,101 @@ footer .social-icon {
     background: #004a47 !important;
     border-color: #004a47 !important;
 }
+
+/* Account details tab — align fields; override Porto .account-content / .change-password */
+.profile_page .haneri-account-form-card.account-content {
+    margin-top: 0;
+    padding: 1.5rem 1.35rem 1.75rem;
+}
+@media (min-width: 768px) {
+    .profile_page .haneri-account-form-card.account-content {
+        padding: 1.65rem 1.75rem 2rem;
+    }
+}
+.profile_page .haneri-account-edit-title.haneri-account-section-title {
+    margin-left: 0 !important;
+    padding-left: 0;
+}
+.profile_page .haneri-account-profile-form .haneri-account-field {
+    margin-bottom: 1.35rem !important;
+}
+.profile_page .haneri-account-profile-form .haneri-account-form-row {
+    margin-bottom: 0;
+}
+.profile_page .haneri-account-profile-form .haneri-account-form-row > [class*="col-"] > .form-group {
+    margin-bottom: 1.35rem !important;
+}
+.profile_page .haneri-account-form-card.account-content label {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    color: #2c3338 !important;
+    margin-bottom: 0.4rem !important;
+    font-family: inherit !important;
+    letter-spacing: normal !important;
+    display: block;
+}
+.profile_page .haneri-account-form-card.account-content .form-control {
+    font-size: 1.0625rem !important;
+    height: auto !important;
+    min-height: 3rem;
+    padding: 0.65rem 0.95rem !important;
+    letter-spacing: normal !important;
+    line-height: 1.45 !important;
+}
+.profile_page .haneri-account-form-card.account-content .haneri-account-input-readonly,
+.profile_page .haneri-account-form-card.account-content .form-control[readonly] {
+    background-color: #f1f3f4 !important;
+    color: #5c6370 !important;
+    cursor: not-allowed;
+    border-color: #dde1e4 !important;
+}
+.profile_page .haneri-account-form-hint {
+    font-size: 0.9375rem !important;
+    line-height: 1.45;
+    color: #6b7280 !important;
+    margin-top: 0.45rem !important;
+}
+.profile_page .haneri-account-password-section {
+    margin-top: 0.25rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    /* Reset theme .change-password box if class re-used elsewhere */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+}
+.profile_page .haneri-account-password-heading {
+    font-size: 1.125rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #1a1d26 !important;
+    margin: 0 0 1.25rem !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+    line-height: 1.35 !important;
+}
+.profile_page .haneri-account-form-actions {
+    margin-top: 1.75rem;
+    padding-top: 0.35rem;
+}
+.profile_page .haneri-account-save-btn.profile_save {
+    min-width: 11rem;
+    padding: 0.75rem 1.75rem !important;
+    font-size: 1.0625rem !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    border: 1px solid transparent !important;
+    text-transform: none;
+    letter-spacing: 0.02em;
+}
+.profile_page .haneri-account-form-card.account-content .required {
+    color: #c0392b;
+    font-weight: 700;
+}
+
 @media (min-width: 992px) {
     .haneri-account-sidebar {
         margin-bottom: 0;
@@ -4593,7 +4783,10 @@ footer .social-icon {
     .haneri-account-welcome-title {
         font-size: 1.35rem;
     }
-    .haneri-account-quicklinks .haneri-account-tile h3 {
+    .haneri-account-quicklinks .haneri-account-tile-title {
         font-size: 0.875rem;
+    }
+    .haneri-account-quicklinks a.haneri-account-tile {
+        min-height: 128px;
     }
 }

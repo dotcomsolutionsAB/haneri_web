@@ -115,33 +115,31 @@
 						</div>
 
 						<div class="row row-lg haneri-account-quicklinks">
-							<div class="col-6 col-md-4">
-								<div class="feature-box text-center pb-4 haneri-account-tile">
-									<a href="#order" class="link-to-tab"><i
-											class="sicon-social-dropbox"></i></a>
-									<div class="feature-box-content">
-										<h3>ORDERS</h3>
-									</div>
-								</div>
+							<div class="col-6 col-md-4 d-flex">
+								<a href="#order" class="link-to-tab feature-box text-center pb-4 haneri-account-tile w-100 d-flex flex-column align-items-center justify-content-center">
+									<i class="sicon-social-dropbox haneri-account-tile-icon" aria-hidden="true"></i>
+									<span class="feature-box-content">
+										<span class="haneri-account-tile-title">Orders</span>
+									</span>
+								</a>
 							</div>
 
-							<div class="col-6 col-md-4">
-								<div class="feature-box text-center pb-4 haneri-account-tile">
-									<a href="#address" class="link-to-tab"><i
-											class="sicon-location-pin"></i></a>
-									<div class="feature-box-content">
-										<h3>ADDRESSES</h3>
-									</div>
-								</div>
+							<div class="col-6 col-md-4 d-flex">
+								<a href="#address" class="link-to-tab feature-box text-center pb-4 haneri-account-tile w-100 d-flex flex-column align-items-center justify-content-center">
+									<i class="sicon-location-pin haneri-account-tile-icon" aria-hidden="true"></i>
+									<span class="feature-box-content">
+										<span class="haneri-account-tile-title">Addresses</span>
+									</span>
+								</a>
 							</div>
 
-							<div class="col-6 col-md-4">
-								<div class="feature-box text-center pb-4 haneri-account-tile">
-									<a href="#edit" class="link-to-tab"><i class="icon-user-2"></i></a>
-									<div class="feature-box-content p-0">
-										<h3>ACCOUNT DETAILS</h3>
-									</div>
-								</div>
+							<div class="col-6 col-md-4 d-flex">
+								<a href="#edit" class="link-to-tab feature-box text-center pb-4 haneri-account-tile w-100 d-flex flex-column align-items-center justify-content-center">
+									<i class="icon-user-2 haneri-account-tile-icon" aria-hidden="true"></i>
+									<span class="feature-box-content">
+										<span class="haneri-account-tile-title">Account details</span>
+									</span>
+								</a>
 							</div>
 
 						</div><!-- End .row -->
@@ -360,24 +358,22 @@
 							default.
 						</p> -->
 
-						<div class="row">
-							<div class="address col-md-6">
-								<div class="heading d-flex">
-									<h4 class="text-dark mb-0">Billing address</h4>
+						<div class="row haneri-account-address-row">
+							<div class="col-12 haneri-account-address-col address">
+								<div class="heading d-flex mb-2">
+									<h4 class="text-dark mb-0 haneri-account-address-heading">Billing address</h4>
 								</div>
 
-								<div class="address-box">
+								<div class="address-box haneri-account-address-empty-msg mb-3">
 									You have not set up this type of address yet.
 								</div>
 
-								<a class="btn address-action haneri-account-btn-primary" href="javascript:void(0);" onclick="openAddAddressForm()">
+								<a class="btn address-action haneri-account-btn-primary haneri-account-add-address-btn d-inline-flex align-items-center" href="javascript:void(0);" onclick="openAddAddressForm()">
 									Add Address
 								</a>
+								<!-- Fetch Address Card — same column so left edge matches heading & button -->
+								<div id="addressList" class="add-List haneri-account-address-list mt-4"></div>
 							</div>
-						</div>
-						<!-- Fetch Address Card-->
-						<div id="addressList" class="add-List">
-
 						</div>
 						<!-- Fetch & Create Address Script -->
 						<script>
@@ -848,69 +844,64 @@
 				</div><!-- End .tab-pane -->
 
 				<div class="tab-pane fade" id="edit" role="tabpanel">
-					<h3 class="account-sub-title haneri-account-section-title mt-0 pt-1 ml-1"><i
-							class="icon-user-2 align-middle mr-3 pr-1"></i>Account Details</h3>
+					<h3 class="account-sub-title haneri-account-section-title haneri-account-edit-title">
+						<i class="icon-user-2 align-middle mr-3"></i>Account Details</h3>
 					<div class="account-content haneri-account-form-card">
-						<form id="profileForm">
-							<div class="row">
+						<form id="profileForm" class="haneri-account-profile-form" novalidate>
+							<div class="row haneri-account-form-row">
 								<div class="col-md-6">
-									<div class="form-group">
+									<div class="form-group haneri-account-field mb-md-3">
 										<label for="acc-name">First name <span class="required">*</span></label>
-										<input type="text" class="form-control" placeholder="Editor"
-											id="acc-name" name="acc-name" required />
+										<input type="text" class="form-control" placeholder="First name"
+											id="acc-name" name="acc-name" required autocomplete="given-name" />
 									</div>
 								</div>
-
 								<div class="col-md-6">
-									<div class="form-group">
-										<label for="acc-lastname">Last name <span
-												class="required">*</span></label>
+									<div class="form-group haneri-account-field mb-md-3">
+										<label for="acc-lastname">Last name <span class="required">*</span></label>
 										<input type="text" class="form-control" id="acc-lastname"
-											name="acc-lastname" />
+											name="acc-lastname" placeholder="Last name" autocomplete="family-name" />
 									</div>
 								</div>
 							</div>
 
-							<div class="form-group mb-2 pl-3">
-								<label for="acc-text">Mobile Number <span class="required">*</span></label>
-								<input type="text" class="form-control" id="acc-mobile" name="acc-mobile" readonly
-									placeholder="Editor" required />
-								<p>Mobile Number can not be changed</p>
+							<div class="form-group haneri-account-field">
+								<label for="acc-mobile">Mobile number <span class="required">*</span></label>
+								<input type="text" class="form-control haneri-account-input-readonly" id="acc-mobile" name="acc-mobile" readonly
+									placeholder="Mobile" required inputmode="numeric" autocomplete="tel" />
+								<p class="haneri-account-form-hint mb-0">Mobile number cannot be changed.</p>
 							</div>
 
-
-							<div class="form-group mb-4 pl-3">
+							<div class="form-group haneri-account-field">
 								<label for="acc-email">Email address <span class="required">*</span></label>
 								<input type="email" class="form-control" id="acc-email" name="acc-email"
-									placeholder="editor@gmail.com" required />
+									placeholder="you@example.com" required autocomplete="email" />
 							</div>
 
-							<div class="change-password pl-3">
-								<h3 class="text-uppercase mb-2">Password Change</h3>
+							<div class="haneri-account-password-section" aria-labelledby="haneri-password-heading">
+								<h3 id="haneri-password-heading" class="haneri-account-password-heading">Password change</h3>
 
-								<div class="form-group">
-									<label for="acc-password">Current Password (leave blank to leave
-										unchanged)</label>
-									<input type="password" class="form-control" id="acc-password"
-										name="acc-password" />
+								<div class="form-group haneri-account-field mb-3">
+									<label for="acc-current-password">Current password <span class="text-muted font-weight-normal">(optional)</span></label>
+									<input type="password" class="form-control" id="acc-current-password"
+										name="acc-password" placeholder="Leave blank to keep current password" autocomplete="current-password" />
 								</div>
 
-								<div class="form-group">
-									<label for="acc-password">New Password (leave blank to leave
-										unchanged)</label>
+								<div class="form-group haneri-account-field mb-3">
+									<label for="acc-new-password">New password <span class="text-muted font-weight-normal">(optional)</span></label>
 									<input type="password" class="form-control" id="acc-new-password"
-										name="acc-new-password" />
+										name="acc-new-password" placeholder="Leave blank to keep current password" autocomplete="new-password" />
 								</div>
 
-								<div class="form-group">
-									<label for="acc-password">Confirm New Password</label>
+								<div class="form-group haneri-account-field mb-0">
+									<label for="acc-confirm-password">Confirm new password</label>
 									<input type="password" class="form-control" id="acc-confirm-password"
-										name="acc-confirm-password" />
+										name="acc-confirm-password" placeholder="Repeat new password" autocomplete="new-password" />
 								</div>
 							</div>
 
-							<div class="form-footer mt-3 mb-0 pl-3">
-								<button type="button" class="btn profile_save mr-0" id="saveProfileBtn">
+							<div class="haneri-account-form-actions">
+								<button type="button" class="btn profile_save haneri-account-save-btn" id="saveProfileBtn">
 									Save changes
 								</button>
 							</div>
@@ -957,9 +948,10 @@
 			const user = responseData.data;
 
 			// Populate form fields
-			document.getElementById("acc-name").value = user.name || "";
+			document.getElementById("acc-name").value = user.first_name || user.firstname || user.name || "";
+			document.getElementById("acc-lastname").value = user.last_name || user.lastname || "";
 			document.getElementById("acc-email").value = user.email || "";
-			document.getElementById("acc-mobile").value = user.mobile || ""; // Mobile Number same as name
+			document.getElementById("acc-mobile").value = user.mobile || user.contact_no || "";
 		})
 		.catch(error => {
 			console.error("Error fetching profile:", error);
@@ -1005,8 +997,10 @@
 			const user = responseData.data;
 
 			// Fill input fields with user data
-			document.getElementById("acc-name").value = user.name || "";
+			document.getElementById("acc-name").value = user.first_name || user.firstname || user.name || "";
+			document.getElementById("acc-lastname").value = user.last_name || user.lastname || "";
 			document.getElementById("acc-email").value = user.email || "";
+			document.getElementById("acc-mobile").value = user.mobile || user.contact_no || "";
 		})
 		.catch(error => {
 			console.error("Error fetching profile:", error);
@@ -1019,13 +1013,15 @@
 
 		// Attach event listener to the Save Changes button
 		document.getElementById("saveProfileBtn").addEventListener("click", function () {
-			const name = document.getElementById("acc-name").value.trim();
+			const firstName = document.getElementById("acc-name").value.trim();
+			const lastName = document.getElementById("acc-lastname").value.trim();
 			const email = document.getElementById("acc-email").value.trim();
+			const name = [firstName, lastName].filter(Boolean).join(" ").trim() || firstName;
 
-			if (!name || !email) {
+			if (!firstName || !email) {
 				Swal.fire({
 					title: "Missing Fields!",
-					text: "Name and Email cannot be empty.",
+					text: "First name and email are required.",
 					icon: "warning"
 				});
 				return;
