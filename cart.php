@@ -200,7 +200,7 @@
     letter-spacing: 0.02em;
 }
 
-/* Cart line colour palette (matches shop / PDP swatches) */
+/* Cart line: one swatch for the finish in this line (matches shop / PDP colours) */
 .cart-product-cell {
     text-align: left;
     max-width: 280px;
@@ -223,10 +223,6 @@
     flex-shrink: 0;
     box-sizing: border-box;
     cursor: default;
-}
-.cart-palette-dot--active {
-    box-shadow: 0 0 0 2px #005d5a;
-    border-color: rgba(0, 93, 90, 0.35);
 }
 @media (max-width: 520px) {
     .cart-product-cell {
@@ -298,48 +294,14 @@
                 .replace(/>/g, '&gt;');
         }
 
-        function fetchVariantsForProducts(productIds) {
-            const map = {};
-            const ids = [...new Set((productIds || []).map(function (id) { return String(id); }).filter(Boolean))];
-            if (!ids.length) return Promise.resolve(map);
-            const headers = { 'Content-Type': 'application/json' };
-            if (token) headers['Authorization'] = 'Bearer ' + token;
-            return Promise.all(ids.map(function (pid) {
-                return fetch('<?php echo BASE_URL; ?>/products/get_products/' + encodeURIComponent(pid), {
-                    method: 'POST',
-                    headers: headers,
-                    body: JSON.stringify({})
-                })
-                    .then(function (r) { return r.json(); })
-                    .then(function (data) {
-                        var p = data && data.data;
-                        if (p && Array.isArray(p.variants)) map[pid] = p.variants;
-                    })
-                    .catch(function () {});
-            })).then(function () { return map; });
-        }
-
-        function buildCartPaletteHtml(item, variantMapByProductId) {
-            var rawPid = item.product_id != null ? item.product_id : item.productId;
-            var pid = rawPid != null ? String(rawPid) : '';
-            var selId = item.variant_id != null ? item.variant_id : item.variantId;
-            var variants = (pid && variantMapByProductId[pid]) || item.product_variants || item.variants;
-            if (variants && variants.length) {
-                var dots = variants.map(function (v) {
-                    var label = v.variant_value || v.color || '';
-                    var hex = haneriCartColorHex(label);
-                    var vId = v.id;
-                    var active = (vId != null && selId != null && String(vId) === String(selId)) ? ' cart-palette-dot--active' : '';
-                    return '<span class="cart-palette-dot' + active + '" role="listitem" style="background-color:' + hex + '" title="' + escapeHtmlAttr(label) + '"></span>';
-                }).join('');
-                return '<div class="cart-color-palette" role="list" aria-label="Colour options">' + dots + '</div>';
-            }
+        /** Single swatch for the finish actually in the cart (no extra product API calls). */
+        function buildCartLineColourSwatchHtml(item) {
             var v = item.variant_value || item.color;
-            if (v) {
-                var hexOne = haneriCartColorHex(v);
-                return '<div class="cart-color-palette" role="list" aria-label="Colour"><span class="cart-palette-dot cart-palette-dot--active" style="background-color:' + hexOne + '" title="' + escapeHtmlAttr(v) + '"></span></div>';
-            }
-            return '';
+            if (!v) return '';
+            var hex = haneriCartColorHex(v);
+            return '<div class="cart-color-palette" aria-label="Colour">' +
+                '<span class="cart-palette-dot" style="background-color:' + hex + '" title="' + escapeHtmlAttr(v) + '"></span>' +
+                '</div>';
         }
 
         // console.log("Auth Token:", token);
@@ -381,14 +343,7 @@
 
                 if (data && Array.isArray(data.data) && data.data.length > 0) {
                     console.log("Data received, displaying cart...");
-                    var pids = data.data.map(function (i) {
-                        return i.product_id != null ? i.product_id : i.productId;
-                    }).filter(function (id) { return id != null && id !== ''; });
-                    fetchVariantsForProducts(pids).then(function (varMap) {
-                        displayCart(data.data, varMap);
-                    }).catch(function () {
-                        displayCart(data.data, {});
-                    });
+                    displayCart(data.data);
                 } else {
                     console.warn("Cart is empty or data is missing.");
 
@@ -432,8 +387,7 @@
         }
 
         // =============== DISPLAY CART ITEMS ===============
-        function displayCart(cartItems, variantMapByProductId) {
-            variantMapByProductId = variantMapByProductId || {};
+        function displayCart(cartItems) {
             document.querySelector(".empty-cart-box")?.remove();
             document.querySelector(".cart-table-container").style.display = "block";
 
@@ -471,7 +425,7 @@
 
                 console.log(`Adding item: ${productName}, Price: ${sellingPrice}, Quantity: ${quantity}, Discount: ${discount}%`);
 
-                const paletteHtml = buildCartPaletteHtml(item, variantMapByProductId);
+                const paletteHtml = buildCartLineColourSwatchHtml(item);
 
                 cartTableBody.innerHTML += `
                     <tr data-cart-id="${item.id}">
