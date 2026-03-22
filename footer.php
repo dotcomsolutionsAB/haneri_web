@@ -57,27 +57,22 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="contact-widget">
+                                    <div class="contact-widget footer-company-block">
                                         <p><i class="fas fa-home"></i></p>
-                                        <p>
-                                            <span>
-                                                <?php
-                                                    $mapsUrl = 'https://www.google.com/maps/search/A-48+Sector+57+Noida+Uttar+Pradesh+201301/@19.6922828,61.0418276,4z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI2MDMxOC4xIKXMDSoASAFQAw%3D%3D';
-                                                    if ($data && isset($data['name'])) {
-                                                        echo '<a href="' . htmlspecialchars($mapsUrl, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($data['name'], ENT_QUOTES, 'UTF-8') . '</a>';
-                                                    } else {
-                                                        echo 'Name not found';
-                                                    }
-                                                ?>
-                                            <br>
-                                                <?php
-                                                    if ($data && isset($data['address'])) {
-                                                        echo '<a href="' . htmlspecialchars($mapsUrl, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($data['address'], ENT_QUOTES, 'UTF-8') . '</a>';
-                                                    } else {
-                                                        echo 'Address not found';
-                                                    }
-                                                ?>
-                                            </span>
+                                        <p class="footer-company-text">
+                                            <?php
+                                                $mapsUrl = 'https://www.google.com/maps/search/A-48+Sector+57+Noida+Uttar+Pradesh+201301/@19.6922828,61.0418276,4z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI2MDMxOC4xIKXMDSoASAFQAw%3D%3D';
+                                                if ($data && isset($data['name'])) {
+                                                    echo '<a class="footer-company-name" href="' . htmlspecialchars($mapsUrl, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($data['name'], ENT_QUOTES, 'UTF-8') . '</a>';
+                                                } else {
+                                                    echo 'Name not found';
+                                                }
+                                                if ($data && isset($data['address'])) {
+                                                    echo '<a class="footer-company-address" href="' . htmlspecialchars($mapsUrl, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($data['address'], ENT_QUOTES, 'UTF-8') . '</a>';
+                                                } else {
+                                                    echo '<span class="footer-company-address">Address not found</span>';
+                                                }
+                                            ?>
                                         </p>
                                     </div>
                                     <div class="contact-widget">

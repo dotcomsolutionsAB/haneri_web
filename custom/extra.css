@@ -515,6 +515,23 @@ footer .social-icon {
 .footer .contact-widget > p:first-child i {
     vertical-align: top;
 }
+/* Company name + address: tight vertical stack (theme uses display:block on links; <br> caused double gap) */
+.footer .contact-widget.footer-company-block .footer-company-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    line-height: 1.35;
+}
+.footer .contact-widget.footer-company-block .footer-company-text a.footer-company-name,
+.footer .contact-widget.footer-company-block .footer-company-text a.footer-company-address {
+    display: block;
+    margin: 0;
+    line-height: 1.35;
+}
+.footer .contact-widget.footer-company-block .footer-company-text .footer-company-address {
+    line-height: 1.35;
+}
 footer p {
     margin-bottom: 0rem;
     height: -webkit-fill-available;
