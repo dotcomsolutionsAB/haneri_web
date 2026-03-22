@@ -29,6 +29,12 @@
     max-width: calc(100vw - 32px) !important;
 }
 
+/* Checkout “Add New Address” (wider than default 420px cap) */
+.swal2-container .swal2-popup.swal-checkout-address {
+    width: min(920px, calc(100vw - 32px)) !important;
+    max-width: min(920px, calc(100vw - 32px)) !important;
+}
+
 .swal2-container .swal2-popup.swal-quotation-wide .swal2-input {
     width: 25rem !important;
     max-width: 100% !important;

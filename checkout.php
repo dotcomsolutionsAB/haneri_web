@@ -566,8 +566,9 @@
 
                     Swal.fire({
                         title: 'Add New Address',
-                        width: '700px',
+                        width: 'min(920px, calc(100vw - 32px))',
                         customClass: {
+                            popup: 'swal-checkout-address',
                             confirmButton: 'add-address-btn',
                             cancelButton: 'cancel-address-btn'
                         },
@@ -2260,6 +2261,28 @@
 </main>
 <!-- End .main -->
 <style>
+    /* Add-address modal: use full width with a clear 2-column grid (desktop) */
+    #swal-address-form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 16px;
+        align-items: start;
+        text-align: left;
+        margin-top: 8px;
+    }
+    #swal-address-form > #swal_name,
+    #swal-address-form > .swal-mobile-row,
+    #swal-address-form > #swal_live_warning,
+    #swal-address-form > .create_user_checkbox {
+        grid-column: 1 / -1;
+    }
+    #swal-address-form input[type="text"],
+    #swal-address-form input[type="email"],
+    #swal-address-form select {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+    }
     .swal-send-otp-btn {
         flex-shrink: 0;
         padding: 0 16px;
@@ -2284,9 +2307,14 @@
     }
     @media (max-width: 520px) {
         #swal-address-form {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr) !important;
-            gap: 5px !important;
+            grid-template-columns: 1fr !important;
+            gap: 10px !important;
+        }
+        #swal-address-form > #swal_name,
+        #swal-address-form > .swal-mobile-row,
+        #swal-address-form > #swal_live_warning,
+        #swal-address-form > .create_user_checkbox {
+            grid-column: 1 !important;
         }
         .swal-mobile-row {
             flex-direction: column !important;
