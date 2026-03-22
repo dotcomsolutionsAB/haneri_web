@@ -174,9 +174,9 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
                                                 <ul class="submenu">
                                                     <li><a href="https://www.haneri.com/air-curve-design">Air Curve Design</a></li>
                                                     <li><a href="https://www.haneri.com/turbosilent-bldc">TurboSilent BLDC</a></li>
-                                                    <li><a href="https://www.haneri.com/hass">H.A.S.SÂ®</a></li>
+                                                    <li><a href="https://www.haneri.com/hass">HASS®</a></li>
                                                     <li><a href="https://www.haneri.com/lumiambience">LumiAmbience</a></li>
-                                                    <li><a href="https://www.haneri.com/scan">S.C.A.N</a></li>
+                                                    <li><a href="https://www.haneri.com/scan">SCAN</a></li>
                                                 </ul>
                                             </div><!-- End .col-lg-4 -->
                                         </div>

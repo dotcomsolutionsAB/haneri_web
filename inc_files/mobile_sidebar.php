@@ -22,7 +22,7 @@
                 <ul>
                     <li><a href="https://www.haneri.com/air-curve-design">Air Curve Design</a></li>
                     <li><a href="https://www.haneri.com/turbosilent-bldc">TurboSilent BLDC</a></li>
-                    <li><a href="https://www.haneri.com/hass">HASS&reg;</a></li>
+                    <li><a href="https://www.haneri.com/hass">HASS®</a></li>
                     <li><a href="https://www.haneri.com/lumiambience">LumiAmbience</a></li>
                     <li><a href="https://www.haneri.com/scan">SCAN</a></li>
                 </ul>

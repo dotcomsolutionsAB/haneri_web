@@ -233,7 +233,7 @@
                 title: 'Core Technologies',
                 image: 'images/faq_content1.png',
                 faqs: [
-                    { q: 'What is Silent H.A.S.S.™ Technology?', a: 'Silent H.A.S.S.™ integrates two Haneri pillars—Air Curve Design™ blades + TurboSilent BLDC™ motor. The result: exceptional air at reduced RPM with whisper-quiet operation and outstanding efficiency.' },
+                    { q: 'What is Silent HASS® Technology?', a: 'Silent HASS® integrates two Haneri pillars—Air Curve Design™ blades + TurboSilent BLDC™ motor. The result: exceptional air at reduced RPM with whisper-quiet operation and outstanding efficiency.' },
                     { q: 'What is TurboSilent BLDC™?', a: 'Our high-torque, energy-efficient BLDC motor platform engineered for strong air delivery, stable speed control, and ultra-quiet performance.' },
                     { q: 'What is More Air Slow Speed Technology™ (High Air at Low Speed)?', a: 'This registered innovation is tuned to deliver excellent air even at lower speeds—so you stay comfortable while saving energy.' },
                     { q: 'What is LumiAmbience™ (Mood Lighting)?', a: 'Selectable ambient lighting on supported models to set a cozy or vibrant mood. Adjustable via the fan’s remote.' }
