@@ -1943,6 +1943,118 @@ a.text-primary:focus, a.text-primary:hover {
     letter-spacing: -0.25px !important;
 }
 
+/* ========== Haneri header — closer to Next.js bar (logo | centered nav | icons) ========== */
+.haneri-site-header.header-transparent {
+    position: absolute;
+    background: transparent;
+}
+.header-middle.haneri-header-bar {
+    padding: 1rem 0 !important;
+    border-top: none !important;
+    border-bottom: 1px solid #e8eaed;
+    background-color: #fff !important;
+    box-shadow: none;
+}
+.header-transparent .haneri-header-bar,
+.sticky-header.haneri-header-bar.header-middle.fixed {
+    background: #fff !important;
+    background-color: #fff !important;
+}
+.sticky-header.haneri-header-bar.header-middle.fixed {
+    height: auto !important;
+    min-height: 4.25rem;
+    align-items: center;
+    display: flex;
+}
+.haneri-header-inner.container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: 100%;
+}
+.haneri-header-brand.header-left {
+    flex: 0 0 auto;
+    margin-right: 0.75rem;
+    z-index: 2;
+}
+.haneri-header-actions.header-right {
+    flex: 0 0 auto;
+    margin-left: auto !important;
+    z-index: 2;
+}
+@media (min-width: 521px) {
+    .haneri-header-brand .haneri-header-logo.logo {
+        display: none !important;
+    }
+    .haneri-header-brand .haneri-header-logo-desktop.logo_div {
+        display: block !important;
+    }
+}
+@media (max-width: 520px) {
+    .haneri-header-brand .haneri-header-logo-desktop.logo_div {
+        display: none !important;
+    }
+    .haneri-header-brand .haneri-header-logo.logo {
+        display: block !important;
+    }
+}
+@media (min-width: 992px) {
+    .haneri-header-inner.container {
+        min-height: 3.25rem;
+    }
+    .haneri-site-header .haneri-header-nav.main-nav {
+        position: absolute !important;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        float: none !important;
+        margin: 0 !important;
+        z-index: 1;
+        width: max-content;
+        max-width: min(72vw, 52rem);
+    }
+    .haneri-site-header .haneri-header-nav .menu {
+        display: flex !important;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        margin: 0 !important;
+    }
+    .haneri-site-header .haneri-header-nav .menu > li {
+        padding-left: 0.35rem !important;
+        padding-right: 0.35rem !important;
+    }
+    .haneri-site-header .haneri-header-nav .menu > li > a {
+        font-size: 0.8125rem !important;
+        font-weight: 500 !important;
+        letter-spacing: 0.06em !important;
+        color: #4a5058 !important;
+        padding: 0.5rem 0.65rem !important;
+        text-transform: uppercase;
+        transition: color 0.2s ease;
+    }
+    .haneri-site-header .haneri-header-nav .menu > li > a:hover,
+    .haneri-site-header .haneri-header-nav .menu > li.active > a {
+        color: #005d5a !important;
+    }
+}
+.haneri-header-util.haneri-header-actions .header-icon-svg {
+    color: #4a5058;
+}
+.haneri-header-util.haneri-header-actions .header-icon-svg svg {
+    stroke: currentColor;
+}
+.haneri-header-util.haneri-header-actions .header-icon-whatsapp svg {
+    fill: currentColor;
+}
+.haneri-header-util .header-icon-sep {
+    color: #c5cad3;
+    opacity: 1;
+}
+
 @media (min-width: 992px) {
     .container {
         /* padding-left: 10px; */

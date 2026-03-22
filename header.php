@@ -94,25 +94,24 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
 
     <!-- <div class="page-wrapper" id="dc-page-content"> -->
     <div class="page-wrapper">
-        <header class="header header-transparent">
-            <div class="header-middle sticky-header">
-                <div class="container">
-                    <div class="header-left">
-                        <button class="mobile-menu-toggler" type="button">
+        <header class="header header-transparent haneri-site-header">
+            <div class="header-middle sticky-header haneri-header-bar">
+                <div class="container haneri-header-inner">
+                    <div class="header-left haneri-header-brand">
+                        <button class="mobile-menu-toggler" type="button" aria-label="Open menu">
                             <i class="fas fa-bars"></i>
                         </button>
-                        <!-- <a href="https://haneri.com" class="logo"> -->
-                        <a href="https://haneri.com/" class="logo">
+                        <a href="https://haneri.com/" class="logo haneri-header-logo">
                             <img src="images/Haneri Logo.png" alt="Haneri">
                         </a>
-                        <div class="logo_div">
-                         <!--   <a href="https://haneri.com" class="logos"> -->
+                        <div class="logo_div haneri-header-logo-desktop">
                             <a href="https://haneri.com" class="logos">
                                 <img src="images/Haneri Logo.png" alt="Haneri">
                             </a>
                         </div>
+                    </div>
 
-                        <nav class="main-nav font2">
+                        <nav class="main-nav font2 haneri-header-nav" aria-label="Primary">
                             <ul class="menu">
                                 <li class="active">
                                     <a href="https://haneri.com/shop">Categories</a>
@@ -251,9 +250,8 @@ $haneri_svg_whatsapp = '<svg stroke="currentColor" fill="currentColor" stroke-wi
                                 </li>
                             </ul>
                         </nav>
-                    </div><!-- End .header-left -->
 
-                    <div class="header-right haneri-header-util">
+                    <div class="header-right haneri-header-util haneri-header-actions">
                         <?php /* SSR (logged out): Profile → Cart → WhatsApp — JS refreshes when token exists */ ?>
                         <a href="https://haneri.com/account/login" class="header-icon header-icon-svg" title="Login"><?php echo $haneri_svg_profile; ?></a><span class="header-icon-sep" aria-hidden="true">|</span><span class="haneri-header-cart-wrap"><a href="https://haneri.com/account/cart" class="header-icon header-icon-svg header-icon-cart haneri-cart-link" title="Cart"><?php echo $haneri_svg_cart; ?><span class="haneri-cart-badge" hidden data-haneri-cart-badge aria-live="polite"></span></a></span><span class="header-icon-sep" aria-hidden="true">|</span><a href="<?php echo htmlspecialchars($HANERI_WHATSAPP_URL, ENT_QUOTES, 'UTF-8'); ?>" class="header-icon header-icon-svg header-icon-whatsapp" title="WhatsApp" target="_blank" rel="noopener noreferrer"><?php echo $haneri_svg_whatsapp; ?></a>
                     </div>
