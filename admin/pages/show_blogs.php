@@ -166,10 +166,21 @@ $current_page = "Show Blogs";
       };
     }
 
-    function safeArray(input) {
-      if (Array.isArray(input)) return input;
-      if (input && Array.isArray(input.data)) return input.data;
+    function getBlogsFromResponse(json) {
+      if (Array.isArray(json)) return json;
+      if (!json || typeof json !== "object") return [];
+      if (json.data && Array.isArray(json.data.blogs)) return json.data.blogs;
+      if (Array.isArray(json.blogs)) return json.blogs;
+      if (json.data && Array.isArray(json.data)) return json.data;
       return [];
+    }
+
+    function getTotalFromResponse(json, fallbackLength) {
+      if (!json || typeof json !== "object") return fallbackLength;
+      if (json.data && typeof json.data.total !== "undefined") return Number(json.data.total) || fallbackLength;
+      if (typeof json.total_records !== "undefined") return Number(json.total_records) || fallbackLength;
+      if (typeof json.total !== "undefined") return Number(json.total) || fallbackLength;
+      return fallbackLength;
     }
 
     function normalizeBlog(row) {
@@ -311,8 +322,8 @@ $current_page = "Show Blogs";
           return;
         }
 
-        rowsCache = safeArray(json.data || json);
-        totalItems = Number(json.total_records || json.total || rowsCache.length || 0);
+        rowsCache = getBlogsFromResponse(json);
+        totalItems = getTotalFromResponse(json, rowsCache.length || 0);
         $count.text(totalItems);
         renderRows(rowsCache);
         updatePager();
