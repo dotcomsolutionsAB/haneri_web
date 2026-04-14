@@ -282,7 +282,7 @@ $current_page = "Show Blogs";
             "<td class='text-gray-700 text-2sm'>" + (b.published_at ? $("<div>").text(b.published_at).html() : "-") + "</td>" +
             "<td>" +
               "<div class='flex items-center gap-2'>" +
-                "<button class='btn btn-xs btn-light js-edit-blog' data-id='" + b.id + "'>Edit</button>" +
+                "<a class='btn btn-xs btn-light' href='pages/edit_blog.php?id=" + encodeURIComponent(b.id) + "'>Edit</a>" +
                 "<button class='btn btn-xs btn-danger js-delete-blog' data-id='" + b.id + "'>Delete</button>" +
               "</div>" +
             "</td>" +
@@ -511,16 +511,6 @@ $current_page = "Show Blogs";
         Swal.fire("Error", "Unable to delete blog.", "error");
       }
     }
-
-    $tbody.on("click", ".js-edit-blog", function () {
-      const id = Number($(this).data("id"));
-      const found = rowsCache.find(function (r) { return Number(r.id) === id; });
-      if (!found) {
-        Swal.fire("Error", "Blog row not found in current page. Try refresh.", "error");
-        return;
-      }
-      openBlogForm("edit", found);
-    });
 
     $tbody.on("click", ".js-delete-blog", function () {
       const id = Number($(this).data("id"));
