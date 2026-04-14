@@ -34,8 +34,22 @@ $current_page = "Add Blog";
     border-color: #fca5a5 !important;
   }
   #blog-editor {
-    min-height: 260px;
     background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  #blog-editor .ql-toolbar.ql-snow {
+    border-color: #e5e7eb;
+  }
+  #blog-editor .ql-container.ql-snow {
+    border-color: #e5e7eb;
+    height: 300px !important;
+    min-height: 300px !important;
+  }
+  #blog-editor .ql-editor {
+    min-height: 300px;
+    max-height: 300px;
+    overflow-y: auto;
   }
   .faq-row {
     display: grid;
@@ -58,6 +72,14 @@ $current_page = "Add Blog";
     }
     .faq-row {
       grid-template-columns: 1fr;
+    }
+    #blog-editor .ql-container.ql-snow {
+      height: 240px !important;
+      min-height: 240px !important;
+    }
+    #blog-editor .ql-editor {
+      min-height: 240px;
+      max-height: 240px;
     }
   }
 </style>
