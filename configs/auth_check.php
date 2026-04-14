@@ -25,6 +25,8 @@
         "../admin/pages/add_discount.php",
         "../admin/pages/show_discounts.php",
 
+        "../admin/pages/show_blogs.php",
+
         "../admin/pages/add_order.php",
         "../admin/pages/show_orders.php",
         "../admin/pages/view_order.php",
