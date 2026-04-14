@@ -72,7 +72,7 @@ $current_page = "Show Blogs";
         <h1 class="text-xl font-medium leading-none text-gray-900">Blogs</h1>
       </div>
       <div class="flex items-center gap-2.5">
-        <button class="btn btn-sm btn-primary" id="btn-add-blog" type="button">Add Blog</button>
+        <a class="btn btn-sm btn-primary" href="pages/add_blog.php">Add Blog</a>
       </div>
     </div>
   </div>
@@ -500,10 +500,6 @@ $current_page = "Show Blogs";
         Swal.fire("Error", "Unable to delete blog.", "error");
       }
     }
-
-    $("#btn-add-blog").on("click", function () {
-      openBlogForm("create", null);
-    });
 
     $tbody.on("click", ".js-edit-blog", function () {
       const id = Number($(this).data("id"));
