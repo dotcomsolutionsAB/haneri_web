@@ -121,8 +121,9 @@ $current_page = "Add Blog";
             <div class="field-error" data-error-for="sub_title"></div>
           </div>
           <div>
-            <label class="form-label">Cover Image URL</label>
-            <input class="input" id="cover_image" placeholder="https://..." type="text">
+            <label class="form-label">Cover Image</label>
+            <input class="input" id="cover_image" accept="image/*" type="file">
+            <div class="form-help">Upload image (max 5MB).</div>
             <div class="field-error" data-error-for="cover_image"></div>
           </div>
         </div>
@@ -303,7 +304,7 @@ $current_page = "Add Blog";
     if (input) input.classList.add("error");
   }
 
-  function collectPayload() {
+  function collectFormData() {
     const faqs = [];
     faqWrap.querySelectorAll("[data-faq-row]").forEach(function (row) {
       const q = (row.querySelector(".faq-question").value || "").trim();
@@ -320,29 +321,45 @@ $current_page = "Add Blog";
     const htmlContent = editor.root.innerHTML.trim();
     const plainText = editor.getText().trim();
 
-    return {
+    const payload = {
       title: (document.getElementById("title").value || "").trim(),
-      slug: (document.getElementById("slug").value || "").trim() || null,
-      sub_title: (document.getElementById("sub_title").value || "").trim() || null,
-      cover_image: (document.getElementById("cover_image").value || "").trim() || null,
+      slug: (document.getElementById("slug").value || "").trim(),
+      sub_title: (document.getElementById("sub_title").value || "").trim(),
       content: plainText ? htmlContent : "",
-      meta_title: (document.getElementById("meta_title").value || "").trim() || null,
-      meta_description: (document.getElementById("meta_description").value || "").trim() || null,
-      meta_keywords: (document.getElementById("meta_keywords").value || "").trim() || null,
-      canonical_url: (document.getElementById("canonical_url").value || "").trim() || null,
-      og_title: (document.getElementById("og_title").value || "").trim() || null,
-      og_description: (document.getElementById("og_description").value || "").trim() || null,
-      og_image: (document.getElementById("og_image").value || "").trim() || null,
-      is_published: document.getElementById("is_published").checked,
-      published_at: toBackendDate(document.getElementById("published_at").value),
+      meta_title: (document.getElementById("meta_title").value || "").trim(),
+      meta_description: (document.getElementById("meta_description").value || "").trim(),
+      meta_keywords: (document.getElementById("meta_keywords").value || "").trim(),
+      canonical_url: (document.getElementById("canonical_url").value || "").trim(),
+      og_title: (document.getElementById("og_title").value || "").trim(),
+      og_description: (document.getElementById("og_description").value || "").trim(),
+      og_image: (document.getElementById("og_image").value || "").trim(),
+      is_published: document.getElementById("is_published").checked ? "1" : "0",
+      published_at: toBackendDate(document.getElementById("published_at").value) || "",
       tags: tagsToArray(document.getElementById("tags").value),
       faqs: faqs
     };
+
+    const fd = new FormData();
+    Object.keys(payload).forEach(function (k) {
+      if (k === "tags") {
+        payload.tags.forEach(function (tag) { fd.append("tags[]", tag); });
+        return;
+      }
+      if (k === "faqs") {
+        fd.append("faqs", JSON.stringify(payload.faqs));
+        return;
+      }
+      if (payload[k] !== "") fd.append(k, payload[k]);
+    });
+    const file = document.getElementById("cover_image").files[0];
+    if (file) fd.append("cover_image", file);
+    return { payload: payload, formData: fd };
   }
 
   async function submitBlog() {
     clearErrors();
-    const payload = collectPayload();
+    const collected = collectFormData();
+    const payload = collected.payload;
 
     if (!payload.title) {
       setFieldError("title", "Title is required.");
@@ -361,10 +378,9 @@ $current_page = "Add Blog";
       const res = await fetch(`${BASE_URL}/blogs/create`, {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
+          "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(payload)
+        body: collected.formData
       });
       const json = await res.json().catch(function () { return {}; });
 

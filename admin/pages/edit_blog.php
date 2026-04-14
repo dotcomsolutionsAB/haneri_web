@@ -53,7 +53,12 @@ $current_page = "Edit Blog";
           <div><label class="form-label">Title *</label><input class="input" id="title" type="text"><div class="field-error" data-error-for="title"></div></div>
           <div><label class="form-label">Slug</label><input class="input" id="slug" type="text"><div class="field-error" data-error-for="slug"></div></div>
           <div><label class="form-label">Subtitle</label><input class="input" id="sub_title" type="text"><div class="field-error" data-error-for="sub_title"></div></div>
-          <div><label class="form-label">Cover Image URL</label><input class="input" id="cover_image" type="text"><div class="field-error" data-error-for="cover_image"></div></div>
+          <div>
+            <label class="form-label">Cover Image</label>
+            <input class="input" id="cover_image" accept="image/*" type="file">
+            <div class="form-help" id="current-cover-info">Upload new file only if you want to replace current cover.</div>
+            <div class="field-error" data-error-for="cover_image"></div>
+          </div>
         </div>
       </div>
 
@@ -205,7 +210,14 @@ $current_page = "Edit Blog";
     document.getElementById("title").value = blog.title || "";
     document.getElementById("slug").value = blog.slug || "";
     document.getElementById("sub_title").value = blog.sub_title || "";
-    document.getElementById("cover_image").value = blog.cover_image || "";
+    const coverInfo = document.getElementById("current-cover-info");
+    if (coverInfo) {
+      if (blog.cover_image) {
+        coverInfo.textContent = "Current: " + blog.cover_image;
+      } else {
+        coverInfo.textContent = "No current cover image.";
+      }
+    }
     document.getElementById("meta_title").value = blog.meta_title || "";
     document.getElementById("meta_description").value = blog.meta_description || "";
     document.getElementById("meta_keywords").value = blog.meta_keywords || "";
@@ -221,7 +233,7 @@ $current_page = "Edit Blog";
     ensureFaqRows(Array.isArray(blog.faqs) ? blog.faqs : []);
   }
 
-  function collectPayload() {
+  function collectFormData() {
     const faqs = [];
     faqWrap.querySelectorAll("[data-faq-row]").forEach(function (row) {
       const q = (row.querySelector(".faq-question").value || "").trim();
@@ -233,24 +245,39 @@ $current_page = "Edit Blog";
 
     const htmlContent = editor.root.innerHTML.trim();
     const plainText = editor.getText().trim();
-    return {
+    const payload = {
       title: (document.getElementById("title").value || "").trim(),
-      slug: (document.getElementById("slug").value || "").trim() || null,
-      sub_title: (document.getElementById("sub_title").value || "").trim() || null,
-      cover_image: (document.getElementById("cover_image").value || "").trim() || null,
+      slug: (document.getElementById("slug").value || "").trim(),
+      sub_title: (document.getElementById("sub_title").value || "").trim(),
       content: plainText ? htmlContent : "",
-      meta_title: (document.getElementById("meta_title").value || "").trim() || null,
-      meta_description: (document.getElementById("meta_description").value || "").trim() || null,
-      meta_keywords: (document.getElementById("meta_keywords").value || "").trim() || null,
-      canonical_url: (document.getElementById("canonical_url").value || "").trim() || null,
-      og_title: (document.getElementById("og_title").value || "").trim() || null,
-      og_description: (document.getElementById("og_description").value || "").trim() || null,
-      og_image: (document.getElementById("og_image").value || "").trim() || null,
-      is_published: document.getElementById("is_published").checked,
-      published_at: toBackendDate(document.getElementById("published_at").value),
+      meta_title: (document.getElementById("meta_title").value || "").trim(),
+      meta_description: (document.getElementById("meta_description").value || "").trim(),
+      meta_keywords: (document.getElementById("meta_keywords").value || "").trim(),
+      canonical_url: (document.getElementById("canonical_url").value || "").trim(),
+      og_title: (document.getElementById("og_title").value || "").trim(),
+      og_description: (document.getElementById("og_description").value || "").trim(),
+      og_image: (document.getElementById("og_image").value || "").trim(),
+      is_published: document.getElementById("is_published").checked ? "1" : "0",
+      published_at: toBackendDate(document.getElementById("published_at").value) || "",
       tags: tagsToArray(document.getElementById("tags").value),
       faqs: faqs
     };
+
+    const fd = new FormData();
+    Object.keys(payload).forEach(function (k) {
+      if (k === "tags") {
+        payload.tags.forEach(function (tag) { fd.append("tags[]", tag); });
+        return;
+      }
+      if (k === "faqs") {
+        fd.append("faqs", JSON.stringify(payload.faqs));
+        return;
+      }
+      if (payload[k] !== "") fd.append(k, payload[k]);
+    });
+    const file = document.getElementById("cover_image").files[0];
+    if (file) fd.append("cover_image", file);
+    return { payload: payload, formData: fd };
   }
 
   async function loadBlog() {
@@ -284,7 +311,8 @@ $current_page = "Edit Blog";
 
   async function updateBlog() {
     clearErrors();
-    const payload = collectPayload();
+    const collected = collectFormData();
+    const payload = collected.payload;
     if (!payload.title) { setFieldError("title", "Title is required."); return; }
     if (!payload.content) { setFieldError("content", "Content is required."); return; }
 
@@ -294,8 +322,8 @@ $current_page = "Edit Blog";
     try {
       const res = await fetch(`${BASE_URL}/blogs/update/${encodeURIComponent(blogId)}`, {
         method: "POST",
-        headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        headers: { "Authorization": `Bearer ${token}` },
+        body: collected.formData
       });
       const json = await res.json().catch(function () { return {}; });
       if (!res.ok) {
