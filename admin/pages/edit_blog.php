@@ -277,7 +277,9 @@ $current_page = "Edit Blog";
         return;
       }
       if (k === "faqs") {
-        fd.append("faqs", JSON.stringify(payload.faqs));
+        if (payload.faqs.length > 0) {
+          fd.append("faqs", JSON.stringify(payload.faqs));
+        }
         return;
       }
       if (payload[k] !== "") fd.append(k, payload[k]);
