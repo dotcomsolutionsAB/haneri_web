@@ -162,6 +162,7 @@ $current_page = "Show Blogs";
     function authHeaders() {
       return {
         "Authorization": `Bearer ${token}`,
+        "Accept": "application/json",
         "Content-Type": "application/json"
       };
     }

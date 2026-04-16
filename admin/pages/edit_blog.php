@@ -297,7 +297,7 @@ $current_page = "Edit Blog";
     try {
       const res = await fetch(`${BASE_URL}/blogs/fetch/${encodeURIComponent(blogId)}`, {
         method: "POST",
-        headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
+        headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify({})
       });
       const json = await res.json().catch(function () { return {}; });
@@ -329,7 +329,7 @@ $current_page = "Edit Blog";
     try {
       const res = await fetch(`${BASE_URL}/blogs/update/${encodeURIComponent(blogId)}`, {
         method: "POST",
-        headers: { "Authorization": `Bearer ${token}` },
+        headers: { "Authorization": `Bearer ${token}`, "Accept": "application/json" },
         body: collected.formData
       });
       const json = await res.json().catch(function () { return {}; });

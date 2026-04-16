@@ -380,7 +380,8 @@ $current_page = "Add Blog";
       const res = await fetch(`${BASE_URL}/blogs/create`, {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/json"
         },
         body: collected.formData
       });
