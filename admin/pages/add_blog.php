@@ -188,11 +188,13 @@ $current_page = "Add Blog";
           <h3 class="card-title">Publish</h3>
         </div>
         <div class="card-body blog-form-grid">
-          <div class="flex items-center gap-2 mt-2">
-            <label class="switch switch-sm">
-              <input class="order-2" id="is_published" type="checkbox" value="1" />
-              <span class="switch-label order-1">Published</span>
-            </label>
+          <div>
+            <label class="form-label">Status</label>
+            <select class="select" id="status">
+              <option value="draft" selected>draft</option>
+              <option value="published">published</option>
+            </select>
+            <div class="field-error" data-error-for="status"></div>
           </div>
           <div>
             <label class="form-label">Published At</label>
@@ -333,7 +335,7 @@ $current_page = "Add Blog";
       og_title: (document.getElementById("og_title").value || "").trim(),
       og_description: (document.getElementById("og_description").value || "").trim(),
       og_image: (document.getElementById("og_image").value || "").trim(),
-      is_published: document.getElementById("is_published").checked ? "1" : "0",
+      is_published: document.getElementById("status").value === "published" ? "1" : "0",
       published_at: toBackendDate(document.getElementById("published_at").value) || "",
       tags: tagsToArray(document.getElementById("tags").value),
       faqs: faqs

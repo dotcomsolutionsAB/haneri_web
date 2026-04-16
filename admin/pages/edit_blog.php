@@ -87,7 +87,14 @@ $current_page = "Edit Blog";
       <div class="card pb-2.5">
         <div class="card-header"><h3 class="card-title">Publish</h3></div>
         <div class="card-body blog-form-grid">
-          <div class="flex items-center gap-2 mt-2"><label class="switch switch-sm"><input class="order-2" id="is_published" type="checkbox" value="1" /><span class="switch-label order-1">Published</span></label></div>
+          <div>
+            <label class="form-label">Status</label>
+            <select class="select" id="status">
+              <option value="draft">draft</option>
+              <option value="published">published</option>
+            </select>
+            <div class="field-error" data-error-for="status"></div>
+          </div>
           <div><label class="form-label">Published At</label><input class="input" id="published_at" type="datetime-local"><div class="field-error" data-error-for="published_at"></div></div>
         </div>
       </div>
@@ -225,7 +232,7 @@ $current_page = "Edit Blog";
     document.getElementById("og_title").value = blog.og_title || "";
     document.getElementById("og_description").value = blog.og_description || "";
     document.getElementById("og_image").value = blog.og_image || "";
-    document.getElementById("is_published").checked = Boolean(blog.is_published);
+    document.getElementById("status").value = Boolean(blog.is_published) ? "published" : "draft";
     document.getElementById("published_at").value = toLocalDateTime(blog.published_at);
     const tags = Array.isArray(blog.tags) ? blog.tags.map(function (t) { return typeof t === "string" ? t : (t && (t.name || t.tag || t.title)) || ""; }).filter(Boolean) : [];
     document.getElementById("tags").value = tags.join(", ");
@@ -257,7 +264,7 @@ $current_page = "Edit Blog";
       og_title: (document.getElementById("og_title").value || "").trim(),
       og_description: (document.getElementById("og_description").value || "").trim(),
       og_image: (document.getElementById("og_image").value || "").trim(),
-      is_published: document.getElementById("is_published").checked ? "1" : "0",
+      is_published: document.getElementById("status").value === "published" ? "1" : "0",
       published_at: toBackendDate(document.getElementById("published_at").value) || "",
       tags: tagsToArray(document.getElementById("tags").value),
       faqs: faqs

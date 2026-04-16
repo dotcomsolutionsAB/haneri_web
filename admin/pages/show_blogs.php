@@ -202,6 +202,7 @@ $current_page = "Show Blogs";
         og_title: row.og_title || "",
         og_description: row.og_description || "",
         og_image: row.og_image || "",
+        status: (row.status || (Boolean(row.is_published) ? "published" : "draft")).toString().toLowerCase(),
         is_published: Boolean(row.is_published),
         published_at: row.published_at || "",
         tags: tags,
@@ -268,8 +269,9 @@ $current_page = "Show Blogs";
         const tagHtml = b.tags.length
           ? b.tags.slice(0, 5).map(function (t) { return "<span class='blog-pill'>" + $("<div>").text(t).html() + "</span>"; }).join("")
           : "<span class='text-gray-500 text-2sm'>-</span>";
-        const statusClass = b.is_published ? "blog-status-published" : "blog-status-draft";
-        const statusText = b.is_published ? "Published" : "Draft";
+        const isPublished = b.status === "published" || b.is_published;
+        const statusClass = isPublished ? "blog-status-published" : "blog-status-draft";
+        const statusText = isPublished ? "published" : "draft";
         const titleSafe = $("<div>").text(b.title).html();
         const slugSafe = $("<div>").text(b.slug).html();
 
