@@ -210,7 +210,9 @@
 			const res = await fetch(url, {
 				method: 'POST',
 				headers: {
-					'Authorization': 'Bearer ' + authToken
+					'Authorization': 'Bearer ' + authToken,
+					'Accept': 'application/json',
+					'X-Requested-With': 'XMLHttpRequest'
 				},
 				body: formData
 			});
@@ -972,9 +974,9 @@
 			}
 
 			const fd = new FormData();
-			fd.append('3d_file', input.files[0]);
+			fd.append('file', input.files[0]);
 
-			const res = await postFiles(`${BASE_URL}/products/${variantId}/3d-file`, fd);
+			const res = await postFiles(`${BASE_URL}/products/${variantId}/glb-model`, fd);
 			if (!res.ok || !res.json) {
 				console.error('3D file upload failed:', res.json || res.text);
 				return Swal?.fire('Error', '3D file upload failed.', 'error') ?? alert('3D file upload failed.');
@@ -996,9 +998,9 @@
 			}
 
 			const fd = new FormData();
-			fd.append('3d_placeholder', input.files[0]);
+			fd.append('file', input.files[0]);
 
-			const res = await postFiles(`${BASE_URL}/products/${variantId}/3d-placeholder`, fd);
+			const res = await postFiles(`${BASE_URL}/products/${variantId}/model-placeholder`, fd);
 			if (!res.ok || !res.json) {
 				console.error('3D placeholder upload failed:', res.json || res.text);
 				return Swal?.fire('Error', '3D placeholder upload failed.', 'error') ?? alert('3D placeholder upload failed.');
@@ -1525,7 +1527,7 @@
 		}
 
 		async function delete3dFileById(variantId) {
-			const url = `${BASE_URL}/products/variants/${variantId}/3d-file`;
+			const url = `${BASE_URL}/products/variants/${variantId}/glb-model`;
 			const res = await fetch(url, {
 				method: 'DELETE',
 				headers: {
@@ -1539,7 +1541,7 @@
 		}
 
 		async function delete3dPlaceholderById(variantId) {
-			const url = `${BASE_URL}/products/variants/${variantId}/3d-placeholder`;
+			const url = `${BASE_URL}/products/variants/${variantId}/model-placeholder`;
 			const res = await fetch(url, {
 				method: 'DELETE',
 				headers: {
@@ -1754,8 +1756,8 @@
 
 				if (threeDFileInput && threeDFileInput.files && threeDFileInput.files.length > 0) {
 					const fd3d = new FormData();
-					fd3d.append('3d_file', threeDFileInput.files[0]);
-					const threeDRes = await postFiles(`${BASE_URL}/products/${vid}/3d-file`, fd3d);
+					fd3d.append('file', threeDFileInput.files[0]);
+					const threeDRes = await postFiles(`${BASE_URL}/products/${vid}/glb-model`, fd3d);
 					if (!threeDRes.ok) {
 						console.error(`3D file upload failed for variant ${vid}:`, threeDRes.json || threeDRes.text);
 						throw new Error(`3D file upload failed for variant ${vid}`);
@@ -1766,8 +1768,8 @@
 
 				if (threeDPlaceholderInput && threeDPlaceholderInput.files && threeDPlaceholderInput.files.length > 0) {
 					const fdPlaceholder = new FormData();
-					fdPlaceholder.append('3d_placeholder', threeDPlaceholderInput.files[0]);
-					const placeholderRes = await postFiles(`${BASE_URL}/products/${vid}/3d-placeholder`, fdPlaceholder);
+					fdPlaceholder.append('file', threeDPlaceholderInput.files[0]);
+					const placeholderRes = await postFiles(`${BASE_URL}/products/${vid}/model-placeholder`, fdPlaceholder);
 					if (!placeholderRes.ok) {
 						console.error(`3D placeholder upload failed for variant ${vid}:`, placeholderRes.json || placeholderRes.text);
 						throw new Error(`3D placeholder upload failed for variant ${vid}`);
