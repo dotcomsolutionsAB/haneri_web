@@ -135,6 +135,10 @@
                                     <th style="width: 110px">Sell. Tax %</th>
                                     <th style="width: 200px">Video URL</th>
                                     <th style="width: 200px">Product PDF</th>
+                                    <th style="width: 200px">3D File (.glb)</th>
+                                    <th style="width: 160px">3D File Preview</th>
+                                    <th style="width: 200px">3D Placeholder</th>
+                                    <th style="width: 160px">3D Placeholder Preview</th>
                                     <th style="width: 90px">Action</th>
                                 </tr>
                             </thead>
@@ -324,6 +328,8 @@
 				// Your painters accept [{id,url}], and your API already sends {id,url}
 				if (Array.isArray(v.file_urls)) displayPhotoThumbnails(v.file_urls, rowEl, v.id);
 				if (Array.isArray(v.banner_urls)) displayBannerThumbnails(v.banner_urls, rowEl, v.id);
+				if (v['3d_file']) display3dFilePreview(v['3d_file'], rowEl, v.id);
+				if (v['3d_placeholder']) display3dPlaceholderPreview(v['3d_placeholder'], rowEl, v.id);
 			});
 		}
 
@@ -807,6 +813,22 @@
                 <td><input type="number" step="0.01" class="input v_selling_tax" placeholder="" value="${data.selling_tax ?? ''}"></td>
                 <td><input type="url" class="input v_video_url" placeholder="" value="${data.video_url ?? ''}"></td>
                 <td><input type="url" class="input v_product_pdf" placeholder="" value="${data.product_pdf ?? ''}"></td>
+                <td>
+                    <input type="file" class="input v_3d_file" accept=".glb,model/gltf-binary">
+                    <button type="button" class="btn btn-sm btn-light mt-2 upload_3d_file_btn">Upload 3D File</button>
+                    <div class="text-2xs text-gray-500 mt-1">Single .glb file</div>
+                </td>
+                <td>
+                    <div class="three-d-file-preview"></div>
+                </td>
+                <td>
+                    <input type="file" class="input v_3d_placeholder" accept=".png,.webp,.jpg,.jpeg,image/png,image/webp,image/jpeg">
+                    <button type="button" class="btn btn-sm btn-light mt-2 upload_3d_placeholder_btn">Upload Placeholder</button>
+                    <div class="text-2xs text-gray-500 mt-1">PNG / WebP / JPG</div>
+                </td>
+                <td>
+                    <div class="three-d-placeholder-preview"></div>
+                </td>
                 <td><button type="button" class="btn btn-sm btn-light danger remove_variant">Remove</button></td>
             `;
 			q('#variants_body').appendChild(tr);
@@ -928,6 +950,54 @@
 			input.value = ''; // clear input
 			Swal?.fire('Uploaded', 'Photos uploaded successfully.', 'success');
 		}
+
+		async function upload3dFileForRow(tr) {
+			const variantId = tr.dataset.variantId;
+			if (!variantId) {
+				return Swal?.fire('Error', 'Variant ID missing on this row.', 'error') ?? alert('Variant ID missing on this row.');
+			}
+			const input = tr.querySelector('.v_3d_file');
+			if (!input?.files?.length) {
+				return Swal?.fire('No file', 'Please choose a .glb file first.', 'info') ?? alert('Please choose a .glb file first.');
+			}
+
+			const fd = new FormData();
+			fd.append('3d_file', input.files[0]);
+
+			const res = await postFiles(`${BASE_URL}/products/${variantId}/3d-file`, fd);
+			if (!res.ok || !res.json) {
+				console.error('3D file upload failed:', res.json || res.text);
+				return Swal?.fire('Error', '3D file upload failed.', 'error') ?? alert('3D file upload failed.');
+			}
+
+			display3dFilePreview(res.json['3d_file'], tr, Number(variantId));
+			input.value = '';
+			Swal?.fire('Uploaded', '3D file uploaded successfully.', 'success');
+		}
+
+		async function upload3dPlaceholderForRow(tr) {
+			const variantId = tr.dataset.variantId;
+			if (!variantId) {
+				return Swal?.fire('Error', 'Variant ID missing on this row.', 'error') ?? alert('Variant ID missing on this row.');
+			}
+			const input = tr.querySelector('.v_3d_placeholder');
+			if (!input?.files?.length) {
+				return Swal?.fire('No file', 'Please choose a placeholder image first.', 'info') ?? alert('Please choose a placeholder image first.');
+			}
+
+			const fd = new FormData();
+			fd.append('3d_placeholder', input.files[0]);
+
+			const res = await postFiles(`${BASE_URL}/products/${variantId}/3d-placeholder`, fd);
+			if (!res.ok || !res.json) {
+				console.error('3D placeholder upload failed:', res.json || res.text);
+				return Swal?.fire('Error', '3D placeholder upload failed.', 'error') ?? alert('3D placeholder upload failed.');
+			}
+
+			display3dPlaceholderPreview(res.json['3d_placeholder'], tr, Number(variantId));
+			input.value = '';
+			Swal?.fire('Uploaded', '3D placeholder uploaded successfully.', 'success');
+		}
 		
         // Attach event listeners to the upload buttons
 		// document.querySelector('#variants_body').addEventListener('click', async function (e) {
@@ -1048,6 +1118,24 @@
 				}
 				const input = tr.querySelector('.v_photos');
 				return await handleUploadFiles(input, `${BASE_URL}/products/${variantId}/photos`, variantId, tr, 'photos');
+			}
+
+			if (target.classList.contains('upload_3d_file_btn')) {
+				if (!variantId) {
+					return (window.Swal ?
+						Swal.fire('Variant not saved', 'Please save the product first so this variant gets an ID, then upload the 3D file.', 'info') :
+						alert('Save the product first so this variant gets an ID, then upload the 3D file.'));
+				}
+				return await upload3dFileForRow(tr);
+			}
+
+			if (target.classList.contains('upload_3d_placeholder_btn')) {
+				if (!variantId) {
+					return (window.Swal ?
+						Swal.fire('Variant not saved', 'Please save the product first so this variant gets an ID, then upload the placeholder.', 'info') :
+						alert('Save the product first so this variant gets an ID, then upload the placeholder.'));
+				}
+				return await upload3dPlaceholderForRow(tr);
 			}
 
 			// 3) Remove variant (separate branch — not nested)
@@ -1258,6 +1346,132 @@
 				bannerContainer.appendChild(container);
 			});
 		}
+
+		function display3dFilePreview(fileObj, row, variantId) {
+			const container = row.querySelector('.three-d-file-preview');
+			if (!container) return;
+			container.innerHTML = '';
+			if (!fileObj?.url) return;
+
+			const wrap = document.createElement('div');
+			wrap.style.position = 'relative';
+			wrap.style.display = 'inline-block';
+
+			const link = document.createElement('a');
+			link.href = fileObj.url;
+			link.target = '_blank';
+			link.rel = 'noopener';
+			link.textContent = 'View .glb';
+			link.className = 'text-primary text-sm';
+
+			const deleteBtn = document.createElement('button');
+			deleteBtn.innerText = 'X';
+			deleteBtn.style.position = 'absolute';
+			deleteBtn.style.top = '-8px';
+			deleteBtn.style.right = '-8px';
+			deleteBtn.style.fontSize = '12px';
+			deleteBtn.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
+			deleteBtn.style.color = '#fff';
+			deleteBtn.style.border = 'none';
+			deleteBtn.style.borderRadius = '50%';
+			deleteBtn.style.cursor = 'pointer';
+			deleteBtn.dataset.variantId = variantId;
+
+			deleteBtn.addEventListener('click', async (e) => {
+				e.preventDefault();
+				const confirmDelete = await Swal.fire({
+					title: 'Are you sure?',
+					text: 'Do you want to delete this 3D file?',
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonText: 'Yes, delete it!',
+					cancelButtonText: 'No, keep it'
+				});
+				if (!confirmDelete.isConfirmed) return;
+
+				try {
+					await delete3dFileById(variantId);
+					container.innerHTML = '';
+					Swal.fire('Deleted!', 'The 3D file has been deleted.', 'success');
+				} catch (err) {
+					console.error(err);
+					Swal.fire('Error', 'Failed to delete 3D file.', 'error');
+				}
+			});
+
+			wrap.appendChild(link);
+			wrap.appendChild(deleteBtn);
+			container.appendChild(wrap);
+		}
+
+		function display3dPlaceholderPreview(fileObj, row, variantId) {
+			const container = row.querySelector('.three-d-placeholder-preview');
+			if (!container) return;
+			container.innerHTML = '';
+			if (!fileObj?.url) return;
+
+			const wrap = document.createElement('div');
+			wrap.style.position = 'relative';
+			wrap.style.display = 'inline-block';
+
+			const img = document.createElement('img');
+			img.src = fileObj.url;
+			img.alt = '3D placeholder';
+			img.loading = 'lazy';
+			img.style.width = '50px';
+			img.style.height = '50px';
+			img.style.objectFit = 'contain';
+			img.style.padding = '10px';
+			img.style.cursor = 'pointer';
+
+			img.addEventListener('click', () => {
+				Swal.fire({
+					imageUrl: fileObj.url,
+					imageAlt: '3D placeholder',
+					confirmButtonText: 'Close'
+				});
+			});
+
+			const deleteBtn = document.createElement('button');
+			deleteBtn.innerText = 'X';
+			deleteBtn.style.position = 'absolute';
+			deleteBtn.style.top = '0';
+			deleteBtn.style.right = '0';
+			deleteBtn.style.fontSize = '12px';
+			deleteBtn.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
+			deleteBtn.style.color = '#fff';
+			deleteBtn.style.border = 'none';
+			deleteBtn.style.borderRadius = '50%';
+			deleteBtn.style.cursor = 'pointer';
+			deleteBtn.dataset.variantId = variantId;
+
+			deleteBtn.addEventListener('click', async (e) => {
+				e.stopPropagation();
+				const confirmDelete = await Swal.fire({
+					title: 'Are you sure?',
+					text: 'Do you want to delete this placeholder?',
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonText: 'Yes, delete it!',
+					cancelButtonText: 'No, keep it'
+				});
+				if (!confirmDelete.isConfirmed) return;
+
+				try {
+					await delete3dPlaceholderById(variantId);
+					container.innerHTML = '';
+					Swal.fire('Deleted!', 'The placeholder has been deleted.', 'success');
+				} catch (err) {
+					console.error(err);
+					Swal.fire('Error', 'Failed to delete placeholder.', 'error');
+				}
+			});
+
+			wrap.appendChild(img);
+			wrap.appendChild(deleteBtn);
+			container.appendChild(wrap);
+		}
+
 		async function deletePhotoById(variantId, photoId) {
 			const url = `${BASE_URL}/products/variants/${variantId}/photos/${photoId}`;
 			const res = await fetch(url, {
@@ -1283,6 +1497,34 @@
 			if (!res.ok) {
 				const text = await res.text().catch(() => '');
 				throw new Error(`Banner delete failed: ${res.status} ${text}`);
+			}
+		}
+
+		async function delete3dFileById(variantId) {
+			const url = `${BASE_URL}/products/variants/${variantId}/3d-file`;
+			const res = await fetch(url, {
+				method: 'DELETE',
+				headers: {
+					'Authorization': 'Bearer ' + authToken
+				}
+			});
+			if (!res.ok) {
+				const text = await res.text().catch(() => '');
+				throw new Error(`3D file delete failed: ${res.status} ${text}`);
+			}
+		}
+
+		async function delete3dPlaceholderById(variantId) {
+			const url = `${BASE_URL}/products/variants/${variantId}/3d-placeholder`;
+			const res = await fetch(url, {
+				method: 'DELETE',
+				headers: {
+					'Authorization': 'Bearer ' + authToken
+				}
+			});
+			if (!res.ok) {
+				const text = await res.text().catch(() => '');
+				throw new Error(`3D placeholder delete failed: ${res.status} ${text}`);
 			}
 		}
 
@@ -1457,6 +1699,8 @@
 				// Collect chosen files
 				const photosInput = tr.querySelector('.v_photos');
 				const bannersInput = tr.querySelector('.v_banners');
+				const threeDFileInput = tr.querySelector('.v_3d_file');
+				const threeDPlaceholderInput = tr.querySelector('.v_3d_placeholder');
 
 				// Upload PHOTOS first (if any)
 				if (photosInput && photosInput.files && photosInput.files.length > 0) {
@@ -1482,6 +1726,30 @@
 						console.error(`Banners upload failed for variant ${vid}:`, bannersRes.json || bannersRes.text);
 						throw new Error(`Banners upload failed for variant ${vid}`);
 					}
+				}
+
+				if (threeDFileInput && threeDFileInput.files && threeDFileInput.files.length > 0) {
+					const fd3d = new FormData();
+					fd3d.append('3d_file', threeDFileInput.files[0]);
+					const threeDRes = await postFiles(`${BASE_URL}/products/${vid}/3d-file`, fd3d);
+					if (!threeDRes.ok) {
+						console.error(`3D file upload failed for variant ${vid}:`, threeDRes.json || threeDRes.text);
+						throw new Error(`3D file upload failed for variant ${vid}`);
+					}
+					display3dFilePreview(threeDRes.json['3d_file'], tr, Number(vid));
+					threeDFileInput.value = '';
+				}
+
+				if (threeDPlaceholderInput && threeDPlaceholderInput.files && threeDPlaceholderInput.files.length > 0) {
+					const fdPlaceholder = new FormData();
+					fdPlaceholder.append('3d_placeholder', threeDPlaceholderInput.files[0]);
+					const placeholderRes = await postFiles(`${BASE_URL}/products/${vid}/3d-placeholder`, fdPlaceholder);
+					if (!placeholderRes.ok) {
+						console.error(`3D placeholder upload failed for variant ${vid}:`, placeholderRes.json || placeholderRes.text);
+						throw new Error(`3D placeholder upload failed for variant ${vid}`);
+					}
+					display3dPlaceholderPreview(placeholderRes.json['3d_placeholder'], tr, Number(vid));
+					threeDPlaceholderInput.value = '';
 				}
 			});
 

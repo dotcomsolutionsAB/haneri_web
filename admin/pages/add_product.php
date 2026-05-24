@@ -132,6 +132,8 @@
                                     <th style="width: 110px">Sell. Tax %</th>
                                     <th style="width: 200px">Video URL</th>
                                     <th style="width: 200px">Product PDF</th>
+                                    <th style="width: 200px">3D File (.glb)</th>
+                                    <th style="width: 200px">3D Placeholder</th>
                                     <th style="width: 90px">Action</th>
                                 </tr>
                             </thead>
@@ -244,6 +246,14 @@
             <td><input type="number" step="0.01" class="input v_selling_tax" placeholder="" value="${data.selling_tax ?? ''}"></td>
             <td><input type="url" class="input v_video_url" placeholder="" value="${data.video_url ?? ''}"></td>
             <td><input type="url" class="input v_product_pdf" placeholder="" value="${data.product_pdf ?? ''}"></td>
+            <td>
+                <input type="file" class="input v_3d_file" accept=".glb,model/gltf-binary">
+                <div class="text-2xs text-gray-500 mt-1">Single .glb file</div>
+            </td>
+            <td>
+                <input type="file" class="input v_3d_placeholder" accept=".png,.webp,.jpg,.jpeg,image/png,image/webp,image/jpeg">
+                <div class="text-2xs text-gray-500 mt-1">PNG / WebP / JPG</div>
+            </td>
             <td><button type="button" class="btn btn-sm btn-light danger remove_variant">Remove</button></td>
         `;
         variantsBody.appendChild(tr);
@@ -410,6 +420,8 @@
             // Collect chosen files
             const photosInput  = tr.querySelector('.v_photos');
             const bannersInput = tr.querySelector('.v_banners');
+            const threeDFileInput = tr.querySelector('.v_3d_file');
+            const threeDPlaceholderInput = tr.querySelector('.v_3d_placeholder');
 
             // Upload PHOTOS first (if any)
             if (photosInput && photosInput.files && photosInput.files.length > 0) {
@@ -434,6 +446,26 @@
                 if (!bannersRes.ok) {
                     console.error(`Banners upload failed for variant ${vid}:`, bannersRes.json || bannersRes.text);
                     throw new Error(`Banners upload failed for variant ${vid}`);
+                }
+            }
+
+            if (threeDFileInput && threeDFileInput.files && threeDFileInput.files.length > 0) {
+                const fd3d = new FormData();
+                fd3d.append('3d_file', threeDFileInput.files[0]);
+                const threeDRes = await postFiles(`${BASE_URL}/products/${vid}/3d-file`, fd3d);
+                if (!threeDRes.ok) {
+                    console.error(`3D file upload failed for variant ${vid}:`, threeDRes.json || threeDRes.text);
+                    throw new Error(`3D file upload failed for variant ${vid}`);
+                }
+            }
+
+            if (threeDPlaceholderInput && threeDPlaceholderInput.files && threeDPlaceholderInput.files.length > 0) {
+                const fdPlaceholder = new FormData();
+                fdPlaceholder.append('3d_placeholder', threeDPlaceholderInput.files[0]);
+                const placeholderRes = await postFiles(`${BASE_URL}/products/${vid}/3d-placeholder`, fdPlaceholder);
+                if (!placeholderRes.ok) {
+                    console.error(`3D placeholder upload failed for variant ${vid}:`, placeholderRes.json || placeholderRes.text);
+                    throw new Error(`3D placeholder upload failed for variant ${vid}`);
                 }
             }
         });
