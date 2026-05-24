@@ -2,167 +2,117 @@
 <?php include("../../configs/auth_check.php"); ?>
 <?php include("../../configs/config.php"); ?>
 <?php 
-    $current_page = "Update Product";
+    $current_page = "Edit Product";
 ?>
 <?php include("header1.php"); ?>
 
-<main class="grow content pt-5" id="content" role="content">
+<main class="grow content pt-5 product-edit-page" id="content" role="content">
     <div class="container-fixed">
-        <div class="flex flex-wrap items-center lg:items-end justify-between gap-5 pb-7.5">
-            <div class="flex flex-col justify-center gap-2">
-                <h1 class="text-xl font-medium leading-none text-gray-900">Update - Product</h1>
-                <div class="text-xs text-gray-500">Edit the product details, features, and variants</div>
+        <div class="product-edit-topbar">
+            <div class="product-edit-topbar__info">
+                <div class="product-edit-topbar__eyebrow">Product Management</div>
+                <h1 class="product-edit-topbar__title">Edit Product</h1>
+                <p class="product-edit-topbar__subtitle">Update details, features, pricing, media, and 3D assets for each variant.</p>
             </div>
-            <div class="flex items-center gap-2.5">
-                <a class="btn btn-sm btn-light" href="pages/show_products.php">Products</a>
+            <div class="product-edit-topbar__actions">
+                <span class="product-id-badge" id="product_id_badge">#—</span>
+                <a class="btn btn-sm btn-light" href="pages/show_products.php">Back to Products</a>
             </div>
         </div>
     </div>
 
-    <div class="container-fixed">
-        <div class="grid gap-5 grid-cols-2 lg:gap-7.5 xl:w-[68.75rem] mx-auto">
-            <!-- General Settings -->
-            <div class="col-span-1">
-                <div class="card pb-2.5">
-                    <div class="card-header" id="basic_settings">
-                        <h3 class="card-title">General Settings</h3>
-                    </div>
-                    <div class="card-body grid gap-5">
-                        <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
-                            <label for="product_name" class="form-label max-w-56">Product Name</label>
-                            <input class="input" type="text" id="product_name" placeholder="">
-                        </div>
-
-                        <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
-                            <label for="brand" class="form-label max-w-56">Brand</label>
-                            <select class="select" id="brand">
-                                <option value="">Select</option>
-                                <option value="1">Haneri</option>
-                            </select>
-                        </div>
-
-                        <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
-                            <label for="category" class="form-label max-w-56">Category</label>
-                            <select class="select" id="category">
-                                <option value="">Select</option>
-                                <option value="1">CEILING FAN</option>
-                                <option value="2">TABLE WALL PEDESTALS</option>
-                                <option value="3">DOMESTIC EXHAUSTS</option>
-                                <option value="4">PERSONAL</option>
-                            </select>
-                        </div>
-
-                        <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
-                            <label for="slug" class="form-label max-w-56">Slug</label>
-                            <input class="input" type="text" id="slug" placeholder="">
-                        </div>
-
-                        <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
-                            <label for="is_active" class="form-label max-w-56">Is Publish</label>
-                            <select class="select" id="is_active">
-                                <option value="true">Yes</option>
-                                <option value="false" selected>No</option>
-                            </select>
-                        </div>
-
-                        <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
-                            <label for="description" class="form-label max-w-56">Description</label>
-                            <textarea class="note-codable text-edit" id="description" aria-multiline="true" placeholder=""></textarea>
-                        </div>
-                    </div>
+    <div class="container-fixed product-edit-shell">
+        <section class="card product-section-card">
+            <div class="card-header" id="basic_settings">
+                <div>
+                    <h3 class="card-title">General Information</h3>
+                    <p class="section-subtitle">Core product metadata shown across the storefront.</p>
                 </div>
             </div>
-
-            <!-- Features -->
-            <div class="col-span-1">
-                <div class="card p-2.5">
-                    <div class="card-header" id="features">
-                        <div class="flex items-center justify-between w-full">
-                            <h3 class="card-title">Features</h3>
-                            <button id="add_feature" class="btn btn-sm btn-primary">+ Add Feature</button>
-                        </div>
-                    </div>
-                    <div class="p-2">
-                        <table class="table table-bordered w-full" id="features_table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 22%">Feature Name</th>
-                                    <th>Feature Value</th>
-                                    <th style="width: 16%">Filterable?</th>
-                                    <th style="width: 10%">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="features_body">
-                                <!-- Features rows will be inserted by JS -->
-                            </tbody>
-                        </table>
-                        <div class="text-xs text-gray-500 mt-2">Only non-empty features are sent.</div>
-                    </div>
+            <div class="card-body product-form-grid">
+                <div class="form-field">
+                    <label for="product_name" class="form-label">Product Name</label>
+                    <input class="input" type="text" id="product_name" placeholder="Enter product name">
+                </div>
+                <div class="form-field">
+                    <label for="slug" class="form-label">Slug</label>
+                    <input class="input" type="text" id="slug" placeholder="product-url-slug">
+                </div>
+                <div class="form-field">
+                    <label for="brand" class="form-label">Brand</label>
+                    <select class="select" id="brand">
+                        <option value="">Select brand</option>
+                        <option value="1">Haneri</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="select" id="category">
+                        <option value="">Select category</option>
+                        <option value="1">CEILING FAN</option>
+                        <option value="2">TABLE WALL PEDESTALS</option>
+                        <option value="3">DOMESTIC EXHAUSTS</option>
+                        <option value="4">PERSONAL</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="is_active" class="form-label">Published</label>
+                    <select class="select" id="is_active">
+                        <option value="true">Yes</option>
+                        <option value="false" selected>No</option>
+                    </select>
+                </div>
+                <div class="form-field form-field--full">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="note-codable text-edit" id="description" aria-multiline="true" placeholder="Product description"></textarea>
                 </div>
             </div>
+        </section>
+
+        <section class="card product-section-card">
+            <div class="card-header" id="features">
+                <div>
+                    <h3 class="card-title">Features</h3>
+                    <p class="section-subtitle">Highlight specifications and filterable attributes.</p>
+                </div>
+                <button id="add_feature" class="btn btn-sm btn-primary">+ Add Feature</button>
+            </div>
+            <div class="card-body">
+                <div class="table-wrap">
+                    <table class="table table-bordered w-full" id="features_table">
+                        <thead>
+                            <tr>
+                                <th style="width: 28%">Feature Name</th>
+                                <th>Feature Value</th>
+                                <th style="width: 16%">Filterable</th>
+                                <th style="width: 10%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="features_body"></tbody>
+                    </table>
+                </div>
+                <p class="section-hint">Only completed feature rows are saved.</p>
+            </div>
+        </section>
+
+        <section class="card product-section-card" id="variants">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">Variants</h3>
+                    <p class="section-subtitle">Configure pricing, inventory, media, 3D files, and links per variant.</p>
+                </div>
+                <button id="add_variant" class="btn btn-sm btn-primary">+ Add Variant</button>
+            </div>
+            <div class="card-body">
+                <div id="variants_body" class="variants-stack"></div>
+                <p class="section-hint">Save the product before uploading media for newly added variants.</p>
+            </div>
+        </section>
+
+        <div class="product-edit-footer">
+            <div class="product-edit-footer__note">Changes apply after you save the product.</div>
+            <button class="btn btn-primary" id="update_product">Save Product</button>
         </div>
-
-        <!-- Variants -->
-        <div class="grid gap-5 grid-cols-1 lg:gap-7.5 xl:w-[68.75rem] mx-auto mt-5">
-            <div class="col-span-1">
-                <div class="card pb-2.5">
-                    <div class="card-header" id="variants">
-                        <div class="flex items-center justify-between w-full">
-                            <h3 class="card-title">Variants</h3>
-                            <button id="add_variant" class="btn btn-sm btn-primary">+ Add Variant</button>
-                        </div>
-                    </div>
-                    <div class="card-body overflow-auto">
-                        <table class="table table-bordered w-full min-w-[1800px]" id="variants_table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 200px">Banner (files)</th>
-                                    <th style="width: 200px">Variant Banner</th>
-                                    <th style="width: 200px">Photos (files)</th>                                    
-                                    <th style="width: 200px">Variant Photos</th>
-                                    <th style="width: 90px">Min Qty</th>
-                                    <th style="width: 90px">COD?</th>
-                                    <th style="width: 90px">Weight</th>
-                                    <th style="width: 120px">Description</th>
-                                    <th style="width: 120px">Variant Type</th>
-                                    <th style="width: 160px">Variant Value</th>
-                                    <th style="width: 120px">Regular ₹</th>
-                                    <th style="width: 120px">Customer. Disc %</th>
-                                    <th style="width: 120px">Dealer Disc %</th>
-                                    <th style="width: 120px">Architect. Disc %</th>
-                                    <th style="width: 120px">HSN</th>
-                                    <th style="width: 110px">Reg. Tax %</th>
-                                    <th style="width: 110px">Sell. Tax %</th>
-                                    <th style="width: 200px">Video URL</th>
-                                    <th style="width: 200px">Product PDF</th>
-                                    <th style="width: 200px">3D File (.glb)</th>
-                                    <th style="width: 160px">3D File Preview</th>
-                                    <th style="width: 200px">3D Placeholder</th>
-                                    <th style="width: 160px">3D Placeholder Preview</th>
-                                    <th style="width: 90px">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="variants_body">
-                                <!-- Variants rows will be inserted by JS -->
-                            </tbody>
-                        </table>
-                        <div class="text-xs text-gray-500 mt-2">Files are uploaded per-variant. Keep empty if not needed.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Submit -->
-        <div class="xl:w-[68.75rem] mx-auto mt-5">
-            <div class="card">
-                <div class="card-body flex flex-col lg:py-6 lg:gap-7.5 gap-7">
-                    <div class="flex justify-end gap-2.5">
-                        <button class="btn btn-danger" id="update_product">Update Product</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 </main>
 <script>
@@ -186,7 +136,29 @@
 			return Number.isFinite(n) ? n : null;
 		};
 		const parseBool = (v) => (v === true || v === 'true');
+
 		const toBoolVal = (el) => parseBool(el?.value);
+
+		const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+
+		function refreshVariantCardSummary(card) {
+			const type = card.querySelector('.v_variant_type')?.value.trim() || '';
+			const value = card.querySelector('.v_variant_value')?.value.trim() || '';
+			const summary = card.querySelector('.variant-card__summary');
+			if (summary) {
+				summary.textContent = (type && value) ? `${type} · ${value}` : (type || value || 'Not configured');
+			}
+		}
+
+		function renumberVariantCards() {
+			qa('#variants_body .variant-card').forEach((card, i) => {
+				const badge = card.querySelector('.variant-card__index');
+				if (badge) badge.textContent = `Variant ${i + 1}`;
+			});
+		}
+
+		const badgeEl = q('#product_id_badge');
+		if (badgeEl && productId) badgeEl.textContent = `#${productId}`;
 
 		// ===== HELPERS: networking =====
 		async function getProductData(productId) {
@@ -771,69 +743,107 @@
 			};
 		}
 
-		function addVariantRow(data = {}) {
-			const tr = document.createElement('tr');
-			if (data?.id) tr.dataset.variantId = data.id;
 
-			tr.innerHTML = `
-                <input type="hidden" class="v_variant_id" value="${data.id ?? ''}">
-                <td>
-                    <input type="file" class="input v_banners" multiple accept="image/*,application/pdf,video/*">
-                    <button type="button" class="btn btn-sm btn-light mt-2 upload_banners_btn">Upload Banners</button>
-                    <div class="text-2xs text-gray-500 mt-1">Select one or more (images/video/pdf)</div>
-                </td>
-                <td>
-                    <div class="banner-thumbnails" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
-                </td>
-                <td>
-                    <input type="file" class="input v_photos" multiple accept="image/*">
-                    <button type="button" class="btn btn-sm btn-light mt-2 upload_photos_btn">Upload Photos</button>
-                    <div class="text-2xs text-gray-500 mt-1">Select one or more images</div>
-                </td>
-                <td>
-                    <div class="photo-thumbnails" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
-                </td>
-                <td><input type="number" step="1" min="1" class="input v_min_qty" placeholder="" value="${data.min_qty ?? ''}"></td>
-                <td>
-                    <select class="select v_is_cod">
-                        <option value="true" ${data.is_cod ? 'selected' : ''}>Yes</option>
-                        <option value="false" ${!data.is_cod ? 'selected' : ''}>No</option>
-                    </select>
-                </td>
-                <td><input type="number" step="0.01" class="input v_weight" placeholder="" value="${data.weight ?? ''}"></td>
-                <td><input type="text" class="input v_description" placeholder="" value="${data.description ?? ''}"></td>
-                <td><input type="text" class="input v_variant_type" placeholder="" value="${data.variant_type ?? ''}"></td>
-                <td><input type="text" class="input v_variant_value" placeholder="" value="${data.variant_value ?? ''}"></td>
-                <td><input type="number" step="0.01" class="input v_regular_price" placeholder="" value="${data.regular_price ?? ''}"></td>
-                <td><input type="number" step="0.01" min="0" max="100" class="input v_customer_discount" placeholder="" value="${data.customer_discount ?? ''}"></td>
-                <td><input type="number" step="0.01" min="0" max="100" class="input v_dealer_discount" placeholder="" value="${data.dealer_discount ?? ''}"></td>
-                <td><input type="number" step="0.01" min="0" max="100" class="input v_architect_discount" placeholder="" value="${data.architect_discount ?? ''}"></td>
-                <td><input type="text" class="input v_hsn" placeholder="" value="${data.hsn ?? ''}"></td>
-                <td><input type="number" step="0.01" class="input v_regular_tax" placeholder="" value="${data.regular_tax ?? ''}"></td>
-                <td><input type="number" step="0.01" class="input v_selling_tax" placeholder="" value="${data.selling_tax ?? ''}"></td>
-                <td><input type="url" class="input v_video_url" placeholder="" value="${data.video_url ?? ''}"></td>
-                <td><input type="url" class="input v_product_pdf" placeholder="" value="${data.product_pdf ?? ''}"></td>
-                <td>
-                    <input type="file" class="input v_3d_file" accept=".glb,model/gltf-binary">
-                    <button type="button" class="btn btn-sm btn-light mt-2 upload_3d_file_btn">Upload 3D File</button>
-                    <div class="text-2xs text-gray-500 mt-1">Single .glb file</div>
-                </td>
-                <td>
-                    <div class="three-d-file-preview"></div>
-                </td>
-                <td>
-                    <input type="file" class="input v_3d_placeholder" accept=".png,.webp,.jpg,.jpeg,image/png,image/webp,image/jpeg">
-                    <button type="button" class="btn btn-sm btn-light mt-2 upload_3d_placeholder_btn">Upload Placeholder</button>
-                    <div class="text-2xs text-gray-500 mt-1">PNG / WebP / JPG</div>
-                </td>
-                <td>
-                    <div class="three-d-placeholder-preview"></div>
-                </td>
-                <td><button type="button" class="btn btn-sm btn-light danger remove_variant">Remove</button></td>
-            `;
-			q('#variants_body').appendChild(tr);
-			// tr.querySelector('.remove_variant').addEventListener('click', () => tr.remove());
-			return tr;
+		function addVariantRow(data = {}) {
+			const card = document.createElement('div');
+			card.className = 'variant-card';
+			if (data?.id) card.dataset.variantId = data.id;
+
+			const summaryText = (data.variant_type && data.variant_value)
+				? `${data.variant_type} · ${data.variant_value}`
+				: (data.variant_type || data.variant_value || 'Not configured');
+
+			card.innerHTML = `
+				<input type="hidden" class="v_variant_id" value="${data.id ?? ''}">
+				<div class="variant-card__header">
+					<div class="variant-card__heading">
+						<span class="variant-card__index">Variant</span>
+						<span class="variant-card__summary">${esc(summaryText)}</span>
+					</div>
+					<div class="variant-card__toolbar">
+						<button type="button" class="btn btn-sm btn-light toggle_variant_btn" title="Collapse/expand" aria-label="Toggle variant section">▾</button>
+						<button type="button" class="btn btn-sm btn-light danger remove_variant">Remove</button>
+					</div>
+				</div>
+				<div class="variant-card__body">
+					<div class="variant-section">
+						<div class="variant-section__title">Identity</div>
+						<div class="variant-grid variant-grid--2">
+							<div class="form-field"><label class="form-label">Variant Type</label><input type="text" class="input v_variant_type" value="${esc(data.variant_type ?? '')}" placeholder="e.g. Color"></div>
+							<div class="form-field"><label class="form-label">Variant Value</label><input type="text" class="input v_variant_value" value="${esc(data.variant_value ?? '')}" placeholder="e.g. White"></div>
+						</div>
+						<div class="form-field" style="margin-top:.75rem"><label class="form-label">Description</label><input type="text" class="input v_description" value="${esc(data.description ?? '')}" placeholder="Optional variant description"></div>
+					</div>
+					<div class="variant-section">
+						<div class="variant-section__title">Pricing & Tax</div>
+						<div class="variant-grid variant-grid--4">
+							<div class="form-field"><label class="form-label">Regular Price (₹)</label><input type="number" step="0.01" class="input v_regular_price" value="${data.regular_price ?? ''}"></div>
+							<div class="form-field"><label class="form-label">Customer Disc %</label><input type="number" step="0.01" min="0" max="100" class="input v_customer_discount" value="${data.customer_discount ?? ''}"></div>
+							<div class="form-field"><label class="form-label">Dealer Disc %</label><input type="number" step="0.01" min="0" max="100" class="input v_dealer_discount" value="${data.dealer_discount ?? ''}"></div>
+							<div class="form-field"><label class="form-label">Architect Disc %</label><input type="number" step="0.01" min="0" max="100" class="input v_architect_discount" value="${data.architect_discount ?? ''}"></div>
+							<div class="form-field"><label class="form-label">HSN</label><input type="text" class="input v_hsn" value="${esc(data.hsn ?? '')}"></div>
+							<div class="form-field"><label class="form-label">Reg. Tax %</label><input type="number" step="0.01" class="input v_regular_tax" value="${data.regular_tax ?? ''}"></div>
+							<div class="form-field"><label class="form-label">Sell. Tax %</label><input type="number" step="0.01" class="input v_selling_tax" value="${data.selling_tax ?? ''}"></div>
+						</div>
+					</div>
+					<div class="variant-section">
+						<div class="variant-section__title">Inventory</div>
+						<div class="variant-grid variant-grid--3">
+							<div class="form-field"><label class="form-label">Min Qty</label><input type="number" step="1" min="1" class="input v_min_qty" value="${data.min_qty ?? ''}"></div>
+							<div class="form-field"><label class="form-label">Weight (kg)</label><input type="number" step="0.01" class="input v_weight" value="${data.weight ?? ''}"></div>
+							<div class="form-field"><label class="form-label">COD Available</label>
+								<select class="select v_is_cod">
+									<option value="true" ${data.is_cod ? 'selected' : ''}>Yes</option>
+									<option value="false" ${!data.is_cod ? 'selected' : ''}>No</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="variant-section">
+						<div class="variant-section__title">Media</div>
+						<div class="variant-media-grid">
+							<div class="upload-panel">
+								<div class="upload-panel__head"><span>Photos</span><button type="button" class="btn btn-sm btn-light upload_photos_btn">Upload</button></div>
+								<input type="file" class="input v_photos" multiple accept="image/*">
+								<div class="photo-thumbnails media-thumbs"></div>
+							</div>
+							<div class="upload-panel">
+								<div class="upload-panel__head"><span>Banners</span><button type="button" class="btn btn-sm btn-light upload_banners_btn">Upload</button></div>
+								<input type="file" class="input v_banners" multiple accept="image/*,application/pdf,video/*">
+								<div class="banner-thumbnails media-thumbs"></div>
+							</div>
+						</div>
+					</div>
+					<div class="variant-section">
+						<div class="variant-section__title">3D Assets</div>
+						<div class="variant-media-grid">
+							<div class="upload-panel">
+								<div class="upload-panel__head"><span>3D Model (.glb)</span><button type="button" class="btn btn-sm btn-light upload_3d_file_btn">Upload</button></div>
+								<input type="file" class="input v_3d_file" accept=".glb,model/gltf-binary">
+								<div class="three-d-file-preview media-thumbs"></div>
+							</div>
+							<div class="upload-panel">
+								<div class="upload-panel__head"><span>Placeholder Image</span><button type="button" class="btn btn-sm btn-light upload_3d_placeholder_btn">Upload</button></div>
+								<input type="file" class="input v_3d_placeholder" accept=".png,.webp,.jpg,.jpeg,image/png,image/webp,image/jpeg">
+								<div class="three-d-placeholder-preview media-thumbs"></div>
+							</div>
+						</div>
+					</div>
+					<div class="variant-section">
+						<div class="variant-section__title">Links</div>
+						<div class="variant-grid variant-grid--2">
+							<div class="form-field"><label class="form-label">Video URL</label><input type="url" class="input v_video_url" value="${esc(data.video_url ?? '')}" placeholder="https://"></div>
+							<div class="form-field"><label class="form-label">Product PDF</label><input type="url" class="input v_product_pdf" value="${esc(data.product_pdf ?? '')}" placeholder="https://"></div>
+						</div>
+					</div>
+				</div>
+			`;
+
+
+			q('#variants_body').appendChild(card);
+			renumberVariantCards();
+			refreshVariantCardSummary(card);
+			return card;
 		}
 		async function deleteVariantById(variantId) {
 			const url = `${BASE_URL}/products/variants/${variantId}`;
@@ -898,13 +908,13 @@
 			if (window.Swal) Swal.fire('Uploaded', `${kind[0].toUpperCase()+kind.slice(1)} uploaded successfully.`, 'success');
 			else alert(`${kind} uploaded successfully`);
 		}
-		async function uploadBannersForRow(tr) {
-			const variantId = tr.dataset.variantId;
+		async function uploadBannersForRow(card) {
+			const variantId = card.dataset.variantId;
 			if (!variantId) {
 				console.warn('No variantId on row; cannot upload banners');
 				return Swal?.fire('Error', 'Variant ID missing on this row.', 'error') ?? alert('Variant ID missing on this row.');
 			}
-			const input = tr.querySelector('.v_banners');
+			const input = card.querySelector('.v_banners');
 			if (!input?.files?.length) {
 				return Swal?.fire('No files', 'Please choose banner files first.', 'info') ?? alert('Please choose banner files first.');
 			}
@@ -920,17 +930,17 @@
 
 			// Refresh thumbnails from all_banner_ids
 			const banners = mapBannerResp(res.json.all_banner_ids || []);
-			displayBannerThumbnails(banners, tr, Number(variantId));
+			displayBannerThumbnails(banners, card, Number(variantId));
 			input.value = ''; // clear input
 			Swal?.fire('Uploaded', 'Banners uploaded successfully.', 'success');
 		}
-		async function uploadPhotosForRow(tr) {
-			const variantId = tr.dataset.variantId;
+		async function uploadPhotosForRow(card) {
+			const variantId = card.dataset.variantId;
 			if (!variantId) {
 				console.warn('No variantId on row; cannot upload photos');
 				return Swal?.fire('Error', 'Variant ID missing on this row.', 'error') ?? alert('Variant ID missing on this row.');
 			}
-			const input = tr.querySelector('.v_photos');
+			const input = card.querySelector('.v_photos');
 			if (!input?.files?.length) {
 				return Swal?.fire('No files', 'Please choose photo files first.', 'info') ?? alert('Please choose photo files first.');
 			}
@@ -946,17 +956,17 @@
 
 			// Refresh thumbnails from all_photo_ids
 			const photos = mapPhotoResp(res.json.all_photo_ids || []);
-			displayPhotoThumbnails(photos, tr, Number(variantId));
+			displayPhotoThumbnails(photos, card, Number(variantId));
 			input.value = ''; // clear input
 			Swal?.fire('Uploaded', 'Photos uploaded successfully.', 'success');
 		}
 
-		async function upload3dFileForRow(tr) {
-			const variantId = tr.dataset.variantId;
+		async function upload3dFileForRow(card) {
+			const variantId = card.dataset.variantId;
 			if (!variantId) {
 				return Swal?.fire('Error', 'Variant ID missing on this row.', 'error') ?? alert('Variant ID missing on this row.');
 			}
-			const input = tr.querySelector('.v_3d_file');
+			const input = card.querySelector('.v_3d_file');
 			if (!input?.files?.length) {
 				return Swal?.fire('No file', 'Please choose a .glb file first.', 'info') ?? alert('Please choose a .glb file first.');
 			}
@@ -970,17 +980,17 @@
 				return Swal?.fire('Error', '3D file upload failed.', 'error') ?? alert('3D file upload failed.');
 			}
 
-			display3dFilePreview(res.json['3d_file'], tr, Number(variantId));
+			display3dFilePreview(res.json['3d_file'], card, Number(variantId));
 			input.value = '';
 			Swal?.fire('Uploaded', '3D file uploaded successfully.', 'success');
 		}
 
-		async function upload3dPlaceholderForRow(tr) {
-			const variantId = tr.dataset.variantId;
+		async function upload3dPlaceholderForRow(card) {
+			const variantId = card.dataset.variantId;
 			if (!variantId) {
 				return Swal?.fire('Error', 'Variant ID missing on this row.', 'error') ?? alert('Variant ID missing on this row.');
 			}
-			const input = tr.querySelector('.v_3d_placeholder');
+			const input = card.querySelector('.v_3d_placeholder');
 			if (!input?.files?.length) {
 				return Swal?.fire('No file', 'Please choose a placeholder image first.', 'info') ?? alert('Please choose a placeholder image first.');
 			}
@@ -994,7 +1004,7 @@
 				return Swal?.fire('Error', '3D placeholder upload failed.', 'error') ?? alert('3D placeholder upload failed.');
 			}
 
-			display3dPlaceholderPreview(res.json['3d_placeholder'], tr, Number(variantId));
+			display3dPlaceholderPreview(res.json['3d_placeholder'], card, Number(variantId));
 			input.value = '';
 			Swal?.fire('Uploaded', '3D placeholder uploaded successfully.', 'success');
 		}
@@ -1004,12 +1014,12 @@
 		//     const target = e.target;
 		//     if (!target) return;
 
-		//     const tr = target.closest('tr');
-		//     if (!tr) return;
+		//     const card = target.closest('.variant-card');
+		//     if (!card) return;
 
-		//     const variantIdRaw = tr.dataset.variantId || tr.querySelector('.v_variant_id')?.value || '';
+		//     const variantIdRaw = card.dataset.variantId || card.querySelector('.v_variant_id')?.value || '';
 		//     const variantId = variantIdRaw ? Number(variantIdRaw) : null;
-		//     // const variantId = tr.dataset.variantId || tr.querySelector('.v_variant_id')?.value;
+		//     // const variantId = tr.dataset.variantId || card.querySelector('.v_variant_id')?.value;
 		//     // if (!variantId) return;
 
 		//     if (target.classList.contains('upload_banners_btn')) {
@@ -1017,7 +1027,7 @@
 		//             return Swal?.fire('Variant not saved', 'Please save the product first so this variant gets an ID, then upload banners.', 'info')
 		//                 ?? alert('Save the product first so this variant gets an ID, then upload banners.');
 		//         }
-		//         const input = tr.querySelector('.v_banners');
+		//         const input = card.querySelector('.v_banners');
 		//         await handleUploadFiles(input, `${BASE_URL}/products/${variantId}/banners`, variantId, tr, 'banners');
 		//     }
 		//     if (target.classList.contains('upload_photos_btn')) {
@@ -1025,14 +1035,14 @@
 		//             return Swal?.fire('Variant not saved', 'Please save the product first so this variant gets an ID, then upload photos.', 'info')
 		//                     ?? alert('Save the product first so this variant gets an ID, then upload photos.');
 		//         }
-		//         const input = tr.querySelector('.v_photos');
+		//         const input = card.querySelector('.v_photos');
 		//         await handleUploadFiles(input, `${BASE_URL}/products/${variantId}/photos`, variantId, tr, 'photos');
 
 		//         // REMOVE VARIANT (table row "Remove" button)
 		//         if (target.classList.contains('remove_variant')) {
 		//             // If the row is not yet persisted (no ID), remove immediately
 		//             if (!variantId) {
-		//             tr.remove();
+		//             card.remove(); renumberVariantCards();
 		//             return;
 		//             }
 
@@ -1060,7 +1070,7 @@
 		//             try {
 		//             const out = await deleteVariantById(variantId);
 		//             // Remove row from UI
-		//             tr.remove();
+		//             card.remove(); renumberVariantCards();
 
 		//             // Success alert
 		//             if (window.Swal) {
@@ -1088,14 +1098,28 @@
 		//     }
 		// });
 
+
+		document.querySelector('#variants_body').addEventListener('input', (e) => {
+			const card = e.target.closest('.variant-card');
+			if (!card) return;
+			if (e.target.matches('.v_variant_type, .v_variant_value')) {
+				refreshVariantCardSummary(card);
+			}
+		});
+
 		document.querySelector('#variants_body').addEventListener('click', async function(e) {
 			const target = e.target;
 			if (!target) return;
 
-			const tr = target.closest('tr');
-			if (!tr) return;
+			const card = target.closest('.variant-card');
+			if (!card) return;
 
-			const variantIdRaw = tr.dataset.variantId || tr.querySelector('.v_variant_id')?.value || '';
+			if (target.classList.contains('toggle_variant_btn')) {
+				card.classList.toggle('is-collapsed');
+				return;
+			}
+
+			const variantIdRaw = card.dataset.variantId || card.querySelector('.v_variant_id')?.value || '';
 			const variantId = variantIdRaw ? Number(variantIdRaw) : null;
 
 			// 1) Upload banners
@@ -1105,8 +1129,8 @@
 						Swal.fire('Variant not saved', 'Please save the product first so this variant gets an ID, then upload banners.', 'info') :
 						alert('Save the product first so this variant gets an ID, then upload banners.'));
 				}
-				const input = tr.querySelector('.v_banners');
-				return await handleUploadFiles(input, `${BASE_URL}/products/${variantId}/banners`, variantId, tr, 'banners');
+				const input = card.querySelector('.v_banners');
+				return await handleUploadFiles(input, `${BASE_URL}/products/${variantId}/banners`, variantId, card, 'banners');
 			}
 
 			// 2) Upload photos
@@ -1116,8 +1140,8 @@
 						Swal.fire('Variant not saved', 'Please save the product first so this variant gets an ID, then upload photos.', 'info') :
 						alert('Save the product first so this variant gets an ID, then upload photos.'));
 				}
-				const input = tr.querySelector('.v_photos');
-				return await handleUploadFiles(input, `${BASE_URL}/products/${variantId}/photos`, variantId, tr, 'photos');
+				const input = card.querySelector('.v_photos');
+				return await handleUploadFiles(input, `${BASE_URL}/products/${variantId}/photos`, variantId, card, 'photos');
 			}
 
 			if (target.classList.contains('upload_3d_file_btn')) {
@@ -1126,7 +1150,7 @@
 						Swal.fire('Variant not saved', 'Please save the product first so this variant gets an ID, then upload the 3D file.', 'info') :
 						alert('Save the product first so this variant gets an ID, then upload the 3D file.'));
 				}
-				return await upload3dFileForRow(tr);
+				return await upload3dFileForRow(card);
 			}
 
 			if (target.classList.contains('upload_3d_placeholder_btn')) {
@@ -1135,14 +1159,14 @@
 						Swal.fire('Variant not saved', 'Please save the product first so this variant gets an ID, then upload the placeholder.', 'info') :
 						alert('Save the product first so this variant gets an ID, then upload the placeholder.'));
 				}
-				return await upload3dPlaceholderForRow(tr);
+				return await upload3dPlaceholderForRow(card);
 			}
 
 			// 3) Remove variant (separate branch — not nested)
 			if (target.classList.contains('remove_variant')) {
 				// If never saved, just remove locally
 				if (!variantId) {
-					tr.remove();
+					card.remove(); renumberVariantCards();
 					return;
 				}
 
@@ -1168,7 +1192,7 @@
 
 				try {
 					const out = await deleteVariantById(variantId);
-					tr.remove();
+					card.remove(); renumberVariantCards();
 					if (window.Swal) {
 						Swal.fire({
 							icon: 'success',
@@ -1563,26 +1587,26 @@
 
 			// Build variants JSON + keep DOM rows we will send (to align files later)
 			const variantRows = [];
-			const variants = qa('#variants_body tr').map(tr => {
-				const variant_id = (tr.querySelector('.v_variant_id')?.value || '').trim();
-				const min_qty = parseNum(tr.querySelector('.v_min_qty')?.value);
-				const is_cod = toBoolVal(tr.querySelector('.v_is_cod'));
-				const weight = parseNum(tr.querySelector('.v_weight')?.value);
-				const desc = tr.querySelector('.v_description')?.value.trim() || null;
-				const variant_type = tr.querySelector('.v_variant_type')?.value.trim() || null;
-				const variant_value = tr.querySelector('.v_variant_value')?.value.trim() || null;
-				const regular_price = parseNum(tr.querySelector('.v_regular_price')?.value);
-				// const selling_price = parseNum(tr.querySelector('.v_selling_price')?.value);
-				// const sales_price_vendor = parseNum(tr.querySelector('.v_sales_price_vendor')?.value);
-				const hsn = tr.querySelector('.v_hsn')?.value.trim() || null;
-				const regular_tax = parseNum(tr.querySelector('.v_regular_tax')?.value);
-				const selling_tax = parseNum(tr.querySelector('.v_selling_tax')?.value);
-				const video_url = tr.querySelector('.v_video_url')?.value.trim() || null;
-				const product_pdf = tr.querySelector('.v_product_pdf')?.value.trim() || null;
+			const variants = qa('#variants_body .variant-card').map(card => {
+				const variant_id = (card.querySelector('.v_variant_id')?.value || '').trim();
+				const min_qty = parseNum(card.querySelector('.v_min_qty')?.value);
+				const is_cod = toBoolVal(card.querySelector('.v_is_cod'));
+				const weight = parseNum(card.querySelector('.v_weight')?.value);
+				const desc = card.querySelector('.v_description')?.value.trim() || null;
+				const variant_type = card.querySelector('.v_variant_type')?.value.trim() || null;
+				const variant_value = card.querySelector('.v_variant_value')?.value.trim() || null;
+				const regular_price = parseNum(card.querySelector('.v_regular_price')?.value);
+				// const selling_price = parseNum(card.querySelector('.v_selling_price')?.value);
+				// const sales_price_vendor = parseNum(card.querySelector('.v_sales_price_vendor')?.value);
+				const hsn = card.querySelector('.v_hsn')?.value.trim() || null;
+				const regular_tax = parseNum(card.querySelector('.v_regular_tax')?.value);
+				const selling_tax = parseNum(card.querySelector('.v_selling_tax')?.value);
+				const video_url = card.querySelector('.v_video_url')?.value.trim() || null;
+				const product_pdf = card.querySelector('.v_product_pdf')?.value.trim() || null;
 				// NEW (keeps 0 as valid):
-				const customer_discount = parseNum(tr.querySelector('.v_customer_discount')?.value) ?? null;
-				const dealer_discount = parseNum(tr.querySelector('.v_dealer_discount')?.value) ?? null;
-				const architect_discount = parseNum(tr.querySelector('.v_architect_discount')?.value) ?? null;
+				const customer_discount = parseNum(card.querySelector('.v_customer_discount')?.value) ?? null;
+				const dealer_discount = parseNum(card.querySelector('.v_dealer_discount')?.value) ?? null;
+				const architect_discount = parseNum(card.querySelector('.v_architect_discount')?.value) ?? null;
 
 
 				if (!variant_type || !variant_value) return null; // ignore empty rows
@@ -1607,7 +1631,7 @@
 
 				if (variant_id) obj.id = Number(variant_id); // <— include id if present
 
-				variantRows.push(tr); // keep same order as we push into variants[]
+				variantRows.push(card); // keep same order as we push into variants[]
 				return obj;
 			}).filter(Boolean);
 
@@ -1693,14 +1717,14 @@
 
 			// STEP 2 & 3: For each variant, upload photos then banners (if any)
 			const uploadPromises = updatedVariants.map(async (cv, i) => {
-				const tr = variantRows[i];
+				const card = variantRows[i];
 				const vid = cv.id;
 
 				// Collect chosen files
-				const photosInput = tr.querySelector('.v_photos');
-				const bannersInput = tr.querySelector('.v_banners');
-				const threeDFileInput = tr.querySelector('.v_3d_file');
-				const threeDPlaceholderInput = tr.querySelector('.v_3d_placeholder');
+				const photosInput = card.querySelector('.v_photos');
+				const bannersInput = card.querySelector('.v_banners');
+				const threeDFileInput = card.querySelector('.v_3d_file');
+				const threeDPlaceholderInput = card.querySelector('.v_3d_placeholder');
 
 				// Upload PHOTOS first (if any)
 				if (photosInput && photosInput.files && photosInput.files.length > 0) {
@@ -1736,7 +1760,7 @@
 						console.error(`3D file upload failed for variant ${vid}:`, threeDRes.json || threeDRes.text);
 						throw new Error(`3D file upload failed for variant ${vid}`);
 					}
-					display3dFilePreview(threeDRes.json['3d_file'], tr, Number(vid));
+					display3dFilePreview(threeDRes.json['3d_file'], card, Number(vid));
 					threeDFileInput.value = '';
 				}
 
@@ -1748,7 +1772,7 @@
 						console.error(`3D placeholder upload failed for variant ${vid}:`, placeholderRes.json || placeholderRes.text);
 						throw new Error(`3D placeholder upload failed for variant ${vid}`);
 					}
-					display3dPlaceholderPreview(placeholderRes.json['3d_placeholder'], tr, Number(vid));
+					display3dPlaceholderPreview(placeholderRes.json['3d_placeholder'], card, Number(vid));
 					threeDPlaceholderInput.value = '';
 				}
 			});
@@ -1789,35 +1813,56 @@
 </script>
 
 <style>
-    .text-edit{
-        width: 100%;
-        min-height: 120px;
-        border: 1px solid rgba(128, 128, 128, 0.34);
-        border-radius: 10px;
-        background: #fcfcfc;
-        padding: 8px 12px;
-        text-align: justify;
-    }
-   /* Variants table sizing by ID */
-    #variants_table { table-layout: fixed; min-width: 1850px; }
-    #variants_table th, #variants_table td { vertical-align: middle; }
-    #variants_table input[type="text"],
-    #variants_table input[type="number"],
-    #variants_table input[type="url"],
-    #variants_table select,
-    #variants_table textarea {
-    width: 100%;
-    max-width: 100%;
-    height: 42px;
-    padding: 8px 10px;
-    box-sizing: border-box;
-    }
-    #variants_table input[type="file"] { width: 100%;     padding-top: 10px;}
-    #variants_table td { min-width: 80px; white-space: normal; } /* let long text wrap */
-
+    .product-edit-page { padding-bottom: 2rem; }
+    .product-edit-shell { max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.25rem; }
+    .product-edit-topbar { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 1rem; padding-bottom: 1.5rem; }
+    .product-edit-topbar__eyebrow { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #64748b; font-weight: 600; margin-bottom: .35rem; }
+    .product-edit-topbar__title { font-size: 1.5rem; font-weight: 600; color: #0f172a; line-height: 1.2; margin: 0 0 .35rem; }
+    .product-edit-topbar__subtitle { font-size: .875rem; color: #64748b; margin: 0; max-width: 42rem; }
+    .product-edit-topbar__actions { display: flex; align-items: center; gap: .75rem; }
+    .product-id-badge { display: inline-flex; align-items: center; padding: .35rem .65rem; border-radius: 999px; background: #eff6ff; color: #1d4ed8; font-size: .75rem; font-weight: 600; border: 1px solid #dbeafe; }
+    .product-section-card { border: 1px solid #e2e8f0; box-shadow: 0 1px 2px rgba(15,23,42,.04); }
+    .product-section-card .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 1rem 1.25rem; border-bottom: 1px solid #eef2f7; }
+    .section-subtitle { margin: .25rem 0 0; font-size: .8125rem; color: #64748b; }
+    .section-hint { margin: .75rem 0 0; font-size: .75rem; color: #64748b; }
+    .product-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.25rem; }
+    .form-field { display: flex; flex-direction: column; gap: .35rem; min-width: 0; }
+    .form-field--full { grid-column: 1 / -1; }
+    .form-field .form-label { font-size: .8125rem; font-weight: 600; color: #334155; margin: 0; }
+    .table-wrap { overflow-x: auto; border: 1px solid #e2e8f0; border-radius: .75rem; }
+    .product-edit-footer { position: sticky; bottom: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.25rem; background: rgba(255,255,255,.95); border: 1px solid #e2e8f0; border-radius: .875rem; box-shadow: 0 -4px 24px rgba(15,23,42,.06); backdrop-filter: blur(8px); }
+    .product-edit-footer__note { font-size: .8125rem; color: #64748b; }
+    .variants-stack { display: flex; flex-direction: column; gap: 1rem; }
+    .variant-card { border: 1px solid #e2e8f0; border-radius: .875rem; background: #fff; overflow: hidden; }
+    .variant-card__header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .85rem 1rem; background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); border-bottom: 1px solid #e2e8f0; }
+    .variant-card__heading { display: flex; align-items: center; gap: .65rem; min-width: 0; }
+    .variant-card__index { display: inline-flex; align-items: center; padding: .2rem .55rem; border-radius: 999px; background: #dbeafe; color: #1e40af; font-size: .6875rem; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; white-space: nowrap; }
+    .variant-card__summary { font-size: .875rem; font-weight: 600; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .variant-card__toolbar { display: flex; align-items: center; gap: .5rem; flex-shrink: 0; }
+    .variant-card__body { padding: 1rem; display: flex; flex-direction: column; gap: 1rem; }
+    .variant-card.is-collapsed .variant-card__body { display: none; }
+    .variant-card.is-collapsed .toggle_variant_btn { transform: rotate(-90deg); }
+    .toggle_variant_btn { transition: transform .2s ease; min-width: 2rem; padding-inline: .5rem; font-size: .9rem; line-height: 1; }
+    .variants-stack:empty::before { content: 'No variants yet. Click "+ Add Variant" to create one.'; display: block; padding: 1.25rem; text-align: center; color: #64748b; font-size: .875rem; border: 1px dashed #cbd5e1; border-radius: .75rem; background: #f8fafc; }
+    .variant-section { border: 1px solid #eef2f7; border-radius: .75rem; padding: .85rem; background: #fcfdff; }
+    .variant-section__title { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #64748b; margin-bottom: .75rem; }
+    .variant-grid { display: grid; gap: .75rem; }
+    .variant-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .variant-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .variant-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .form-field--span-2 { grid-column: span 2; }
+    .variant-media-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
+    .upload-panel { border: 1px dashed #cbd5e1; border-radius: .75rem; padding: .75rem; background: #fff; }
+    .upload-panel__head { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: .5rem; font-size: .8125rem; font-weight: 600; color: #334155; }
+    .media-thumbs { display: flex; flex-wrap: wrap; gap: .5rem; min-height: 2rem; margin-top: .5rem; }
+    .text-edit { width: 100%; min-height: 120px; border: 1px solid rgba(128,128,128,.34); border-radius: 10px; background: #fcfcfc; padding: 8px 12px; text-align: justify; }
     .table th, .table td { vertical-align: middle; }
     .btn.danger { color: #b42318; border-color: #f3d5d3; }
-    .min-w-\[1400px] { min-width: 1400px; }
     .text-2xs { font-size: 11px; line-height: 1.1; }
-
+    @media (max-width: 992px) {
+        .product-form-grid, .variant-grid--4, .variant-grid--3, .variant-media-grid, .variant-grid--2 { grid-template-columns: 1fr; }
+        .form-field--span-2 { grid-column: auto; }
+        .product-edit-footer { flex-direction: column; align-items: stretch; }
+        .product-edit-footer .btn { width: 100%; }
+    }
 </style>
