@@ -24,6 +24,27 @@ $current_page = "Edit Blog";
   .faq-row { display: grid; grid-template-columns: 1fr 1fr 120px auto; gap: 10px; margin-bottom: 10px; align-items: center; }
   .faq-remove { border: 1px solid #fecaca; color: #b91c1c; background: #fff; border-radius: 8px; padding: 8px 12px; font-size: 12px; }
 
+  .cover-image-panel { display: flex; flex-direction: column; gap: 10px; }
+  .cover-image-preview-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #f9fafb;
+  }
+  .cover-image-preview {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    flex-shrink: 0;
+  }
+  .cover-image-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .cover-image-upload-wrap { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   @media (max-width: 980px) {
     .blog-form-grid { grid-template-columns: 1fr; }
     .faq-row { grid-template-columns: 1fr; }
@@ -53,10 +74,25 @@ $current_page = "Edit Blog";
           <div><label class="form-label">Title *</label><input class="input" id="title" type="text"><div class="field-error" data-error-for="title"></div></div>
           <div><label class="form-label">Slug</label><input class="input" id="slug" type="text"><div class="field-error" data-error-for="slug"></div></div>
           <div><label class="form-label">Subtitle</label><input class="input" id="sub_title" type="text"><div class="field-error" data-error-for="sub_title"></div></div>
-          <div>
+          <div class="blog-form-full">
             <label class="form-label">Cover Image</label>
-            <input class="input" id="cover_image" accept="image/*" type="file">
-            <div class="form-help" id="current-cover-info">Upload new file only if you want to replace current cover.</div>
+            <div id="cover-image-panel" class="cover-image-panel">
+              <div id="cover-image-preview-wrap" class="cover-image-preview-wrap" hidden>
+                <img id="cover-image-preview" class="cover-image-preview" alt="Cover preview" />
+                <div>
+                  <div class="cover-image-actions">
+                    <button type="button" class="btn btn-sm btn-light" id="replace-cover-btn">Replace</button>
+                    <button type="button" class="btn btn-sm btn-danger" id="remove-cover-btn">Remove</button>
+                  </div>
+                  <div class="form-help mt-2" id="current-cover-info"></div>
+                </div>
+              </div>
+              <div id="cover-image-upload-wrap">
+                <input class="input" id="cover_image" accept="image/*" type="file" hidden>
+                <button type="button" class="btn btn-sm btn-light" id="choose-cover-btn">Choose image</button>
+                <span id="cover-file-name" class="form-help"></span>
+              </div>
+            </div>
             <div class="field-error" data-error-for="cover_image"></div>
           </div>
         </div>
@@ -132,10 +168,22 @@ $current_page = "Edit Blog";
 <script>
 (function () {
   const BASE_URL = "<?php echo BASE_URL; ?>";
+  const STORAGE_URL = BASE_URL.replace(/\/api\/?$/, "/storage");
   const token = localStorage.getItem("auth_token") || "";
   const params = new URLSearchParams(window.location.search);
   const blogId = (params.get("id") || "").trim();
   const faqWrap = document.getElementById("faq-rows-wrap");
+
+  let currentCoverPath = "";
+  let removeCover = false;
+  let pendingPreviewUrl = "";
+
+  const coverInput = document.getElementById("cover_image");
+  const coverPreviewWrap = document.getElementById("cover-image-preview-wrap");
+  const coverPreviewImg = document.getElementById("cover-image-preview");
+  const coverUploadWrap = document.getElementById("cover-image-upload-wrap");
+  const coverInfo = document.getElementById("current-cover-info");
+  const coverFileName = document.getElementById("cover-file-name");
 
   const editor = new Quill("#blog-editor", {
     theme: "snow",
@@ -203,6 +251,61 @@ $current_page = "Edit Blog";
     if (input) input.classList.add("error");
   }
 
+  function coverImageUrl(path) {
+    if (!path) return "";
+    if (/^https?:\/\//i.test(path)) return path;
+    if (path.startsWith("blob:")) return path;
+    const clean = String(path).replace(/^\/+/, "").replace(/^storage\//, "");
+    return STORAGE_URL + "/" + clean;
+  }
+
+  function revokePendingPreview() {
+    if (pendingPreviewUrl) {
+      URL.revokeObjectURL(pendingPreviewUrl);
+      pendingPreviewUrl = "";
+    }
+  }
+
+  function updateCoverUI() {
+    const file = coverInput.files[0];
+    const hasExisting = Boolean(currentCoverPath) && !removeCover;
+    const hasNewFile = Boolean(file);
+
+    if (hasNewFile) {
+      revokePendingPreview();
+      pendingPreviewUrl = URL.createObjectURL(file);
+      coverPreviewImg.src = pendingPreviewUrl;
+      coverPreviewWrap.hidden = false;
+      coverUploadWrap.hidden = true;
+      if (coverInfo) coverInfo.textContent = "New image selected. Save to apply.";
+      if (coverFileName) coverFileName.textContent = file.name;
+      return;
+    }
+
+    if (hasExisting) {
+      coverPreviewImg.src = coverImageUrl(currentCoverPath);
+      coverPreviewWrap.hidden = false;
+      coverUploadWrap.hidden = true;
+      if (coverInfo) coverInfo.textContent = currentCoverPath;
+      if (coverFileName) coverFileName.textContent = "";
+      return;
+    }
+
+    coverPreviewWrap.hidden = true;
+    coverUploadWrap.hidden = false;
+    coverPreviewImg.removeAttribute("src");
+    if (coverInfo) coverInfo.textContent = "No cover image.";
+    if (coverFileName) coverFileName.textContent = "";
+  }
+
+  function setCoverFromBlog(blog) {
+    revokePendingPreview();
+    removeCover = false;
+    currentCoverPath = blog.cover_image || "";
+    if (coverInput) coverInput.value = "";
+    updateCoverUI();
+  }
+
   function pickBlogFromResponse(json) {
     if (!json || typeof json !== "object") return null;
     if (json.data && Array.isArray(json.data.blogs) && json.data.blogs.length) return json.data.blogs[0];
@@ -217,14 +320,7 @@ $current_page = "Edit Blog";
     document.getElementById("title").value = blog.title || "";
     document.getElementById("slug").value = blog.slug || "";
     document.getElementById("sub_title").value = blog.sub_title || "";
-    const coverInfo = document.getElementById("current-cover-info");
-    if (coverInfo) {
-      if (blog.cover_image) {
-        coverInfo.textContent = "Current: " + blog.cover_image;
-      } else {
-        coverInfo.textContent = "No current cover image.";
-      }
-    }
+    setCoverFromBlog(blog);
     document.getElementById("meta_title").value = blog.meta_title || "";
     document.getElementById("meta_description").value = blog.meta_description || "";
     document.getElementById("meta_keywords").value = blog.meta_keywords || "";
@@ -290,8 +386,12 @@ $current_page = "Edit Blog";
       }
       if (payload[k] !== "") fd.append(k, payload[k]);
     });
-    const file = document.getElementById("cover_image").files[0];
-    if (file) fd.append("cover_image", file);
+    const file = coverInput.files[0];
+    if (file) {
+      fd.append("cover_image", file);
+    } else if (removeCover) {
+      fd.append("remove_cover_image", "1");
+    }
     return { payload: payload, formData: fd };
   }
 
@@ -368,6 +468,23 @@ $current_page = "Edit Blog";
       btn.textContent = "Update Blog";
     }
   }
+
+  document.getElementById("choose-cover-btn").addEventListener("click", function () {
+    coverInput.click();
+  });
+  document.getElementById("replace-cover-btn").addEventListener("click", function () {
+    coverInput.click();
+  });
+  document.getElementById("remove-cover-btn").addEventListener("click", function () {
+    removeCover = true;
+    coverInput.value = "";
+    revokePendingPreview();
+    updateCoverUI();
+  });
+  coverInput.addEventListener("change", function () {
+    if (coverInput.files[0]) removeCover = false;
+    updateCoverUI();
+  });
 
   document.getElementById("update-blog").addEventListener("click", updateBlog);
   document.getElementById("add-faq-row").addEventListener("click", function () {
