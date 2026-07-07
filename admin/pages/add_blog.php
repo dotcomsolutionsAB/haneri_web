@@ -348,9 +348,15 @@ $current_page = "Add Blog";
         return;
       }
       if (k === "faqs") {
-        if (payload.faqs.length > 0) {
-          fd.append("faqs", JSON.stringify(payload.faqs));
-        }
+        payload.faqs.forEach(function (faq, i) {
+          fd.append("faqs[" + i + "][question]", faq.question);
+          fd.append("faqs[" + i + "][answer]", faq.answer);
+          fd.append("faqs[" + i + "][sort_order]", String(faq.sort_order));
+        });
+        return;
+      }
+      if (k === "is_published") {
+        fd.append(k, payload[k]);
         return;
       }
       if (payload[k] !== "") fd.append(k, payload[k]);
