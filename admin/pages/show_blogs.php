@@ -38,6 +38,25 @@ $current_page = "Show Blogs";
     background: #fef3c7;
     color: #92400e;
   }
+  .blog-cover {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    display: block;
+  }
+  .blog-cover--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-size: 10px;
+    text-align: center;
+    line-height: 1.2;
+    padding: 4px;
+  }
   .faq-row {
     display: grid;
     grid-template-columns: 1fr 1fr 90px auto;
@@ -101,6 +120,7 @@ $current_page = "Show Blogs";
             <table class="table table-border" id="blogs-table">
               <thead>
                 <tr>
+                  <th class="w-[72px] text-gray-700 font-normal">Cover</th>
                   <th class="min-w-[220px] text-gray-700 font-normal">Title</th>
                   <th class="min-w-[160px] text-gray-700 font-normal">Slug</th>
                   <th class="min-w-[260px] text-gray-700 font-normal">Tags</th>
@@ -142,6 +162,7 @@ $current_page = "Show Blogs";
 (function ($) {
   $(function () {
     const BASE_URL = "<?php echo BASE_URL; ?>";
+    const STORAGE_URL = BASE_URL.replace(/\/api\/?$/, "/storage");
     const token = localStorage.getItem("auth_token") || "";
 
     const $tbody = $("#blogs-table tbody");
@@ -232,6 +253,22 @@ $current_page = "Show Blogs";
       return (div.textContent || div.innerText || "").trim();
     }
 
+    function coverImageUrl(path) {
+      if (!path) return "";
+      if (/^https?:\/\//i.test(path)) return path;
+      const clean = String(path).replace(/^\/+/, "").replace(/^storage\//, "");
+      return STORAGE_URL + "/" + clean;
+    }
+
+    function renderCoverCell(coverImage) {
+      const url = coverImageUrl(coverImage);
+      if (!url) {
+        return "<div class='blog-cover blog-cover--empty'>No image</div>";
+      }
+      const safeUrl = $("<div>").text(url).html();
+      return "<img class='blog-cover' src='" + safeUrl + "' alt='Cover' loading='lazy' onerror=\"this.outerHTML='<div class=\\'blog-cover blog-cover--empty\\'>No image</div>'\" />";
+    }
+
     function parseErrors(resJson) {
       const out = {};
       if (!resJson || !resJson.errors || typeof resJson.errors !== "object") return out;
@@ -261,7 +298,7 @@ $current_page = "Show Blogs";
     function renderRows(rows) {
       $tbody.empty();
       if (!rows.length) {
-        $tbody.append("<tr><td colspan='6' class='text-center text-gray-500'>No blogs found.</td></tr>");
+        $tbody.append("<tr><td colspan='7' class='text-center text-gray-500'>No blogs found.</td></tr>");
         return;
       }
 
@@ -278,6 +315,7 @@ $current_page = "Show Blogs";
 
         $tbody.append(
           "<tr>" +
+            "<td>" + renderCoverCell(b.cover_image) + "</td>" +
             "<td><div class='font-medium text-gray-900'>" + titleSafe + "</div><div class='text-gray-600 text-2sm blog-list-content'>" + $("<div>").text(stripHtml(b.content)).html() + "</div></td>" +
             "<td class='text-gray-700 text-2sm'>" + slugSafe + "</td>" +
             "<td>" + tagHtml + "</td>" +
